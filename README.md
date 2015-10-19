@@ -2,7 +2,7 @@
 
 This is our big project...
 
-# Deirectory Structure
+# Directory Structure
 
 docs - documentation
 test - unit tests
