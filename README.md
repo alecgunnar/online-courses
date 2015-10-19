@@ -1,5 +1,8 @@
 # The Big Project
 
-This was typed on a
+This is our big project...
 
-a mac running OS X El Capitan.....
+# Deirectory Structure
+
+docs - documentation
+test - unit tests
