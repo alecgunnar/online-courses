@@ -37,8 +37,8 @@ One you have created that file, open it so that we may add needed configuration 
 For the sake of security, Ruby on Rails and Devise both require secret keys for the application to function properly. Add the following to the configuration file you created:
 
 ```yml
-SECRET_KEY_BASE: {INSERT APP SECRET HERE}
-DEVISE_SECRET_KEY: {INSERT DEVISE SECRET HERE}
+SECRET_KEY_BASE: <INSERT APP SECRET HERE>
+DEVISE_SECRET_KEY: <INSERT DEVISE SECRET HERE>
 ```
 
 You'll notice two "insert here" placeholders. You'll need to run the following command twice:
@@ -78,7 +78,7 @@ This configuration isn't too complicated, here it is:
 ```nginx
 server {
     listen 80;
-    root /var/www/online-courses/public;
+    root <PATH TO PUBLIC>;
     passenger_enabled on;
     rails_env production;
 }
@@ -86,7 +86,7 @@ server {
 
 In the above configuration file, you'll notice a placeholder that needs replacing.
 
-Remember when I said to not forget the directory you cloned the source code into? You'll need to replace `PATH_TO_PUBLIC` with the fully qualified path to that directory, **PLUS** you'll need to add `/public` onto the end of that path.
+Remember when I said to not forget the directory you cloned the source code into? You'll need to replace `<PATH TO PUBLIC>` with the fully qualified path to that directory, **PLUS** you'll need to add `/public` onto the end of that path.
 
 For example, if you cloned into `/var/www/online-courses`, you will replace the placeholder with `/var/www/online-courses/public`.
 
