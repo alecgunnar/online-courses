@@ -22,22 +22,6 @@ $ git clone git@github.com:gunnar94/online-courses.git
 
 You should now have the source code sitting on your server, in the location of your choosing. Next we'll configure the webserver.
 
-## Time to Generate Some Keys
-
-Change into the directory you just cloned, run the following three command, and then **DON'T FORGET** their output!
-
-```bash
-$ pwd
-```
-
-```bash
-$ rake secret
-```
-
-```bash
-$ 
-```
-
 ## Get the Server Running
 
 ### Finding the Configuration Files
@@ -59,12 +43,9 @@ This configuration isn't too complicated, here it is:
 ```nginx
 server {
     listen 80;
-    root PATH_TO_PUBLIC;
+    root /var/www/online-courses/public;
     passenger_enabled on;
     rails_env production;
-
-    passenger_env_var SECRET_KEY_BASE APP_KEY_HERE;
-    passenger_env_var DEVISE_SECRET_KEY DEVISE_KEY_HERE;
 }
 ```
 
