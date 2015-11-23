@@ -1,0 +1,41 @@
+# Tasks for Online Courses
+
+- Choose/research the following
+  - backend framework
+  - database
+  - UI libraries
+  - JavaScript libraries
+  - CSS preprocessors
+- Design UI
+  - All of the pages and interfaces
+    - Login
+    - Courses
+    - Assignments
+    - Submissions
+    - Grades
+    - Settings
+- Implement user authentication
+  - Username/password login
+  - D2L token based
+  - Logout
+  - Password recovery
+  - Email verification
+- Implement instructor workflow
+  - Manage courses
+  - Manage students
+  - Manage assignments per course
+  - View submissions per assignment per student
+  - View grades per assignment
+- Implement student workflow
+  - View courses
+  - View assignments per course
+  - View own submissions per assignment
+  - View own grade per assignment
+  - Mange submissions per assignment
+- Implement sandbox
+  - Change root environment
+  - Fork a process to run student code (the sandbox)
+  - Limit resource allocation in sandbox
+  - Run test driver against student code
+  - Record/compare output
+  - Update submission with feedback and grade
