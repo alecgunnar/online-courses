@@ -1,5 +1,7 @@
 # Online Courses
 
+![Build Status](https://api.travis-ci.org/WMU-Online-Courses/online-courses.svg)
+
 Online Courses was created to facilitate the submission and grading of coding assignments for online courses. It was created as a senior design project: Alec Carpenter, Cody Beebe, and Josh Klingler.
 
 # About the Backend
