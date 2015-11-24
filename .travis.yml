@@ -1,6 +1,2 @@
 language: ruby
-before_script:
-    - mv config/private.yml.dist config/private.yml
-    - rake db:migrate
-    - rake db:seed
-script: 'rake test'
+script: './bin/setup'
