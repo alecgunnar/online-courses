@@ -2,9 +2,10 @@
 
 cp config/private.yml.dist config/private.yml
 
+rm Gemfile.lock
+
 bundle install
 
-rake db:migrate
-rake db:seed
-
-rake test
+bundle exec rake db:migrate
+bundle exec rake db:seed
+bundle exec rake test
