@@ -1,2 +1,4 @@
 language: ruby
-script: './bin/setup'
+before_script:
+    - ./bin/setup
+script: 'rake test'
