@@ -1,7 +1,6 @@
 #!/bin/bash
 
 export RAILS_ENV="production"
-export DEVISE_SECRET_KEY="b3a4081fc8d021b662a4e2408b6d101e9a923505384248fda1c6e9c6d3096856169a4994f1ba162fe09a3a96c0b5c06c2af78d931c291875dbe8bc981b4bdaad"
 
 BRANCH="master"
 
