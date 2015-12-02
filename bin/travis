@@ -1,11 +1,5 @@
 #!/bin/bash
 
-cp config/private.yml.dist config/private.yml
+./bin/setup
 
-rm Gemfile.lock
-
-bundle install
-
-bundle exec rake db:migrate
-bundle exec rake db:seed
 bundle exec rake test
