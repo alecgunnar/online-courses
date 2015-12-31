@@ -1,0 +1,33 @@
+// Sizing
+
+$wrapper-max-width: 1000px;
+$wrapper-min-width: 960px;
+$wrapper-guest-width: 500px;
+
+$globalHeader-height: 75px;
+$globalSidebar-width: 200px;
+$globalFooter-height: 40px;
+
+$border-radius: 3px;
+
+// Spacing
+
+$padding: 10px;
+$margin: 10px;
+
+// Colors
+
+$black: #000;
+$white: #FFF;
+
+$gray: #EDEDED;
+$light-gray: lighten($gray, 5%);
+$dark-gray: darken($gray, 5%);
+
+$primary: #525564;
+$secondary: #74828F;
+$tertiary: #96C0CE;
+
+$background: $white;
+
+$notice: #FFFFE0;

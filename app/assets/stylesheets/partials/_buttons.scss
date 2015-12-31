@@ -1,0 +1,13 @@
+.button {
+    background-color: $primary;
+    font-size: 1rem;
+    color: $white;
+    padding: $padding $padding * 2;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+
+    &:hover {
+        background-color: lighten($primary, 5%);
+    }
+}
