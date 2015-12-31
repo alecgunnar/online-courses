@@ -2,6 +2,13 @@
     
 }
 
+.formWrapper__errors {
+    background-color: $alert;
+    padding: $padding;
+    margin: 0 0 $margin;
+    border-radius: $border-radius;
+}
+
 .formWrapper__field {
     margin: 0 0 $margin;
 

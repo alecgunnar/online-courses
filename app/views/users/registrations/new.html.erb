@@ -1,9 +1,9 @@
 <% title 'Creating an account' %>
 
-<p class="notice">This system is currently only open to Western Michigan University students. You must supply an @wmich.edu email address to create an account.</p>
+<p class="information">This system is currently only open to Western Michigan University students. You must supply an @wmich.edu email address to create an account.</p>
 
 <div class="formWrapper formWrapper--guest">
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= form_for(resource, as: resource_name, url: sign_up_path) do |f| %>
     <%= devise_error_messages! %>
 
     <div class="formWrapper__field">

@@ -1,7 +1,9 @@
-<h1>Welcome, please sign in&hellip;</h1>
+<% title 'Welcome, please sign in' %>
 
 <div class="formWrapper formWrapper--guest">
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= form_for(resource, as: resource_name, url: sign_in_path) do |f| %>
+    <%= devise_error_messages! %>
+
     <div class="formWrapper__field">
       <%= f.label :email %><br />
       <%= f.email_field :email %>

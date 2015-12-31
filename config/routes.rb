@@ -3,16 +3,25 @@ Rails.application.routes.draw do
 
   get '/notifications', to: 'notifications#index', as: 'notifications'
   get '/courses', to: 'courses#index', as: 'courses'
-  get '/settings', to: 'settings#index', as: 'settings'
+  get '/account', to: 'settings#index', as: 'settings'
 
-  devise_for :users, skip: [:registrations, :sessions]
+  devise_for :users, skip: [:registrations, :sessions, :passwords, :confirmation]
 
-  as :user do
-    get '/sign-up', to: 'users/registrations#new', as: :new_user_registration
-    post '/sign-up', to: 'users/registrations#create', as: :user_registration
+  devise_scope :user do
+    get '/account/sign-up', to: 'users/registrations#new', as: :sign_up
+    post '/account/sign-up', to: 'users/registrations#create'
 
-    get '/sign-in', to: 'users/sessions#new', as: :new_user_session
-    post '/sign-in', to: 'users/sessions#create', as: :user_session
-    delete '/sign-out', to: 'users/sessions#destroy', as: :destroy_user_session
+    get '/account/sign-in', to: 'users/sessions#new', as: :sign_in
+    post '/account/sign-in', to: 'users/sessions#create'
+    delete '/account/sign-out', to: 'users/sessions#destroy', as: :sign_out
+
+    get '/account/reset-password/request', to: 'users/passwords#new', as: :reset_password_request
+    post '/account/reset-password/request', to: 'users/passwords#create'
+    get '/account/reset-password', to: 'users/passwords#edit', as: :reset_password
+    match '/account/reset-password', to: 'users/passwords#update', via: [:put, :patch]
+
+    get '/account/confirmation/resend', to: 'users/confirmations#new', as: :resend_confirmation
+    post '/account/confirmation/resend', to: 'users/confirmations#create'
+    get '/account/confirmation', to: 'users/confirmations#show', as: :confirm_account
   end
 end

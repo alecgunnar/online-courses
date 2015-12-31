@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
 
   protected
     def force_sign_in
-      redirect_to new_user_session_path unless user_signed_in?
+      redirect_to(sign_in_path, alert: flash[:alert] || 'You must sign in first!') unless user_signed_in?
     end
 end

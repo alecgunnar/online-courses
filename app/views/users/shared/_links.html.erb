@@ -1,19 +1,19 @@
 <div class="guestOptions">
   <ul>
     <%- if controller_name != 'sessions' %>
-      <li>Have an account? <%= link_to 'Sign in', new_session_path(resource_name) %></li>
+      <li><% if controller_name == 'passwords' %>Have you remembered your password?<% else %>Have an account?<% end %> <%= link_to 'Sign in', sign_in_path %></li>
     <% end -%>
 
     <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-      <li>Don't have an account? <%= link_to 'Create an account', new_registration_path(resource_name) %></li>
+      <li>Don't have an account? <%= link_to 'Create an account', sign_up_path %></li>
     <% end -%>
 
     <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-      <li>Forgotten your password? <%= link_to 'Reset your password', new_password_path(resource_name) %></li>
+      <li>Forgotten your password? <%= link_to 'Reset your password', reset_password_request_path %></li>
     <% end -%>
 
     <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-      <li><%= link_to 'Didn\'t receive confirmation instructions?', new_confirmation_path(resource_name) %></li>
+      <li>Didn't receive confirmation instructions? <%= link_to 'Have them resent', resend_confirmation_path %></li>
     <% end -%>
   </ul>
 </div>

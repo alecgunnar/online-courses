@@ -47,13 +47,27 @@ p {
     margin: 0 0 $margin;
 }
 
-// Notices and alerts
+// Notices and Alerts
 
-.notice {
-    background-color: $notice;
+.flash,
+.notice,
+.information {
     padding: $padding;
     margin: 0 0 $margin;
     border-radius: $border-radius;
+}
+
+.information {
+    background-color: $information;
+}
+
+.notice,
+.flash--notice {
+    background-color: $notice;
+}
+
+.flash--alert {
+    background-color: $alert;
 }
 
 // Global Header

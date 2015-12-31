@@ -1,0 +1,7 @@
+<% if not flash[:alert].nil? %>
+  <p class="flash flash--alert"><%= flash[:alert] %></p>
+<% end %>
+
+<% if not flash[:notice].nil? %>
+  <p class="flash flash--notice"><%= flash[:notice] %></p>
+<% end %>

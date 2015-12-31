@@ -1,2 +1,12 @@
-SECRET_KEY_BASE: 87749879485575c4ec10468b703ef38034353fedd08f5ecdb1e71064bcc48b8d496ae06e6deda67622d3b80dddff414d8ba67863ebbcfecd8bdcccaa1159989d
-DEVISE_SECRET_KEY: 56d72d3511ed34198ecc54f74c0ce0f6157c01effa48a5d2425b266b067c4fd3a95febb37750c2ec3c78c256927c06242be04359f49fa2dda86c84688b4d819e
+db:
+  name: db_name
+  user: root
+  pass: 123
+  host: localhost
+
+devise:
+  secret_key: 92c3e48b585b7cfd6e794351b544cf3adf9df442486d3d8b43767d1a9aab9fed0ceea86f2d7ffed1487fafe0a923af87ed36ae19a75c3621969a4185005f9777
+  mailer_sender: admin@domain.com
+
+secure:
+    key_base: d0b1e8efc664d35a386fdfa3da33df6cc4303294beff4af4d6845d42d2854fcd95312b8bf54194ae4a67870947af195b65462fd9d80ce7da0f069499c97bc9a3
