@@ -1,3 +1,5 @@
-<footer class="globalFooter">
+<% is_guest ||= false %>
+
+<footer class="globalFooter<% if is_guest %> globalFooter--guest<% end %>">
   Western Michigan University &mdash; Department of Computer Science &mdash; Online Course System
 </footer>

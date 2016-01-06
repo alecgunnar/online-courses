@@ -2,10 +2,10 @@ default: &default
   adapter: mysql
   pool: 5
   timeout: 5000
-  database: <%= PRIVATE['db']['name'] %>
-  username: <%= PRIVATE['db']['user'] %>
-  password: <%= PRIVATE['db']['pass'] %>
-  host: <%= PRIVATE['db']['host'] %>
+  database: <%= Rails.configuration.db['database'] %>
+  username: <%= Rails.configuration.db['username'] %>
+  password: <%= Rails.configuration.db['password'] %>
+  host: <%= Rails.configuration.db['host'] %>
 
 development:
   <<: *default

@@ -5,7 +5,7 @@ $wrapper-min-width: 960px;
 $wrapper-guest-width: 500px;
 
 $globalHeader-height: 75px;
-$globalSidebar-width: 200px;
+$globalSidebar-width: 250px;
 $globalFooter-height: 40px;
 
 $border-radius: 3px;
@@ -13,7 +13,7 @@ $border-radius: 3px;
 // Spacing
 
 $padding: 10px;
-$margin: 10px;
+$margin: 12px;
 
 // Colors
 
@@ -33,3 +33,4 @@ $background: $white;
 $information: #D9EDF7;
 $notice: #DFF0D8;
 $alert: #F2DEDE;
+$warning: #FCF8E3;
