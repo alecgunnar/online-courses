@@ -1,0 +1,30 @@
+<% title 'Welcome, please sign in' %>
+
+<div class="formWrapper formWrapper--guest">
+  <%= form_for(resource, as: resource_name, url: sign_in_path) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="formWrapper__field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email %>
+    </div>
+
+    <div class="formWrapper__field">
+      <%= f.label :password %><br />
+      <%= f.password_field :password, autocomplete: "off" %>
+    </div>
+
+    <% if devise_mapping.rememberable? -%>
+      <div class="formWrapper__field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end -%>
+
+    <div class="formWrapper__actions">
+      <%= f.submit 'Sign In' %>
+    </div>
+  <% end %>
+</div>
+
+<%= render "users/shared/links" %>

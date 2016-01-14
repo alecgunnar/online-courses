@@ -1,0 +1,43 @@
+.button {
+    background-color: $primary;
+    text-decoration: none;
+    font-size: 1rem;
+    color: $white;
+    padding: $padding $padding * 2;
+    box-sizing: border-box;
+    border: none;
+    border-radius: $border-radius;
+    display: inline-block;
+    cursor: pointer;
+
+    &:hover {
+        background-color: lighten($primary, 5%);
+    }
+}
+
+.dataTable {
+
+}
+
+.dataTable--keyValue {
+    margin: $margin 0 0;
+
+    dt, dd {
+        width: 50%;
+    }
+
+    dt {
+        font-weight: 400;
+        margin: 0 0 $margin;
+
+        &:last-of-type {
+            margin: 0;
+        }
+    }
+
+    dd {
+        text-align: right;
+        margin: 0;
+        float: right;
+    }
+}

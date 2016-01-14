@@ -1,0 +1,20 @@
+<% title 'Password Reset Request' %>
+
+<p class="information">Enter the email address you used to create your account. An email will be sent to that address with instructions to reset your password.</p>
+
+<div class="formWrapper formWrapper--guest">
+  <%= form_for(resource, as: resource_name, url: reset_password_request_path, html: { method: :post }) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="formWrapper__field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true %>
+    </div>
+
+    <div class="formWrapper__actions">
+      <%= f.submit 'Send Instructions' %>
+    </div>
+  <% end %>
+</div>
+
+<%= render "users/shared/links" %>

@@ -1,56 +1,34 @@
 Rails.application.routes.draw do
-  devise_for :users
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+  root 'overview#index'
 
-  root 'welcome#index'
+  get '/notifications', to: 'notifications#index', as: :notifications
+  get '/courses', to: 'courses#index', as: :courses
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+  namespace :account do
+    root to: 'settings#index'
 
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+    get '/api-auth', to: 'd2l#index', as: :api_auth
+    get '/api-auth/go', to: 'd2l#forward', as: :api_forward_for_auth
+    get '/api-auth/tokens', to: 'd2l#tokens', as: :api_tokens
+  end
 
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  devise_for :users, skip: [:registrations, :sessions, :passwords, :confirmation]
 
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+  devise_scope :user do
+    get '/user/sign-up', to: 'users/registrations#new', as: :sign_up
+    post '/user/sign-up', to: 'users/registrations#create'
 
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+    get '/user/sign-in', to: 'users/sessions#new', as: :sign_in
+    post '/user/sign-in', to: 'users/sessions#create'
+    delete '/user/sign-out', to: 'users/sessions#destroy', as: :sign_out
 
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
+    get '/user/reset-password/request', to: 'users/passwords#new', as: :reset_password_request
+    post '/user/reset-password/request', to: 'users/passwords#create'
+    get '/user/reset-password', to: 'users/passwords#edit', as: :reset_password
+    match '/user/reset-password', to: 'users/passwords#update', via: [:put, :patch]
 
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+    get '/user/confirmation/resend', to: 'users/confirmations#new', as: :resend_confirmation
+    post '/user/confirmation/resend', to: 'users/confirmations#create'
+    get '/user/confirmation', to: 'users/confirmations#show', as: :confirm_account
+  end
 end

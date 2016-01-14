@@ -1,0 +1,8 @@
+<header class="globalHeader">
+  <% if not flash[:notice].nil? %>
+    <div id="globalHeader__flash">
+      <p class="message message--notice"><%= flash[:notice] %></p>
+    </div>
+  <% end %>
+  <div class="globalHeader__branding">Online Courses</div>
+</header>

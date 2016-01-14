@@ -1,0 +1,17 @@
+<% content_for :header do %>
+  <header></header>
+<% end %>
+
+<% content_for :content do %>
+  <div class="wrapper wrapper--guest">
+    <%= render 'layouts/partials/title' %>
+    <%= render 'layouts/partials/flashes' %>
+    <%= yield %>
+  </div>
+<% end %>
+
+<% content_for :footer do %>
+  <%= render 'layouts/partials/footer', is_guest: true %>
+<% end %>
+
+<%= render template: 'layouts/application' %>

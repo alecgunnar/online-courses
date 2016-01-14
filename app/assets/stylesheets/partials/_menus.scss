@@ -1,0 +1,26 @@
+.horizontalMenu,
+.verticalMenu {
+    padding: 0;
+    margin: 0;
+
+    li {
+        list-style: none;
+    }
+}
+
+.horizontalMenu {
+    li {
+        margin: 0;
+        display: inline;
+    }
+}
+
+.verticalMenu {
+    li {
+        margin: 0 0 $margin;
+
+        &:last-of-type {
+            margin: 0;
+        }
+    }
+}

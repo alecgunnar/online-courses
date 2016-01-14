@@ -1,0 +1,26 @@
+.message {
+    background-color: $light-gray;
+    padding: $padding;
+    margin: 0 0 $margin;
+    border-radius: $border-radius;
+}
+
+.message--information {
+    background-color: $information;
+    color: $black;
+}
+
+.message--notice {
+    background-color: $notice;
+    color: $black;
+}
+
+.message--alert {
+    background-color: $alert;
+    color: $black;
+}
+
+.message--warning {
+    background-color: $warning;
+    color: $black;
+}

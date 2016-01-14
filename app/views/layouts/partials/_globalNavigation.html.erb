@@ -1,0 +1,16 @@
+<ul>
+  <% globalNavLinks.each do |link| %>
+    <% active = link[:controllers].include? controller_name %>
+    <li<% if active %> class="active"<% end %>>
+      <%= link[:anchor] %>
+      <% if active and not link[:submenu].nil? %>
+        <ul class="globalNavigation__subMenu">
+          <% link[:submenu].each do |sub| %>
+            <li<% if sub[:controller] == controller_name%> class="active"<% end %>><%= sub[:anchor] %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </li>
+  <% end %>
+  <li><%= link_to('Sign Out', sign_out_path, :method => :delete) %></li>
+</ul>

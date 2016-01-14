@@ -1,0 +1,33 @@
+<% title 'Elearning Authentication' %>
+
+<p>This application interacts with Elearning to automatically submit grades and assignments. To do this, you must authenticate this account with your Elearning account.</p>
+
+<div class="right">
+  <div class="message">
+    <h3>API Authentication Tokens</h3>
+    <dl class="dataTable dataTable--keyValue">
+      <dd><%= current_user.token_id ? 'Secret' : 'No Value' %></dd>
+      <dt>Token ID</dt>
+      <dd><%= current_user.token_key ? 'Secret' : 'No Value' %></dd>
+      <dt>Token Key</dt>
+      <dd><%= current_user.token_sig ? 'Secret' : 'No Value' %></dd>
+      <dt>Token Signature</dt>
+    </dl>
+  </div>
+</div>
+
+<div class="left left--withSpace">
+  <div class="message">
+    <% if not current_user.valid_api_token_data %>
+      <h3>Authentication Required</h3>
+      <p class="message message--warning">You have not authenticated this account with Elearning, or your previous authentication has expired. Please click the button below to authenticate.</p>
+      <p>Note: You should be signed into Elearning before clicking the button.</p>
+      <p class="textCenter"><%= link_to 'Authenticate with Elearning', account_api_forward_for_auth_path, class: 'button', target: '_blank' %></p>
+    <% else %>
+      <h3>Already Authenticated</h3>
+      <p>You are currently authenticated with Elearning, no action is necessary right now.</p>
+    <% end %>
+  </div>
+</div>
+
+<div class="clearBoth"></div>

@@ -1,0 +1,11 @@
+<% no_notice ||= false %>
+
+<% if not flash[:alert].nil? %>
+  <p class="message message--alert"><%= flash[:alert] %></p>
+<% end %>
+
+<% if not no_notice %>
+  <% if not flash[:notice].nil? %>
+    <p class="message message--notice"><%= flash[:notice] %></p>
+  <% end %>
+<% end %>

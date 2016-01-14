@@ -6,21 +6,22 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module IrksomeOctoKidney
+module OnlineCourses
   class Application < Rails::Application
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    # Load in the private config values
+    YAML.load_file("#{Rails.root}/config/private.yml").each { |key, value|
+      config.send "#{key}=", value
+    }
 
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
+    # Now we can load our custom libraries
+    config.autoload_paths << Rails.root.join('lib')
 
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
-
-    # Do not swallow errors in after_commit/after_rollback callbacks.
+    # Hmmmmm... This is some default config
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Get rid of error wrappers for fields with errors
+    config.action_view.field_error_proc = Proc.new do |html_tag, instance|
+      html_tag.html_safe
+    end
   end
 end

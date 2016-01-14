@@ -4,25 +4,27 @@ This article will guide you through the deployment process of this application.
 
 ## Assumptions
 
-For this documentation, I will assume that you are running an Ubuntu box, with the following software installed:
+For this documentation, it is assumed that you are running an Ubuntu box, with the following software installed:
 
 - [NGINX](http://nginx.org) (Webserver)
   - [Phusion Passenger](https://www.phusionpassenger.com) (NGINX extension)
 - [Git](http://git-scm.org) (Source control)
+- [Ruby](http://ruby-lang.org) (Programming language)
+- [Ruby on Rails](http://rubyonrails.org) (Web framework)
 
-This documentation will also assume that you are deploying in your production environment and that you have `sudo` access. If you are developing, I recommend doing so locally using `rails server`, you should still read the [application configuration](#application-configuration) section, however.
+This documentation will also assume that you are deploying in your production environment and that you have `sudo` access. If you are developing, It is recommend that you do so locally, using `rails server`, you should still read the [application configuration](#application-configuration) section, however.
 
 ## The First Steps
 
-Firstly, you'll want to decide on exaclty where you'd like to host the files for the application. Typically, for a website, files will be hosted in the `/var/www` directory. Regardless of which directory you decide on, `cd` into that directory once you have decided.
+Firstly, you'll want to decide on exaclty where you'd like to host the files for the application. Typically, for a website, files will be hosted in the `/var/www` directory. Regardless of which directory you decide on, `cd` into the directory.
 
 Next, you'll want to clone this repository to your server. That can be done using the following command:
 
 ```bash
-$ git clone git@github.com:gunnar94/online-courses.git
+$ git clone git@github.com:WMU-Online-Courses/online-courses.git
 ```
 
-You should now have the source code sitting on your server, in the location of your choosing. `cd` into the directory git cloned the source into.
+You should now have the source code sitting on your server, and you'll now want to `cd` into the directory git clone created.
 
 ## Application Configuration
 
@@ -30,24 +32,25 @@ Our next big step towards deploying the application is the configuration of the 
 
 In the application directory structure, you should see a `config` directory. In that directory, we need to create a file called `private.yml`.
 
-One you have created that file, open it so that we may add needed configuration values.
+This can be done by making a copy of the distribution version of the file. Run the following from the root of the project:
+
+```bash
+$ cp config/private.yml.dist config/private.yml
+```
+
+One you have created the config file, open it so that we may edit in needed secret keys next.
 
 ### Application Secret Keys
 
-For the sake of security, Ruby on Rails and Devise both require secret keys for the application to function properly. Add the following to the configuration file you created:
+For the sake of security, Ruby on Rails and Devise both require secret keys for the application to function properly. You will need to generate your own secret keys for your deployment.
 
-```yml
-SECRET_KEY_BASE: <INSERT APP SECRET HERE>
-DEVISE_SECRET_KEY: <INSERT DEVISE SECRET HERE>
-```
-
-You'll notice two "insert here" placeholders. You'll need to run the following command twice:
+To generate a secret key, run the following (again from the project's root directory):
 
 ```bash
 $ rake secret
 ```
 
-This command will generate the needed secret keys, and once you have them, you should place them in the file then save it.
+This command will generate only one secret key, so you'll need to run it twice. Once you have both of the keys, you should place them in the file, by replacing the existing keys provided by the distribution configuration file. Once you're done save the file.
 
 ### Final Setup
 
@@ -56,6 +59,8 @@ To finalize the setup of your application, run the following:
 ```bash
 $ ./bin/setup
 ```
+
+This command will install all needed gems, then create and seed the database.
 
 ## Get the Server Running
 
