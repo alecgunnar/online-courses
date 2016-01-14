@@ -1,0 +1,176 @@
+@import 'variables', 'mixins', 'partials';
+
+html {
+    font-size: 14px;
+    letter-spacing: 1px;
+    line-height: 1.3rem;
+    height: 100%;
+}
+
+body {
+    background: $background;
+    font-family: Helvetica, 'Sans Serif';
+    font-weight: 200;
+    margin: 0;
+}
+
+// Wrapper
+
+.wrapper {
+    max-width: $wrapper-max-width;
+    min-width: $wrapper-min-width;
+    margin: 0 auto;
+}
+
+// Typography
+
+h1, h2, h3 {
+    font-weight: 400;
+    margin: 0 0 $margin;
+    padding: 0;
+}
+
+h1 {
+    font-size: 2.2rem;
+    line-height: 2.3rem;
+}
+
+a {
+    color: $black;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+p {
+    margin: 0 0 $margin;
+
+    &.textCenter {
+        text-align: center;
+    }
+
+    &.textRight {
+        text-align: right;
+    }
+}
+
+*:last-child {
+    margin: 0;
+}
+
+// Global Header
+
+.globalHeader {
+    background-color: $primary;
+    color: $white;
+    padding: 0 $padding;
+}
+
+#globalHeader__flash {
+    min-width: 500px;
+    margin: ($globalHeader-height / 2) - ($padding * 2) 0 0;
+    float: right;
+    display: none;
+}
+
+.globalHeader__branding {
+    line-height: $globalHeader-height;
+    font-size: 2.5rem;
+}
+
+.userOptions {
+    float: right;
+
+    ul {
+        @extend .horizontalMenu;
+    }
+}
+
+// Global Navigation
+
+.globalNavigation {
+    &> ul {
+        @extend .verticalMenu;
+
+        &> li {
+            text-decoration: none;
+            padding: ($padding / 2) $padding;
+            margin: 0 -1 * $padding $margin 0;
+
+            &.active {
+                background-color: $white;
+                padding: $padding / 2 $padding;
+                border-top-left-radius: $border-radius;
+                border-bottom-left-radius: $border-radius;
+
+                a {
+                    color: $black;
+                }
+            }
+        }
+
+        a {
+            color: $white;
+            text-decoration: none;
+        }
+    }
+}
+
+.globalNavigation__subMenu {
+    font-size: .8rem;
+
+    li {
+        padding: 0 0 0 $padding;
+        margin: 0 !important;
+
+        &.active a {
+            text-decoration: underline;
+        }
+    }
+
+    @extend .verticalMenu;
+}
+
+// Sidebar and Content
+
+.globalSidebar,
+.primaryContent {
+    padding: $padding;
+    box-sizing: border-box;
+    position: absolute;
+    top: $globalHeader-height;
+}
+
+.globalSidebar {
+    background-color: $secondary;
+    width: $globalSidebar-width;
+    bottom: 0;
+}
+
+.primaryContent {
+    left: $globalSidebar-width;
+    right: 0;
+    bottom: $globalFooter-height;
+    overflow: scroll;
+}
+
+// Global Footer
+
+.globalFooter {
+    background-color: $gray;
+    text-align: center;
+    height: $globalFooter-height;
+    padding: $padding 0;
+    box-sizing: border-box;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: $globalSidebar-width;
+}
+
+.globalFooter--guest {
+    left: 0;
+}
+
+@import 'pages';
