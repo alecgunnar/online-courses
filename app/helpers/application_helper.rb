@@ -6,7 +6,7 @@ module ApplicationHelper
     @page_title = pg_title
   end
 
-  def globalNavLinks
+  def global_nav_links
     build_nav_links
     @nav_links
   end
