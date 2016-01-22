@@ -62,17 +62,6 @@ module D2lApi
     end
 
     # Performs an API request
-    def perform_api_req (req)
-      if Rails.configuration.d2l['disable_ssl_verification'] 
-        req.ssl_verify_peer = false
-      end
-
-      return false unless req.perform and req.response_code == 200
-
-      JSON.parse req.body_str
-    end
-
-    # Performs a GET API request
     def perform_api_request (method, path, user)
       req = Curl::Easy.new service_url_with_credentials(method, path, user)
 
