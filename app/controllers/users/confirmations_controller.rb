@@ -1,5 +1,6 @@
 class Users::ConfirmationsController < Devise::ConfirmationsController
   skip_before_action :force_sign_in, only: [:new, :create, :show]
+  skip_before_action :require_api_auth
 
   layout 'guest'
 

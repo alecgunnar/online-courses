@@ -18,7 +18,7 @@
 
 <div class="left left--withSpace">
   <div class="message">
-    <% if not current_user.valid_api_token_data %>
+    <% if not current_user.valid_api_token_data? %>
       <h3>Authentication Required</h3>
       <p class="message message--warning">You have not authenticated this account with Elearning, or your previous authentication has expired. Please click the button below to authenticate.</p>
       <p>Note: You should be signed into Elearning before clicking the button.</p>
