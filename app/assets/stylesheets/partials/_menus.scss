@@ -18,5 +18,9 @@
 .verticalMenu {
     li {
         margin: 0 0 $margin;
+
+        &:last-of-type {
+            margin: 0;
+        }
     }
 }

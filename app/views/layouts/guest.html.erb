@@ -10,4 +10,8 @@
   </div>
 <% end %>
 
-<%= render template: 'layouts/application.html.erb' %>
+<% content_for :footer do %>
+  <%= render 'layouts/partials/footer', is_guest: true %>
+<% end %>
+
+<%= render template: 'layouts/application' %>

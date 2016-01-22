@@ -12,16 +12,16 @@ module ApplicationHelper
   end
 
   private
-    def push_nav_link (label, path, controllers)
-      @nav_links.push({ anchor: link_to(label, path), controllers: controllers })
+    def push_nav_link (label, path, controllers, *submenu)
+      @nav_links.push({ anchor: link_to(label, path), controllers: controllers, submenu: submenu })
     end
 
     def build_nav_links
       @nav_links ||= []
 
-      push_nav_link 'Overview', root_path, ['overview']
-      push_nav_link 'Notifications', notifications_path, ['notifications']
-      push_nav_link 'Courses', courses_path, ['courses']
-      push_nav_link 'Settings', settings_path, ['settings']
+      push_nav_link('Overview', root_path, ['overview'])
+      push_nav_link('Notifications', notifications_path, ['notifications'])
+      push_nav_link('Courses', courses_path, ['courses'])
+      push_nav_link('Manage Account', account_root_path, ['settings', 'd2l'], { anchor: link_to('Email Address and Password', account_root_path), controller: 'settings' }, { anchor: link_to('Elearning Authentication', account_api_auth_path), controller: 'd2l' })
     end
 end

@@ -19,7 +19,7 @@
       </section>
       <main class="primaryContent">
         <%= render 'layouts/partials/title' %>
-        <%= render 'layouts/partials/flashes' %>
+        <%= render 'layouts/partials/flashes', no_notice: true %>
         <%= yield %>
       </main>
     <% end %>
