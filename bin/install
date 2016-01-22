@@ -22,3 +22,4 @@ run_check("Checking for supported operating system... ", RUBY_PLATFORM.downcase 
 end
 
 system "bin/setup"
+system "bin/docker_setup"

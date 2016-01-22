@@ -58,8 +58,12 @@ GEM
     curb (0.9.1)
     daemons (1.2.3)
     debug_inspector (0.0.2)
+    docker-api (1.26.0)
+      excon (>= 0.38.0)
+      json
     erubis (2.7.0)
     eventmachine (1.0.9.1)
+    excon (0.45.4)
     execjs (2.6.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -181,6 +185,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   curb
+  docker-api
   ims-lti
   jbuilder (~> 2.0)
   jquery-rails
