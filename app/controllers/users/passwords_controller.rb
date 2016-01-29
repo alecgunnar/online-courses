@@ -1,5 +1,6 @@
 class Users::PasswordsController < Devise::PasswordsController
   skip_before_action :force_sign_in, only: [:new, :create, :edit, :update]
+  skip_before_action :require_api_auth
 
   layout 'guest'
 

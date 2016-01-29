@@ -1,6 +1,8 @@
 class Account::D2lController < ApplicationController
   include D2lApi
 
+  skip_before_action :require_api_auth
+
   def index
 
   end

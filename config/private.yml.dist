@@ -17,3 +17,5 @@ d2l:
   service_port: 80
   app_id: 123abc456def890ghi
   app_key: abcdefghij1234567890
+  api_version: 1.0
+  disable_ssl_verification: false
