@@ -4,5 +4,8 @@
       <p class="message message--notice"><%= flash[:notice] %></p>
     </div>
   <% end %>
-  <div class="globalHeader__branding">Online Courses</div>
+  <% if not @launch_params.nil? %>
+    <div class="globalHeader__welcome">Hello <%= @launch_params.first_name %></div>
+  <% end %>
+  <div class="globalHeader__branding"><%= @launch_params.nil? ? 'Online Courses' : @launch_params.context %></div>
 </header>
