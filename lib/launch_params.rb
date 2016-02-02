@@ -1,21 +1,21 @@
+require 'ims/lti'
+
 class LaunchParams
-  def initialize (l_params)
-    @params = l_params
+  include IMS::LTI::LaunchParams
+
+  def initialize (params)
+    process_params params
   end
 
-  def full_name
-    @params['lis_person_name_full']
+  def instructor?
+    if not @roles.nil? and not @roles.index('instructor').nil?
+      return true
+    end
+
+    false
   end
 
   def first_name
-    @params['lis_person_name_given']
-  end
-
-  def context
-    @params['context_title']
-  end
-
-  def dump
-    @params
+    @lis_person_name_given
   end
 end

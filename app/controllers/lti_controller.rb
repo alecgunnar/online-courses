@@ -8,7 +8,14 @@ class LtiController < ApplicationController
     if provider.valid_request? request
       if provider.outcome_service?
         session['launch_params'] = params
-        redirect_to root_path
+        
+        lp = LaunchParams.new params
+        
+        if lp.instructor?
+          redirect_to manage_path
+        else
+          redirect_to root_path
+        end
       else
         redirect_to lti_error_path, alert: 'This application has not been configured for the assessment.'
       end
