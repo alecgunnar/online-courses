@@ -4,7 +4,7 @@ $wrapper-max-width: 1000px;
 $wrapper-min-width: 960px;
 $wrapper-guest-width: 500px;
 
-$globalHeader-height: 75px;
+$globalHeader-height: 50px;
 $globalSidebar-width: 250px;
 $globalFooter-height: 40px;
 
@@ -20,6 +20,9 @@ $margin: 12px;
 $black: #000;
 $white: #FFF;
 
+$bronco-brown: #502500;
+$bronco-gold: #EEB111;
+
 $gray: #EDEDED;
 $light-gray: lighten($gray, 5%);
 $dark-gray: darken($gray, 5%);
@@ -28,7 +31,7 @@ $primary: #525564;
 $secondary: #74828F;
 $tertiary: #96C0CE;
 
-$background: $white;
+$background: $light-gray;
 
 $information: #D9EDF7;
 $notice: #DFF0D8;
