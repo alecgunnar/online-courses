@@ -11,11 +11,6 @@ devise:
 secure:
   key_base: d0b1e8efc664d35a386fdfa3da33df6cc4303294beff4af4d6845d42d2854fcd95312b8bf54194ae4a67870947af195b65462fd9d80ce7da0f069499c97bc9a3
 
-d2l:
-  target_url: https://online-courses.dev
-  service_url: https://lms.wmich.edu
-  service_port: 80
-  app_id: 123abc456def890ghi
-  app_key: abcdefghij1234567890
-  api_version: 1.0
-  disable_ssl_verification: false
+lti:
+  key: 130b4a305ac3abcd098e97d94e79a0
+  secret: 9c470b7712d4b23b1f201ebaf38c22

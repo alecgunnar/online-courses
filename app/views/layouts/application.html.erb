@@ -7,23 +7,19 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <%= content_for?(:header) ? yield(:header) : render('layouts/partials/header') %>
+    <div class="wrapper">
+      <%= content_for?(:header) ? yield(:header) : render('layouts/partials/header') %>
 
-    <% if content_for? :content %>
-      <%= yield :content %>
-    <% else %>
-      <section class="globalSidebar">
-        <nav class="globalNavigation">
-          <%= render 'layouts/partials/globalNavigation' %>
-        </nav>
-      </section>
-      <main class="primaryContent">
-        <%= render 'layouts/partials/title' %>
-        <%= render 'layouts/partials/flashes', no_notice: true %>
-        <%= yield %>
-      </main>
-    <% end %>
+      <% if content_for? :content %>
+        <%= yield :content %>
+      <% else %>
+        <main class="primaryContent">
+          <%= render 'layouts/partials/title' %>
+          <%= yield %>
+        </main>
+      <% end %>
 
-    <%= content_for?(:footer) ? yield(:footer) : render('layouts/partials/footer') %>
+      <%= content_for?(:footer) ? yield(:footer) : render('layouts/partials/footer') %>
+    </div>
   </body>
 </html>

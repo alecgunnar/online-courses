@@ -19,7 +19,10 @@ body {
 .wrapper {
     max-width: $wrapper-max-width;
     min-width: $wrapper-min-width;
-    margin: 0 auto;
+    margin: $margin auto 0 !important;
+    border: 1px solid $dark-gray;
+    border-radius: $border-radius;
+    overflow: hidden;
 }
 
 // Typography
@@ -74,9 +77,14 @@ p {
     display: none;
 }
 
+.globalHeader__welcome {
+    line-height: $globalHeader-height;
+    float: right;
+}
+
 .globalHeader__branding {
     line-height: $globalHeader-height;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
 }
 
 .userOptions {
@@ -87,86 +95,21 @@ p {
     }
 }
 
-// Global Navigation
+// Primary Content
 
-.globalNavigation {
-    &> ul {
-        @extend .verticalMenu;
-
-        &> li {
-            text-decoration: none;
-            padding: ($padding / 2) $padding;
-            margin: 0 -1 * $padding $margin 0;
-
-            &.active {
-                background-color: $white;
-                padding: $padding / 2 $padding;
-                border-top-left-radius: $border-radius;
-                border-bottom-left-radius: $border-radius;
-
-                a {
-                    color: $black;
-                }
-            }
-        }
-
-        a {
-            color: $white;
-            text-decoration: none;
-        }
-    }
-}
-
-.globalNavigation__subMenu {
-    font-size: .8rem;
-
-    li {
-        padding: 0 0 0 $padding;
-        margin: 0 !important;
-
-        &.active a {
-            text-decoration: underline;
-        }
-    }
-
-    @extend .verticalMenu;
-}
-
-// Sidebar and Content
-
-.globalSidebar,
 .primaryContent {
+    background-color: $white;
     padding: $padding;
-    box-sizing: border-box;
-    position: absolute;
-    top: $globalHeader-height;
-}
-
-.globalSidebar {
-    background-color: $secondary;
-    width: $globalSidebar-width;
-    bottom: 0;
-}
-
-.primaryContent {
-    left: $globalSidebar-width;
-    right: 0;
-    bottom: $globalFooter-height;
-    overflow: scroll;
 }
 
 // Global Footer
 
 .globalFooter {
-    background-color: $gray;
+    background-color: $dark-gray;
     text-align: center;
     height: $globalFooter-height;
     padding: $padding 0;
     box-sizing: border-box;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: $globalSidebar-width;
 }
 
 .globalFooter--guest {
