@@ -1,5 +1,5 @@
 <ul>
-  <% globalNavLinks.each do |link| %>
+  <% global_nav_links.each do |link| %>
     <% active = link[:controllers].include? controller_name %>
     <li<% if active %> class="active"<% end %>>
       <%= link[:anchor] %>
