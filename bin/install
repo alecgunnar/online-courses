@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+def run_check (status, bool, &if_not)
+  print status
+
+  if bool
+    puts "yes"
+  else
+    puts "no"
+    yield
+  end
+
+  puts
+end
+
+puts "Welcome to the installation script!\n\nThis script will aid you in installing the online courses\napplication on this machine. Much of the work will be done\nfor you, however some manual labor will be required.\n\nPlease hit [return] when you're ready to begin."
+
+gets
+
+run_check("Checking for supported operating system... ", RUBY_PLATFORM.downcase =~ /darwin|ubuntu/) do
+  exit
+end
+
+system "bin/setup"
