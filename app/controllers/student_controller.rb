@@ -1,4 +1,4 @@
-class OverviewController < ApplicationController
+class StudentController < ApplicationController
 	def index
 		@data = get_org_info
 	end
