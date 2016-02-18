@@ -22,7 +22,7 @@
   </div>
 
 
-<form class="form-horizontal container">
+<form class="form-horizontal container" id="instructor-form">
   <div class="form-group">
     <label for="assignment_name_field" class="col-sm-3 control-label">Assignment Name</label>
     <div class="col-sm-9">
@@ -35,7 +35,9 @@
     	<input type="file">
     </div>
   </div>
-  <div class="row">
+  <div id="instructor-form-test-drivers"></div>
+
+  <!-- <div class="row">
   	<label for="test_driver_input" class="col-sm-3 control-label">Test Drivers</label>
 
     <div class="container">
@@ -85,32 +87,16 @@
         </div>
       </div>
       <a id="add_row" class="btn btn-default pull-left">Add Driver</a><a id='delete_row' class="pull-right btn btn-default">Delete Row</a>
-    </div>
+    </div> -->
 
+    <button type="button" id="add-test-driver">Add Driver</button>
 
     <button class="btn btn-primary" type="submit" id="submit_button">Submit</button>
-
-
-  	<!-- <div class="col-sm-9 container" id="test_driver_input">
-  	</div>
-
-  </div>
-  <div class="row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-9">
-      <button class="btn btn-default" type="button" id="add_driver_button">Add Test Driver</button>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <div class="row">
-      <label for="assignment_name_field" class="col-sm-3 control-label">Submissions Allowed</label>
-      <div class="col-sm-9">
-        <input type="number" class="form-control" id="assignment_name_field">
-      </div>
-    </div>
-  </div> -->
-
-
-  
 </form>
+
+<script>
+  $('#instructor-form').instructorForm({
+    driverContainer: '#instructor-form-test-drivers',
+    addDriverButton: '#add-test-driver'
+  });
+</script>
