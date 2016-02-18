@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get '/post-grade', to: 'overview#grade'
 
-  get '/manage', to: 'manage#index', as: :manage
+  get '/assessment/manage', to: 'instructor#index', as: :manage
 
   get '/error', to: 'lti#error', as: :lti_error
   post '/hit', to: 'lti#verify'

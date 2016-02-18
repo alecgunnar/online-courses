@@ -1,4 +1,4 @@
-class ManageController < ApplicationController
+class InstructorController < ApplicationController
   before_action :force_instructor
 
   def index
