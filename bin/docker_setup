@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+
+system "docker build -t wmucs/oc ."

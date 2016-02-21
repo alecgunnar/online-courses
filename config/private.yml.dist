@@ -4,10 +4,6 @@ db:
   password: 
   host: localhost
 
-devise:
-  secret_key: 92c3e48b585b7cfd6e794351b544cf3adf9df442486d3d8b43767d1a9aab9fed0ceea86f2d7ffed1487fafe0a923af87ed36ae19a75c3621969a4185005f9777
-  mailer_sender: admin@domain.com
-
 secure:
   key_base: d0b1e8efc664d35a386fdfa3da33df6cc4303294beff4af4d6845d42d2854fcd95312b8bf54194ae4a67870947af195b65462fd9d80ce7da0f069499c97bc9a3
 
