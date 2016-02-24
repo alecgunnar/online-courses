@@ -8,7 +8,7 @@ class ManageController < ApplicationController
   private
     def force_instructor
       if not @launch_params.instructor?
-        redirect_to lti_error_path, alert: 'You do not have permission to access this part of the application.'
+        redirect_to launch_error_path, alert: t('errors.launch.not_permitted')
       end
     end
 end

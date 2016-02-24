@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-  root 'student#index'
-
-  get '/post-grade', to: 'student#grade'
+  root 'welcome#index'
 
   get '/manage', to: 'manage#index', as: :manage
+  get '/assessment', to: 'assessment#index', as: :assessment
 
-  get '/error', to: 'lti#error', as: :lti_error
-  
-  post '/hit', to: 'lti#verify'
+  post '/launch', to: 'launch#verify'
+  get '/launch/error', to: 'launch#error', as: :launch_error
 end
