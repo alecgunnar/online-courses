@@ -116,4 +116,41 @@ p {
     left: 0;
 }
 
+// Bootstrap
+
+.btn:focus {
+	outline:none !important;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.modal {
+	text-align: center;
+}
+
+.modal-dialog {
+	margin-top: 1%;
+	width: 80%;
+	display: inline-block;
+	vertical-align: middle;
+}
+
 @import 'pages';
