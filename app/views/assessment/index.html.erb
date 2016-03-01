@@ -1,0 +1,13 @@
+<% title 'Managing Assessment' %>
+
+<% content_for :page_options do %>
+  <%= link_to 'Configure Assessement', root_path, class: 'button' %>
+<% end %>
+
+<% if @assessment.context %>
+  <div class=""></div>
+<% else %>
+  <p class="message message--warning">This assessment must be configured!</p>
+<% end %>
+
+

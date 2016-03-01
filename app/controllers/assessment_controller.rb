@@ -8,8 +8,7 @@ class AssessmentController < ApplicationController
 
   private
     def load_assessment
-      @assessment         = Assessment.find_by(context: @launch_params.context_id) || Assessment.new
-      @assessment.context = @launch_params.context_id if @assessment.context.nil?
+      @assessment = Assessment.find_by(context: @launch_params.context_id) || Assessment.new
     end
 
     def force_instructor
