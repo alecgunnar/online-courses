@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
       if @launch_params.instructor?
         redirect_to manage_path
       else
-        redirect_to assessment_path
+        redirect_to submit_path
       end
     end
 

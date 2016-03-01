@@ -3,3 +3,4 @@ en:
     launch:
       invalid_launch: 'Your request could not be validated.'
       not_permitted: 'You do not have permission to access this part of the application.'
+      invalid_launch_params: 'The launch information was incomplete.' # Some needed parameters were not provided by the LMS
