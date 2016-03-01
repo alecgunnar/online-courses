@@ -8,12 +8,26 @@ class ApplicationController < ActionController::Base
 
   before_action :has_launched
 
+  protected
+    def update_launch_session_data (params)
+      session[:launch_params] = params
+      @launch_params          = LaunchParams.new params
+    end
+
+    def redirect_user
+      if @launch_params.instructor?
+        redirect_to manage_path
+      else
+        redirect_to submit_path
+      end
+    end
+
   private
     def has_launched
-      if session['launch_params'].nil?
-        redirect_to lti_error_path, alert: 'This application has not been launched properly.'
+      if session[:launch_params].nil?
+        redirect_to launch_error_path, alert: t('errors.launch.invalid_launch')
       else
-        @launch_params = LaunchParams.new session['launch_params']
+        update_launch_session_data session[:launch_params]
       end
     end
 end

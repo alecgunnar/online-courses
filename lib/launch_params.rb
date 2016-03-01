@@ -18,4 +18,8 @@ class LaunchParams
   def first_name
     @lis_person_name_given
   end
+
+  def user
+    User.find_by org_id: self.user_id
+  end
 end
