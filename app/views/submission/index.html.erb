@@ -1,0 +1,62 @@
+<script>
+$(document).on('change', '#FilePickerInput', function () {
+	var input = $(this), numFiles = input.get(0).files.length, label = input.val();
+	input.trigger('fileselect', [numFiles,label]);
+});
+
+$(document).ready(function () {
+    $('#FilePickerInput').on('fileselect', function (event, numFiles, label) {
+        var input = $(this).parents('#FilePickerGroup').find('#FilePickerTextBox'), text = label;
+        input.val(text);
+    });
+});
+</script>
+
+<%= form_for @submission, :url => submission_create_path, html: { multipart: true } do |f| %>
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="input-group" id="FilePickerGroup">
+				<span class="input-group-btn">
+					<span class="btn btn-primary btn-file" id="FilePickerButton">
+					  Browse 
+					  <%= f.file_field :attachment, type: "file", id: "FilePickerInput" %>
+					</span>
+				</span>	
+				<%= f.text_field :name, type: "text", class: "form-control", id: "FilePickerTextBox", readonly: "readonly" %>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<%= f.submit "Submit", class: "btn btn-warning" %>
+		</div>
+	</div>
+<% end %>
+
+<% if !@submission.errors.empty? %>
+  <div class="alert alert-error">
+    <ul>
+      <% @submission.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<br />
+<table class="table table-bordered table-striped">
+  <tbody>
+    <% @submissions.each do |submission| %>
+      <tr>
+        <td><%= link_to submission.name, submission.attachment_url %></td>
+        <td><%= link_to "Delete",  submission_destroy_path, class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
