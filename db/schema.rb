@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224171445) do
+ActiveRecord::Schema.define(version: 20160310195337) do
 
   create_table "assessments", force: :cascade do |t|
     t.string  "name",            limit: 255
@@ -35,7 +35,9 @@ ActiveRecord::Schema.define(version: 20160224171445) do
   create_table "submissions", force: :cascade do |t|
     t.integer "user_id",       limit: 4
     t.integer "assessment_id", limit: 4
-    t.decimal "grade",                   precision: 10
+    t.decimal "grade",                     precision: 10
+    t.string  "attachment",    limit: 255
+    t.string  "name",          limit: 255
   end
 
   add_index "submissions", ["assessment_id"], name: "index_submissions_on_assessment_id", using: :btree

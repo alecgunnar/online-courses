@@ -6,4 +6,8 @@ Rails.application.routes.draw do
 
   post '/launch', to: 'launch#verify'
   get '/launch/error', to: 'launch#error', as: :launch_error
+  
+  get '/submission/index', to: 'submission#index'
+  post '/submission/create', to: 'submission#create'
+  get '/submission/destroy', to: 'submission#destroy'
 end
