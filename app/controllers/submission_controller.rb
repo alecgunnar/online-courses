@@ -8,7 +8,7 @@ class SubmissionController < ApplicationController
 
   def create
     @submission = Submission.new submission_params
-    @submission.save
+    @submission.save!
     redirect_to submission_index_path
   end
 
