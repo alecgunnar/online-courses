@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311221228) do
+ActiveRecord::Schema.define(version: 20160311221229) do
 
   create_table "assessments", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.string   "specs_file",   limit: 255
-    t.integer  "submit_limit", limit: 4
-    t.string   "context",      limit: 255, null: false
-    t.integer  "user_id",      limit: 4,   null: false
-    t.string   "description",  limit: 255
+    t.string   "name",          limit: 255
+    t.string   "specs_file",    limit: 255
+    t.integer  "submit_limit",  limit: 4
+    t.string   "context",       limit: 255, null: false
+    t.integer  "instructor_id", limit: 4,   null: false
+    t.string   "description",   limit: 255
     t.datetime "due_date"
   end
 
