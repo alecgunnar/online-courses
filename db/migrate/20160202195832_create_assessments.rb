@@ -5,7 +5,7 @@ class CreateAssessments < ActiveRecord::Migration
       t.string :specs_file_name
       t.integer :submit_limit, null: true, default: nil
       t.string :context, null: false
-      t.belongs_to :instructor, null: false
+      t.belongs_to :user, null: false
     end
 
     add_index :assessments, :context, unique: true
