@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301012221) do
+ActiveRecord::Schema.define(version: 20160224171445) do
 
   create_table "assessments", force: :cascade do |t|
     t.string  "name",            limit: 255
     t.string  "specs_file_name", limit: 255
     t.integer "submit_limit",    limit: 4
     t.string  "context",         limit: 255, null: false
-    t.integer "instructor",      limit: 4
+    t.integer "instructor",      limit: 4,   null: false
   end
 
   add_index "assessments", ["context"], name: "index_assessments_on_context", unique: true, using: :btree
