@@ -1,5 +1,5 @@
-<% title t('submission.title') %>
-<% description t('submission.description') %>
+<% title t('submission.titles.upload') %>
+<% description t('submission.descriptions.upload') %>
 
 <div class="box formWrapper">
   <h2 class="box__title"><%= t 'submission.labels.choose_file' %></h2>
@@ -7,8 +7,8 @@
     <div class="formWrapper__field">
       <%= f.file_field :file %>
     </div>
-    <div class="formWrapper__actions">
-      <%= f.submit t('submission.buttons.upload') %> <%= link_to t('buttons.cancel'), root_path, class: 'button button--cancel' %>
+    <div class="formWrapper__actions box__actions">
+      <%= f.submit t('submission.buttons.upload') %> <%= link_to t('buttons.cancel'), root_path, class: 'button--cancel' %>
     </div>
   <% end %>
 

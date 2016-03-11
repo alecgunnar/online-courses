@@ -1,4 +1,4 @@
-@import 'bootstrap', 'variables', 'mixins', 'partials';
+@import 'variables', 'mixins', 'partials';
 
 html {
     font-size: 14px;
@@ -36,6 +36,7 @@ h1 {
 
 h2 {
     font-size: 1.9rem;
+    line-height: 2rem;
 }
 
 h3 {
@@ -52,18 +53,18 @@ a {
 
 p {
     margin: 0 0 $margin;
+}
 
-    &.textCenter {
-        text-align: center;
-    }
+.textCenter {
+    text-align: center;
+}
 
-    &.textRight {
-        text-align: right;
-    }
+.textRight {
+    text-align: right;
 }
 
 *:last-child {
-    margin: 0;
+    margin-bottom: 0;
 }
 
 // Global Header

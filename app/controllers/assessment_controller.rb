@@ -6,7 +6,7 @@ class AssessmentController < ApplicationController
       render 'instructor'
     else
       if @assessment.new_record?
-        @message = t('errors.assessment.not_configured')
+        @message = t('assessment.student.errors.not_configured')
         return render 'general/error'
       end
 

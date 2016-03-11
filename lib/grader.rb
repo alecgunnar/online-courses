@@ -27,7 +27,7 @@ module Grader
     def exec_cmd (cmd)
       ret = @@container.exec(cmd)
 
-      ret[2] == 0 ? ret[0] : false
+      ret[2] == 0 ? ret[0].join : false
     end
 
     # Execute multiple commands

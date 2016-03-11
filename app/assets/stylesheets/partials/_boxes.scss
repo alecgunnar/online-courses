@@ -7,6 +7,18 @@
     &.box--dark {
         background-color: $light-gray;
     }
+
+    &.box--noPad {
+        padding: 0;
+
+        .box__title {
+            margin: 0;
+        }
+
+        .box__actions {
+            margin: 0;
+        }
+    }
 }
 
 .box__title {
@@ -20,3 +32,40 @@
     }
 }
 
+.box__rows {
+    display: table;
+    width: 100%;
+}
+
+.box__row {
+    display: table-row;
+    width: 100%;
+    vertical-align: middle;
+
+
+    &:nth-of-type(odd) {
+        background-color: $light-gray;
+    }
+
+    &:last-of-type .box__row__part {
+        border: none;
+    }
+}
+
+.box__row__part {
+    padding: $padding;
+    display: table-cell;
+    border-bottom: 1px solid $dark-gray;
+}
+
+.box__actions {
+    background-color: $light-gray;
+    text-align: center;
+    border-top: 1px solid $dark-gray;
+    margin: $margin -1 * $padding -1 * $padding !important;
+    padding: $padding;
+
+    a, button, input {
+        @extend .button;
+    }
+}

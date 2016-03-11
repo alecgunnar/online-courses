@@ -1,14 +1,17 @@
 class SubmissionsController < ApplicationController
   before_action :force_student
-  before_action :force_configured
+  before_action :force_configured, except: [:view]
+  before_action :check_ownership, only: [:grade, :view]
+  before_action :status_checks, except: [:grade, :view]
 
   def index
     @submission = Submission.new
   end
 
   def create
-    @submission      = Submission.new submission_params
-    @submission.user = @launch_params.user
+    @submission            = Submission.new submission_params
+    @submission.assessment = @assessment
+    @submission.user       = @launch_params.user
 
     @submission.save!
 
@@ -16,20 +19,26 @@ class SubmissionsController < ApplicationController
   end
 
   def grade
-    @submission = Submission.find params[:id]
+    @assessment.test_drivers.each do |t|
+      worker = Grader::Worker.new
+      result = TestDriverResult.new
 
-    if @submission.nil?
-      not_found
-    elsif @launch_params.user != @submission.user
-      @message = t('errors.general.no_permission')
-      return render 'general/error'
+      result.submission  = @submission
+      result.test_driver = t
+
+      worker.upload_files ["#{@submission.file.url}", "#{Rails.root}/spikes/#{t.name}"]
+      result.output = worker.exec_cmd(['bash', t.name]).strip! || 'Execution Failed!'
+
+      result.save!
+
+      worker.close
     end
 
-    worker              = Grader::Worker.new
-    submission_uploader = SubmissionUploader.new
+    redirect_to result_path(@submission)
+  end
 
-    worker.upload_files ["#{uploader.store_dir}/#{@submission.file}", "#{Rails.root}/spikes/driver.sh"]
-    @output = worker.exec_cmd ['bash', 'driver.sh']
+  def view
+    @results = TestDriverResult.where submission: @submission
   end
 
   private
@@ -43,8 +52,35 @@ class SubmissionsController < ApplicationController
       @assessment = Assessment.find_by context: @launch_params.context_id
 
       if @assessment.nil? 
-        @message = t('errors.assessment.not_configured')
+        @message = t('submission.errors.not_configured')
         render 'general/error'
+      end
+    end
+
+    def check_ownership
+      @submission = Submission.find_by_id params[:id]
+
+      if @submission.nil?
+        not_found
+      elsif @launch_params.user != @submission.user
+        @message = t('errors.general.no_permission')
+        return render 'general/error'
+      end
+    end
+
+    def status_checks
+      if Time.current >= @assessment.due_date
+        @message = t('submission.errors.due_date_past')
+        render 'general/error'
+      end
+
+      if @assessment.submit_limit > 0
+        num_submissions = Submission.count assessment: @assessment, user: @launch_params.user
+
+        if num_submissions >= @assessment.submit_limit
+          @message = t('submission.errors.too_many_submissions')
+          render 'general/error'
+        end
       end
     end
 

@@ -1,1 +1,1 @@
-R --no-save --no-restore < test.r > R.out
+R --no-save --no-restore < test.r

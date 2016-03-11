@@ -3,6 +3,7 @@
 
     text-decoration: none;
     font-size: 1rem;
+    line-height: 1.2rem;
     color: $white;
     padding: $padding $padding * 2;
     box-sizing: border-box;
@@ -21,9 +22,19 @@
     &.button--cancel {
         @include fancy-bg-hover($tertiary);
     }
-}
 
-.button--block {
-    text-align: center;
-    display: block;
+    &.button--disabled {
+        @include fancy-bg($gray);
+        color: #999;
+        cursor: default;
+    }
+
+    &.button--block {
+        text-align: center;
+        display: block;
+    }
+
+    &.button--small {
+        padding: $padding / 2 $padding;
+    }
 }

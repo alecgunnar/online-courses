@@ -25,13 +25,3 @@
         outline: none;
     }
 }
-
-.formWrapper__actions {
-    text-align: center;
-
-    button,
-    input[type="button"],
-    input[type="submit"] {
-        @extend .button;
-    }
-}

@@ -7,12 +7,12 @@
 
     dt, dd {
         display: inline-block;
-        width: 50%;
     }
 
     dt {
         font-weight: 500;
         margin: 0 0 $margin;
+        width: 30%;
 
         &:last-of-type {
             margin: 0;
@@ -23,5 +23,6 @@
         text-align: right;
         margin: 0;
         float: right;
+        width: 70%;
     }
 }
