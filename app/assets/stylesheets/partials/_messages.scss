@@ -6,21 +6,17 @@
 }
 
 .message--information {
-    background-color: $information;
-    color: $black;
+    @include fancy-bg($information);
 }
 
 .message--notice {
-    background-color: $notice;
-    color: $black;
+    @include fancy-bg($notice);
 }
 
 .message--alert {
-    background-color: $alert;
-    color: $black;
+    @include fancy-bg($alert);
 }
 
 .message--warning {
-    background-color: $warning;
-    color: $black;
+    @include fancy-bg($warning);
 }

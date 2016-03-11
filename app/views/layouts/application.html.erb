@@ -2,14 +2,14 @@
 <html>
   <head>
     <title><%= @page_title ? @page_title : 'Welcome' %> &mdash; Online Courses</title>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div class="wrapper">
-      <%= content_for?(:header) ? yield(:header) : render('layouts/partials/header') %>
+    <%= content_for?(:header) ? yield(:header) : render('layouts/partials/header') %>
 
+    <div class="wrapper">
       <% if content_for? :content %>
         <%= yield :content %>
       <% else %>
@@ -18,8 +18,8 @@
           <%= yield %>
         </main>
       <% end %>
-
-      <%= content_for?(:footer) ? yield(:footer) : render('layouts/partials/footer') %>
     </div>
+
+    <%= content_for?(:footer) ? yield(:footer) : render('layouts/partials/footer') %>
   </body>
 </html>

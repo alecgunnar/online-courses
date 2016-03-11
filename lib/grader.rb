@@ -72,9 +72,14 @@ module Grader
       IO::write code_file_fqn, code
       IO::write run_file_fqn, cmd.gsub(CODE_FILE_PLACEHOLDER, code_file)
 
-      @@container.archive_in [code_file_fqn, run_file_fqn], '/'
+      upload_files [code_file_fqn, run_file_fqn]
 
       exec_cmd ["bash", "#{run_file}"]
+    end
+
+    # Move files into the container
+    def upload_files (files)
+      @@container.archive_in files, '/'
     end
   end
 end

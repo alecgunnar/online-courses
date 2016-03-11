@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
+  root 'assessment#index'
 
-  get '/manage', to: 'assessment#index', as: :manage
-  get '/submit', to: 'submission#index', as: :submit
+  get '/specs/:id', to: 'assessment#specs', as: :specs, constraints: {id: /\d+/}
+
+  get '/submit', to: 'submissions#index', as: :submit
+  post '/submit', to: 'submissions#create'
+
+  get '/grade/:id', to: 'submissions#grade', as: :grade, constraints: {id: /\d+/}
 
   post '/launch', to: 'launch#verify'
   get '/launch/error', to: 'launch#error', as: :launch_error
-  
-  get '/submission/index', to: 'submission#index'
-  post '/submission/create', to: 'submission#create'
-  get '/submission/destroy', to: 'submission#destroy'
 end

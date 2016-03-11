@@ -1,0 +1,22 @@
+.box {
+    border-radius: $border-radius;
+    border: 1px solid $dark-gray;
+    padding: $padding;
+    margin: 0 0 $margin;
+
+    &.box--dark {
+        background-color: $light-gray;
+    }
+}
+
+.box__title {
+    border-bottom: 1px solid $dark-gray;
+    padding: $padding;
+    margin: -1 * $padding;
+    margin-bottom: $margin;
+
+    .right {
+        margin-top: -1 * $padding + 3px;
+    }
+}
+

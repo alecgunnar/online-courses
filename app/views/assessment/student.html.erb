@@ -1,0 +1,39 @@
+<% title @assessment.name %>
+<% description t('assessment.student.messages.no_description').html_safe %>
+
+<div class="right right--seventy">
+  <div class="box">
+    <h2 class="box__title">
+      <div class="right">
+        <%= link_to t('assessment.student.buttons.new_submission'), submit_path, class: 'button button--create' %>
+      </div>
+      <%= t 'assessment.student.titles.submissions' %>
+    </h2>
+
+    <% if @submissions.length > 0 %>
+
+    <% else %>
+      <p class="message message--warning"><%= t 'assessment.student.messages.no_submissions' %></p>
+    <% end %>
+  </div>
+</div>
+<div class="left left--thirty">
+  <div class="box box--dark">
+    <h3 class="box__title"><%= t 'assessment.student.titles.information' %></h3>
+    <% if not @assessment.specs_file.nil? %>
+      <p><%= link_to t('assessment.student.buttons.view_specs').html_safe, specs_path(@assessment), class: 'button button--block' %></p>
+    <% end %>
+    <p><%= t 'assessment.student.labels.due_date' %>: </p>
+  </div>
+
+  <div class="box box--dark">
+    <h3 class="box__title"><%= t 'assessment.student.titles.grade' %></h3>
+    <div class="dataTable dataTable--keyValue">
+      <dt><%= t 'assessment.student.labels.highest_grade' %></dt>
+      <dd><%= @grade || t('assessment.student.defaults.no_grade') %></dd>
+      <dt><%= t 'assessment.student.labels.total_submissions' %></dt>
+      <dd><%= @submissions.length %></dd>
+    </div>
+  </div>
+</div>
+<div class="clearBoth"></div>
