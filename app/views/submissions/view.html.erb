@@ -19,7 +19,7 @@
       <dt><%= t 'submission.labels.upload_date' %></dt>
       <dd><%= l @submission.upload_date, format: :general %><dd>
     </dl>
-    <p><%= link_to t('submission.buttons.download'), download_path(@submission), class: 'button button--block' %></p>
+    <p><%= link_to t('submission.buttons.download'), download_submission_path(@submission), class: 'button button--block' %></p>
   </div>
 </div>
 <div class="clearBoth"></div>

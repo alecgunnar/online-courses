@@ -11,6 +11,7 @@ en:
         information: 'Assignment Information'
         submissions: 'Your Submissions'
         grade: 'Grade and Submissions'
+        drivers: 'Test Drivers'
       messages:
         no_description: '<em>A description has not been provided.</em>'
         no_submissions: 'You have not uploaded any submissions to this assignment.'
@@ -25,6 +26,7 @@ en:
         new_submission: 'Upload a New Submission'
         cannot_submit: 'No More Submissions Allowed'
         submission_more_info: 'More Info'
+        download_driver: 'Download'
       defaults:
         no_grade: 'None'
         no_due_date: 'None'

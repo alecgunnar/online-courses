@@ -50,6 +50,10 @@
     &:last-of-type .box__row__part {
         border: none;
     }
+
+    &.box__row--small .box__row__part {
+        padding: $padding / 3;
+    }
 }
 
 .box__row__part {

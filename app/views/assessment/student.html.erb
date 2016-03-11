@@ -13,7 +13,7 @@
               <%= l s.upload_date, format: :general %>
             </div>
             <div class="box__row__part textRight">
-              <%= link_to t('assessment.student.buttons.submission_more_info'), result_path(s), class: 'button button--small' %>
+              <%= link_to t('assessment.student.buttons.submission_more_info'), submission_results_path(s), class: 'button button--small' %>
             </div>
           </div>
         <% end %>
@@ -26,7 +26,7 @@
 <div class="left left--thirty">
   <p>
     <% if Time.current < @assessment.due_date and (@assessment.submit_limit.nil? or (not @assessment.submit_limit.nil? and @submissions.length < @assessment.submit_limit)) %>
-      <%= link_to t('assessment.student.buttons.new_submission'), submit_path, class: 'button button--block button--create' %>
+      <%= link_to t('assessment.student.buttons.new_submission'), upload_submission_path, class: 'button button--block button--create' %>
     <% else %>
       <span class="button button--block button--disabled"><%= t 'assessment.student.buttons.cannot_submit' %></span>
     <% end %>
@@ -34,7 +34,7 @@
   <div class="box box--dark">
     <h3 class="box__title"><%= t 'assessment.student.titles.information' %></h3>
     <% if not @assessment.specs_file.nil? %>
-      <p><%= link_to t('assessment.student.buttons.view_specs'), specs_path(@assessment), class: 'button button--block' %></p>
+      <p><%= link_to t('assessment.student.buttons.view_specs'), assessment_specs_path(@assessment), class: 'button button--block' %></p>
     <% end %>
     <dl class="dataTable dataTable--keyValue">
       <dt><%= t 'assessment.student.labels.due_date' %></dt>
@@ -52,7 +52,18 @@
   </div>
   <div class="box box--dark">
     <h3 class="box__title"><%= t 'assessment.student.titles.drivers' %></h3>
-    
+    <div class="box__rows">
+      <% @assessment.test_drivers.each do |d| %>
+        <div class="box__row box__row--small">
+          <div class="box__row__part">
+            <%= d.name %>
+          </div>
+          <div class="box__row__part textRight">
+            <%= link_to t('assessment.student.buttons.download_driver'), download_driver_path(d), class: 'button button--small' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 <div class="clearBoth"></div>

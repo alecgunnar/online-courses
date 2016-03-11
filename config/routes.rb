@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
   root 'assessment#index'
 
-  get '/specs/:id', to: 'assessment#specs', as: :specs, constraints: {id: /\d+/}
+  get '/assessment/specs/:id', to: 'assessment#specs', as: :assessment_specs, constraints: {id: /\d+/}
 
-  get '/submit', to: 'submissions#index', as: :submit
-  post '/submit', to: 'submissions#create'
+  get '/submission/upload', to: 'submissions#index', as: :upload_submission
+  post '/submission/upload', to: 'submissions#create'
 
-  get '/result/:id', to: 'submissions#view', as: :result, constraints: {id: /\d+/}
-  get '/download/:id', to: 'submissions#download', as: :download, constraints: {id: /\d+/}
+  get '/submission/result/:id', to: 'submissions#view', as: :submission_results, constraints: {id: /\d+/}
+  get '/submission/download/:id', to: 'submissions#download', as: :download_submission, constraints: {id: /\d+/}
 
-  get '/grade/:id', to: 'submissions#grade', as: :grade, constraints: {id: /\d+/}
+  get '/submission/grade/:id', to: 'submissions#grade', as: :grade_submission, constraints: {id: /\d+/}
+
+  get '/driver/download/:id', to: 'test_driver#download', as: :download_driver, constraints: {id: /\d+/}
 
   post '/launch', to: 'launch#verify'
   get '/launch/error', to: 'launch#error', as: :launch_error

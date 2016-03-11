@@ -15,7 +15,7 @@ class SubmissionsController < ApplicationController
 
     @submission.save!
 
-    redirect_to grade_path(@submission)
+    redirect_to grade_submission_path(@submission)
   end
 
   def grade
@@ -34,7 +34,7 @@ class SubmissionsController < ApplicationController
       worker.close
     end
 
-    redirect_to result_path(@submission)
+    redirect_to submission_results_path(@submission)
   end
 
   def view
