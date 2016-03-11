@@ -19,8 +19,8 @@ en:
         highest_grade: 'Grade'
         total_submissions: 'Submissions'
       buttons:
-        view_specs: 'Download Assignment Specs &#8681;'
-        new_submission: 'New Submission'
+        view_specs: 'Download Assignment Specs'
+        new_submission: 'Upload a New Submission'
         cannot_submit: 'No More Submissions Allowed'
       defaults:
         no_grade: 'None'

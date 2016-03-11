@@ -3,12 +3,7 @@
 
 <div class="right right--seventy">
   <div class="box">
-    <h2 class="box__title">
-      <div class="right">
-        <%= link_to t('assessment.student.buttons.new_submission'), submit_path, class: 'button button--create' %>
-      </div>
-      <%= t 'assessment.student.titles.submissions' %>
-    </h2>
+    <h2 class="box__title"><%= t 'assessment.student.titles.submissions' %></h2>
 
     <% if @submissions.length > 0 %>
 
@@ -18,10 +13,11 @@
   </div>
 </div>
 <div class="left left--thirty">
+  <p><%= link_to t('assessment.student.buttons.new_submission'), submit_path, class: 'button button--block button--create' %></p>
   <div class="box box--dark">
     <h3 class="box__title"><%= t 'assessment.student.titles.information' %></h3>
     <% if not @assessment.specs_file.nil? %>
-      <p><%= link_to t('assessment.student.buttons.view_specs').html_safe, specs_path(@assessment), class: 'button button--block' %></p>
+      <p><%= link_to t('assessment.student.buttons.view_specs'), specs_path(@assessment), class: 'button button--block' %></p>
     <% end %>
     <p><%= t 'assessment.student.labels.due_date' %>: </p>
   </div>
