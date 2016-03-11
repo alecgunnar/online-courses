@@ -1,10 +1,8 @@
 .dataTable {
-
+    margin: 0 0 $margin;
 }
 
 .dataTable--keyValue {
-    margin: $margin 0 0;
-
     dt, dd {
         display: inline-block;
     }

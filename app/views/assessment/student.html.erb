@@ -41,7 +41,6 @@
       <dd><%= (not @assessment.due_date.nil?) ? l(@assessment.due_date, format: :due_date) : t('assessment.student.defaults.no_due_date') %></dd>
     </dl>
   </div>
-
   <div class="box box--dark">
     <h3 class="box__title"><%= t 'assessment.student.titles.grade' %></h3>
     <dl class="dataTable dataTable--keyValue">
@@ -50,6 +49,10 @@
       <dt><%= t 'assessment.student.labels.total_submissions' %></dt>
       <dd><%= t 'assessment.student.values.num_submissions', total: @submissions.length, maximum: (not @assessment.submit_limit.nil?) ? @assessment.submit_limit : t('assessment.student.defaults.unlimited_submits') %></dd>
     </dl>
+  </div>
+  <div class="box box--dark">
+    <h3 class="box__title"><%= t 'assessment.student.titles.drivers' %></h3>
+    
   </div>
 </div>
 <div class="clearBoth"></div>

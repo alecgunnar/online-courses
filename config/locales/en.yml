@@ -43,8 +43,14 @@ en:
       choose_file: 'Choose a file'
       grade: 'Grade'
       upload_date: 'Uploaded'
+    values:
+      grade: '%{achieved} / %{maximum}'
     buttons:
       upload: 'Upload Submission'
+      download: 'Download Submitted File'
+      go_back: 'Return to Assignment Overview'
+    defaults:
+      no_grade: 'None'
     errors:
       due_date_past: 'The due date has past for this assignment, you may not upload any more submissions.'
       not_configured: 'This assignment has not been configured by the instructor.'
@@ -52,7 +58,10 @@ en:
   general:
     titles:
       error: 'There was an error'
-      there_was_an_error: 'Lalala'
+    descriptions:
+      error: "You\'ve done something wrong..."
+    buttons:
+      go_back: 'Get me outa here!'
     errors:
       unknown: 'An unknown error has occurred.'
   errors:

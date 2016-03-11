@@ -1,8 +1,8 @@
 class SubmissionsController < ApplicationController
   before_action :force_student
   before_action :force_configured, except: [:view]
-  before_action :check_ownership, only: [:grade, :view]
-  before_action :status_checks, except: [:grade, :view]
+  before_action :check_ownership, only: [:grade, :view, :download]
+  before_action :status_checks, except: [:grade, :view, :download]
 
   def index
     @submission = Submission.new
@@ -15,7 +15,7 @@ class SubmissionsController < ApplicationController
 
     @submission.save!
 
-    redirect_to grade_path @submission
+    redirect_to grade_path(@submission)
   end
 
   def grade
@@ -39,6 +39,10 @@ class SubmissionsController < ApplicationController
 
   def view
     @results = TestDriverResult.where submission: @submission
+  end
+
+  def download
+    send_file @submission.file.url
   end
 
   private

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post '/submit', to: 'submissions#create'
 
   get '/result/:id', to: 'submissions#view', as: :result, constraints: {id: /\d+/}
+  get '/download/:id', to: 'submissions#download', as: :download, constraints: {id: /\d+/}
 
   get '/grade/:id', to: 'submissions#grade', as: :grade, constraints: {id: /\d+/}
 
