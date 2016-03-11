@@ -12,17 +12,17 @@ $(document).ready(function () {
 });
 </script>
 
-<%= form_for @submission, :url => submission_create_path, html: { multipart: true } do |f| %>
+<%= form_for @submission, url: submission_create_path, multipart: true do |f| %>
 	<div class="row">
 		<div class="col-lg-6">
 			<div class="input-group" id="FilePickerGroup">
 				<span class="input-group-btn">
 					<span class="btn btn-primary btn-file" id="FilePickerButton">
 					  Browse 
-					  <%= f.file_field :attachment, type: "file", id: "FilePickerInput" %>
+					  <%= f.file_field :attachment, id: "FilePickerInput" %>
 					</span>
 				</span>	
-				<%= f.text_field :name, type: "text", class: "form-control", id: "FilePickerTextBox", readonly: "readonly" %>
+				<%= f.text_field :name, class: "form-control", id: "FilePickerTextBox", readonly: "readonly" %>
 			</div>
 		</div>
 		<div class="col-lg-6">

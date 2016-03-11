@@ -31,19 +31,10 @@ ActiveRecord::Schema.define(version: 20160224171445) do
   add_index "driver_submission_files", ["submission_id"], name: "index_driver_submission_files_on_submission_id", using: :btree
   add_index "driver_submission_files", ["test_driver_file_id"], name: "index_driver_submission_files_on_test_driver_file_id", using: :btree
 
-  create_table "resumes", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "attachment", limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "submissions", force: :cascade do |t|
     t.integer "user_id",       limit: 4
     t.integer "assessment_id", limit: 4
     t.decimal "grade",                     precision: 10
-    t.string  "attachment",    limit: 255
-    t.string  "name",          limit: 255
   end
 
   add_index "submissions", ["assessment_id"], name: "index_submissions_on_assessment_id", using: :btree
