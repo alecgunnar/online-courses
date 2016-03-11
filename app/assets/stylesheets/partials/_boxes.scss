@@ -1,35 +1,57 @@
 .box {
     border-radius: $border-radius;
     border: 1px solid $dark-gray;
-    padding: $padding;
     margin: 0 0 $margin;
 
     &.box--dark {
         background-color: $light-gray;
-    }
-
-    &.box--noPad {
-        padding: 0;
 
         .box__title {
-            margin: 0;
+            background-color: $gray;
         }
+    }
 
-        .box__actions {
-            margin: 0;
-        }
+    &> .box__title:first-child {
+        border-top: none;
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
     }
 }
 
-.box__title {
-    border-bottom: 1px solid $dark-gray;
-    padding: $padding;
-    margin: -1 * $padding;
-    margin-bottom: $margin;
+.box__title,
+.box__content,
+.box__rows {
+    margin: 0;
+}
 
-    .right {
-        margin-top: -1 * $padding + 3px;
+.box__title {
+    background-color: $light-gray;
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: $dark-gray;
+    padding: $padding;
+
+    .box__row__part {
+        padding: 0;
+        border: 0;
     }
+}
+
+.box__title__smallText {
+    font-size: 1rem;
+    font-weight: 100;
+    float: right;
+}
+
+.box__content {
+    padding: $padding;
+}
+
+.box__content--output {
+    max-height: 300px;
+    overflow: auto;
+    padding: 0 $padding;
+    margin: $padding 0 !important;
 }
 
 .box__rows {
@@ -42,8 +64,7 @@
     width: 100%;
     vertical-align: middle;
 
-
-    &:nth-of-type(odd) {
+    &:nth-of-type(even) {
         background-color: $light-gray;
     }
 
@@ -53,6 +74,14 @@
 
     &.box__row--small .box__row__part {
         padding: $padding / 3;
+    }
+
+    &.box__row--thirds .box__row__part {
+        width: 33.3%;
+    }
+
+    &.box__row--warning {
+        background-color: $warning;
     }
 }
 
@@ -66,14 +95,9 @@
     background-color: $light-gray;
     text-align: center;
     border-top: 1px solid $dark-gray;
-    margin: $margin -1 * $padding -1 * $padding !important;
     padding: $padding;
 
     a, button, input {
         @extend .button;
     }
-}
-
-pre {
-    margin: 0;
 }

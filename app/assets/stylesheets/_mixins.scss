@@ -5,6 +5,11 @@
 	border-color: darken($color, 5%);
 }
 
+@mixin standard-bg ($color) {
+    background-color: $color;
+    border: 1px solid darken($color, 5%);
+}
+
 @mixin fancy-bg-hover ($color) {
 	@include fancy-bg($color);
 

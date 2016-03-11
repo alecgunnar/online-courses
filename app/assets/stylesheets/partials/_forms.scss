@@ -1,27 +1,16 @@
-.formWrapper {
-    
-}
-
-.formWrapper__errors {
-    background-color: $alert;
-    padding: $padding;
-    margin: 0 0 $margin;
+.formField {
+    font-size: 1rem;
+    border: 1px solid $dark-gray;
     border-radius: $border-radius;
-}
+    padding: $padding / 3;
+    outline: none;
 
-.formWrapper__field {
-    margin: 0 0 $margin;
+    &.formField--grade {
+        text-align: center;
+        width: 2rem;
+    }
 
-    input[type="text"],
-    input[type="email"],
-    input[type="number"],
-    input[type="password"] {
-        font-size: 1rem;
-        width: 100%;
-        padding: $padding;
-        border: 1px solid $dark-gray;
-        border-radius: $border-radius;
-        box-sizing: border-box;
-        outline: none;
+    &.formField--error {
+        @include standard-bg($alert)
     }
 }

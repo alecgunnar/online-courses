@@ -1,0 +1,69 @@
+<% title @assessment.name %>
+<% description @assessment.description || t('assessment.student.messages.no_description').html_safe %>
+
+<div class="right right--seventy">
+  <div class="box<% if @submissions.length > 0 %> box--noPad<% end %>">
+    <h2 class="box__title"><%= t 'assessment.student.titles.submissions' %></h2>
+    <% if @submissions.length > 0 %>
+      <div class="box__rows">
+        <% @submissions.each do |s| %>
+          <div class="box__row box__row--thirds">
+            <div class="box__row__part"><%= l s.upload_date, format: :general %></div>
+            <div class="box__row__part"><%= t 'assessment.student.values.grade', achieved: s.grade, maximum: s.assessment.points %><% if s.graded and not s.grade_approved %> <em class="smallText">(<%= t 'assessment.student.messages.waiting_for_approval' %>)</em><% elsif not s.graded %> <em class="smallText">(<%= t 'assessment.student.messages.waiting_for_grading' %>)</em><% end %></div>
+            <div class="box__row__part textRight"><%= link_to t('assessment.student.buttons.submission_more_info'), submission_results_path(s), class: 'button button--small' %></div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="message message--warning"><%= t 'assessment.student.messages.no_submissions' %></p>
+    <% end %>
+  </div>
+</div>
+<div class="left left--thirty">
+  <p>
+    <% if @assessment.due_date.nil? or (Time.current < @assessment.due_date and (@assessment.submit_limit.nil? or (not @assessment.submit_limit.nil? and @submissions.length < @assessment.submit_limit))) %>
+      <%= link_to t('assessment.student.buttons.new_submission'), upload_submission_path, class: 'button button--block button--create' %>
+    <% else %>
+      <span class="button button--block button--disabled"><%= t 'assessment.student.buttons.cannot_submit' %></span>
+    <% end %>
+  </p>
+  <div class="box box--dark">
+    <h3 class="box__title"><%= t 'assessment.student.titles.information' %></h3>
+    <div class="box__content">
+      <% if not @assessment.specs_file.nil? %>
+        <p><%= link_to t('assessment.student.buttons.view_specs'), assessment_specs_path(@assessment), class: 'button button--block' %></p>
+      <% end %>
+      <dl class="dataTable dataTable--keyValue">
+        <dt><%= t 'assessment.student.labels.due_date' %></dt>
+        <dd><%= (not @assessment.due_date.nil?) ? l(@assessment.due_date, format: :due_date) : t('assessment.student.defaults.no_due_date') %></dd>
+      </dl>
+    </div>
+    <h4 class="box__title"><%= t 'assessment.student.titles.drivers' %></h4>
+    <div class="box--noPad">
+      <div class="box__rows">
+        <% @assessment.test_drivers.each do |d| %>
+          <div class="box__row">
+            <div class="box__row__part">
+              <%= d.name %>
+            </div>
+            <div class="box__row__part textRight">
+              <%= link_to t('assessment.student.buttons.download_driver'), download_driver_path(d), class: 'button button--small' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="box box--dark">
+    <h3 class="box__title"><%= t 'assessment.student.titles.grade' %></h3>
+    <div class="box__content">
+      <dl class="dataTable dataTable--keyValue">
+        <dt><%= t 'assessment.student.labels.highest_grade' %></dt>
+        <dd><%= t 'assessment.student.values.grade', achieved: @grade, maximum: @assessment.points %></dd>
+        <dt><%= t 'assessment.student.labels.total_submissions' %></dt>
+        <dd><%= t 'assessment.student.values.num_submissions', total: @submissions.length, maximum: (not @assessment.submit_limit.nil?) ? @assessment.submit_limit : t('assessment.student.defaults.unlimited_submits') %></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+<div class="clearBoth"></div>

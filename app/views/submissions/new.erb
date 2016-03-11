@@ -1,0 +1,26 @@
+<% title t('submission.student.titles.upload') %>
+<% description t('submission.student.descriptions.upload') %>
+
+<% if @submission.errors.any? %>
+  <div class="message message--alert">
+    <p><%= t('general.messages.there_were_errors') %></p>
+    <ul>
+    <% @submission.errors.full_messages.each do |m| %>
+      <li><%= m %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="box formWrapper">
+  <h2 class="box__title"><%= t 'submission.labels.choose_file' %></h2>
+  <%= form_for @submission, url: upload_submission_path, html: { multipart: true } do |f| %>
+    <div class="box__content">
+      <%= f.hidden_field :file, value: '' %>
+      <%= f.file_field :file %>
+    </div>
+    <div class="box__actions">
+      <%= f.submit t('submission.student.buttons.upload') %> <%= link_to t('buttons.cancel'), root_path, class: 'button--cancel' %>
+    </div>
+  <% end %>
+</div>

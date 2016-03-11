@@ -3,23 +3,54 @@
 <% back_path t('submission.buttons.go_back'), root_path %>
 
 <div class="right right--seventy">
-  <% @results.each do |r| %>
-    <div class="box">
-      <h2 class="box__title"><%= r.test_driver.name %></h2>
-      <pre><%= r.output %></pre>
-    </div>
+  <% if not @submission.graded %>
+    <p class="message message--information"><%= t 'submission.student.messages.waiting_for_grade' %></p>
+  <% elsif not @submission.grade_approved %>
+    <p class="message message--warning"><%= t 'submission.student.messages.waiting_for_grade_approval' %></p>
+  <% end %>
+
+  <% if @submission.graded %>
+    <% @submission.test_driver_results.each do |r| %>
+      <div class="box">
+        <h2 class="box__title">
+          <div class="box__title__smallText"><%= t 'submission.student.values.grade', achieved: r.grade, maximum: r.test_driver.points %></div>
+          <%= r.test_driver.name %>
+        </h2>
+        <pre class="box__content box__content--output"><%= r.output %></pre>
+        <% files = r.test_driver.test_driver_files %>
+        <% if files.length > 0 %>
+          <h3 class="box__title">Generated Files</h3>
+          <div class="box__rows">
+            <% files.each do |tdf| %>
+              <% tdrf = r.get_files tdf %>
+              <div class="box__row box__row--thirds">
+                <div class="box__row__part"><%= tdf.name %></div>
+                <div class="box__row__part"><%= t 'submission.student.values.grade', achieved: (not tdrf.nil?) ? tdrf.grade : 0, maximum: tdf.points %></div>
+                <div class="box__row__part textRight">
+                  <% if not tdrf.nil? %>
+                    <%= link_to t('submission.student.buttons.download_generated_file'), download_result_file_path(tdrf), class: 'button button--small' %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 </div>
 <div class="left left--thirty">
   <div class="box box--dark">
-    <h3 class="box__title"><%= t('submission.titles.submission_info') %></h3>
-    <dl class="dataTable dataTable--keyValue">
-      <dt><%= t 'submission.labels.grade' %></dt>
-      <dd><%= t 'submission.values.grade', achieved: @submission.grade || 0, maximum: 10 %><dd>
-      <dt><%= t 'submission.labels.upload_date' %></dt>
-      <dd><%= l @submission.upload_date, format: :general %><dd>
-    </dl>
-    <p><%= link_to t('submission.buttons.download'), download_submission_path(@submission), class: 'button button--block' %></p>
+    <h3 class="box__title"><%= t('submission.student.titles.submission_info') %></h3>
+    <div class="box__content">
+      <dl class="dataTable dataTable--keyValue">
+        <dt><%= t 'submission.student.labels.grade' %></dt>
+        <dd><%= t 'submission.student.values.grade', achieved: @submission.graded ? @submission.grade : 0, maximum: @submission.assessment.points %></dd>
+        <dt><%= t 'submission.student.labels.upload_date' %></dt>
+        <dd><%= l @submission.upload_date, format: :general %></dd>
+      </dl>
+      <p><%= link_to t('submission.student.buttons.download'), download_submission_path(@submission), class: 'button button--block' %></p>
+    </div>
   </div>
 </div>
 <div class="clearBoth"></div>
