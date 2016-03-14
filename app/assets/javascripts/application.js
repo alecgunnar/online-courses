@@ -16,14 +16,7 @@
 //= require_tree .
 
 $(document).on('page:load ready', function () {
-    var $globalFlash = $('#globalHeader__flash');
-
-    function globalFlashToggle () {
-        $globalFlash.fadeToggle(1000);
-    }
-
-    if ($globalFlash.length) {
-        setTimeout(globalFlashToggle, 500);
-        setTimeout(globalFlashToggle, 5500);
-    }
+    $('.box__content--tabs').each(function (e) {
+        $(this).fancyTabs();
+    });
 });

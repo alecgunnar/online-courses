@@ -12,4 +12,4 @@ lti:
   secret: 03d5ec7d98abdcb03056ba143ac85b11
 
 uploads:
-	location: /uploads
+	location: '/uploads'

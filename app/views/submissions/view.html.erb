@@ -13,10 +13,33 @@
     <% @submission.test_driver_results.each do |r| %>
       <div class="box">
         <h2 class="box__title">
-          <div class="box__title__smallText"><%= t 'submission.student.values.grade', achieved: r.grade, maximum: r.test_driver.points %></div>
+          <div class="box__title__smallText right">
+            <% if not r.success %><span class="errorText">(<%= t('submission.student.messages.driver_failed') %>)</span> <% end %>
+            <%= t 'submission.student.values.grade', achieved: r.grade, maximum: r.test_driver.points %>
+          </div>
           <%= r.test_driver.name %>
         </h2>
-        <pre class="box__content box__content--output"><%= r.output %></pre>
+        <div class="box__content box__content--tabs">
+          <ul class="tabs__nav">
+            <li class="tabs__button"><%= t('submission.student.buttons.stdout') %></li>
+            <li class="tabs__button"><%= t('submission.student.buttons.stderr') %></li>
+          </ul>
+          <div class="tabs__content">
+            <% if r.output != '' %>
+              <pre class="box__content__output"><%= r.output %></pre>
+            <% else %>
+              <div class="message message--warning"><%= t('submission.student.messages.no_stdout') %></div>
+            <% end %>
+          </div>
+          <div class="tabs__content">
+            <% if r.error != '' %>
+              <pre class="box__content__output"><%= r.error %></pre>
+            <% else %>
+              <div class="message message--warning"><%= t('submission.student.messages.no_stderr') %></div>
+            <% end %>
+          </div>
+          <div class="clearBoth"></div>
+        </div>
         <% files = r.test_driver.test_driver_files %>
         <% if files.length > 0 %>
           <h3 class="box__title">Generated Files</h3>

@@ -5,10 +5,6 @@
 
     &.box--dark {
         background-color: $light-gray;
-
-        .box__title {
-            background-color: $gray;
-        }
     }
 
     &> .box__title:first-child {
@@ -25,7 +21,7 @@
 }
 
 .box__title {
-    background-color: $light-gray;
+    background-color: $gray;
     border-width: 1px 0;
     border-style: solid;
     border-color: $dark-gray;
@@ -40,18 +36,71 @@
 .box__title__smallText {
     font-size: 1rem;
     font-weight: 100;
-    float: right;
 }
 
 .box__content {
     padding: $padding;
+
+    &.box__content--tabs {
+        padding: 0;
+    }
 }
 
-.box__content--output {
+.box__content__output {
     max-height: 300px;
     overflow: auto;
-    padding: 0 $padding;
-    margin: $padding 0 !important;
+    margin: 0;
+}
+
+.box__content--tabs {
+    .tabs__nav,
+    .tabs__button,
+    .tabs__content {
+        border-width: 0 0 1px;
+        border-style: solid;
+        border-color: $dark-gray;
+    }
+
+    .tabs__nav {
+        background-color: $light-gray;
+        margin: 0 0 $margin;
+        padding: 0;
+
+        .tabs__button {
+            margin: 0 0 0 -5px;
+            list-style: none;
+            display: inline-block;
+
+            &:first-of-type {
+                margin-left: 0;
+            }
+        }
+    }
+
+    .tabs__button {
+        padding: $padding;
+        border-width: 0 1px 0 0;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $gray;
+        }
+
+        &.tabs__button--active {
+            background-color: $white;
+            padding-bottom: $padding + 1;
+            margin-bottom: -1px;
+        }
+    }
+
+    .tabs__content {
+        display: none;
+        padding: 0 $padding $padding;
+
+        &.tabs__content--active {
+            display: block;
+        }
+    }
 }
 
 .box__rows {

@@ -14,8 +14,10 @@ class GraderJob
       worker.upload_files ["#{submission.file.url}", "#{Rails.root}/spikes/#{t.name}"]
       output = worker.exec_cmd(['bash', t.name])
 
-      result.grade  = t.points if output
-      result.output = output ? output.strip! : 'Execution Failed!'
+      result.grade   = t.points if output[:success]
+      result.output  = output[:stdout]
+      result.error   = output[:stderr]
+      result.success = output[:success]
 
       result.save!
 

@@ -1,4 +1,6 @@
-echo "Hello World"
+whoami
+
+pwd
 
 ls -al
 

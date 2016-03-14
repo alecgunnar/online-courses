@@ -59,6 +59,10 @@ class SubmissionsController < ApplicationController
   private
     def load_submission
       @submission = Submission.find_by_id params[:id]
+
+      if @submission.nil?
+        not_found
+      end
     end
 
     def check_configured
@@ -71,9 +75,7 @@ class SubmissionsController < ApplicationController
     end
 
     def check_ownership
-      if @submission.nil?
-        not_found
-      elsif @launch_params.user != @submission.user and @launch_params.user != @submission.assessment.user
+      if @launch_params.user != @submission.user and @launch_params.user != @submission.assessment.user
         @message = t('errors.general.no_permission')
         return render 'general/error'
       end
