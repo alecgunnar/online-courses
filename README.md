@@ -14,6 +14,7 @@ The frontend is pretty typicle, it utilizes HTML, CSS3, and JavaScript. For fram
 
 # Documentation
 
-Please select a topic from the list below. You may also look through the `docs` directory.
+Select a topic from the list below. You may also look through the `docs` directory.
 
 - [Deploying the Application](docs/deploying-the-application.md)
+- [Starting the Application](docs/starting-the-application.md)
