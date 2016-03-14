@@ -37,7 +37,8 @@ gem 'web-console', '~> 2.0', group: :development
 
 gem 'docker-api'
 
-gem 'sucker_punch', '~> 2.0'
+gem 'delayed_job'
+gem 'delayed_job_active_record'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

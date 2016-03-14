@@ -21,7 +21,7 @@ class SubmissionsController < ApplicationController
     if @submission.validate
       @submission.save!
 
-      GraderJob.perform_async @submission.id
+      GraderJob.perform_later @submission.id
 
       return redirect_to submission_results_path(@submission)
     end

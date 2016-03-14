@@ -1,8 +1,8 @@
-class GraderJob 
-  include SuckerPunch::Job
-  
+class GraderJob < ActiveJob::Base
   def perform (id)
-    submission = Submission.find id
+    submission = Submission.find_by_id id
+
+    return if submission.nil?
 
     submission.assessment.test_drivers.each do |t|
       worker = Grader::Worker.new

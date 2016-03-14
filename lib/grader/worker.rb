@@ -14,7 +14,9 @@ module Grader
     def initialize
       chars  = ('a'..'z').to_a
       @@name = (0..9).map { chars[rand 26] }.join
-      
+
+      Docker.options[:read_timeout] = Rails.configuration.grader['timeout']
+
       @@container = Docker::Container.create('Cmd' => ['bash'], 'Image' => DOCKER_IMAGE_NAME, 'Tty' => true)
       @@container.start
     end
@@ -26,9 +28,13 @@ module Grader
 
     # Execute a command in the container
     def exec_cmd (cmd)
-      ret = @@container.exec(cmd)
+      begin
+        ret = @@container.exec(cmd)
 
-      {success: ret[2] == 0, stdout: ret[0].join, stderr: ret[1].join}
+        {success: ret[2] == 0, stdout: ret[0].join, stderr: ret[1].join}
+      rescue Docker::Error::TimeoutError
+        {success: false, stdout: '', stderr: 'Execution timeout...'}
+      end
     end
 
     # Execute multiple commands

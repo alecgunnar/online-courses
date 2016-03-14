@@ -11,6 +11,6 @@ class Assessment < ActiveRecord::Base
   belongs_to :user
 
   def points
-    TestDriver.select('SUM(test_drivers.points + IFNULL(test_driver_files.points, 0)) as points').joins('LEFT JOIN test_driver_files ON test_driver_files.test_driver_id = test_drivers.id').where(assessment: self)[0].points
+    TestDriver.select('SUM(test_drivers.points + IFNULL(test_driver_files.points, 0)) as points').joins('LEFT JOIN test_driver_files ON test_driver_files.test_driver_id = test_drivers.id').where(assessment: self)[0].points || 0
   end
 end

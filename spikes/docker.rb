@@ -42,12 +42,10 @@ grader = Grader::Worker.new
 # # Run another simple command
 # puts grader.exec_cmd(['ls', '-l'])
 
-grader.upload_files ["#{this_dir}/driver.sh"]
-grader.upload_files ["#{this_dir}/cheater_driver.sh"]
-grader.upload_files ["#{this_dir}/test.r"]
-grader.upload_files ["#{this_dir}/cheater.sh"]
+grader.upload_files ["#{this_dir}/another_driver.sh"]
+grader.upload_files ["#{this_dir}/loop.r"]
 
-grader.exec_cmds [["whoami"], ["pwd"], ["ls", "-al"], ["bash", "driver.sh"], ["bash", "cheater_driver.sh"]] do |o|
+grader.exec_cmds [["bash", "another_driver.sh"]] do |o|
   if o[:success]
     puts "Success: #{o[:stdout]}"
   else

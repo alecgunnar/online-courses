@@ -20,7 +20,7 @@ class Submission < ActiveRecord::Base
   before_destroy :remove_files
 
   def grade
-    TestDriverResult.select('SUM(test_driver_results.grade + IFNULL(test_driver_result_files.grade, 0)) as grade').joins('LEFT JOIN test_driver_result_files ON test_driver_result_files.test_driver_result_id = test_driver_results.id').where(submission: self)[0].grade
+    TestDriverResult.select('SUM(test_driver_results.grade + IFNULL(test_driver_result_files.grade, 0)) as grade').joins('LEFT JOIN test_driver_result_files ON test_driver_result_files.test_driver_result_id = test_driver_results.id').where(submission: self)[0].grade || 0
   end
 
   private

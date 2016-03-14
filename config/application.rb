@@ -21,7 +21,7 @@ module OnlineCourses
 
     config.time_zone = 'Eastern Time (US & Canada)'
 
-    config.active_job.queue_adapter = :sucker_punch
+    config.active_job.queue_adapter = :delayed_job
 
     # Get rid of error wrappers for fields with errors
     config.action_view.field_error_proc = Proc.new do |html_tag, instance|
