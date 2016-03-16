@@ -13,6 +13,7 @@ lti:
 
 grader:
   timeout: 20
+  max_bytes: 524288
 
 uploads:
 	location: '/uploads'

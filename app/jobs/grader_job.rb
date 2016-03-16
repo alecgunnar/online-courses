@@ -15,12 +15,9 @@ class GraderJob < ActiveJob::Base
       output = worker.exec_cmd(['bash', t.name])
 
       result.grade   = t.points if output[:success]
-      result.output  = output[:stdout].byteslice(0, Rails.configuration.grader['max_bytes'])
-      result.error   = output[:stderr].byteslice(0, Rails.configuration.grader['max_bytes'])
+      result.output  = check_output output[:stdout]
+      result.error   = check_output output[:stderr]
       result.success = output[:success]
-
-      output[:stdout] << "(Truncated to #{Rails.configuration.grader['max_bytes']} bytes)" if output[:stdout].bytesize > Rails.configuration.grader['max_bytes']
-      output[:stderr] << "(Truncated to #{Rails.configuration.grader['max_bytes']} bytes)" if output[:stderr].bytesize > Rails.configuration.grader['max_bytes']
 
       result.save!
 
@@ -46,4 +43,13 @@ class GraderJob < ActiveJob::Base
 
     submission.update graded: true
   end
+
+  private
+    def check_output (value)
+      if value.bytesize > Rails.configuration.grader['max_bytes']
+        value.byteslice(0, Rails.configuration.grader['max_bytes']) << " (Truncated to #{Rails.configuration.grader['max_bytes']} bytes)"
+      else
+        value
+      end
+    end
 end
