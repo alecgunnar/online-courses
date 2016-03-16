@@ -53,7 +53,7 @@
         <dt><%= t 'assessment.instructor.labels.allowed_submits' %></dt>
         <dd><%= (not @assessment.submit_limit.nil?) ? @assessment.submit_limit : t('assessment.instructor.defaults.unlimited_submits') %></dd>
       </dl>
-      <p><%= link_to t('assessment.instructor.buttons.edit'), root_path, class: 'button button--block' %></p>
+      <p><%= link_to t('assessment.instructor.buttons.edit'), edit_assessment_path(@assessment), class: 'button button--block' %></p>
     </div>
   </div>
 </div>

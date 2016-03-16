@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   post '/assessment/create', to: 'assessments#create'
   get '/assessment/edit', to: 'assessments#edit', as: :edit_assessment
   patch 'assessment/edit', to: 'assessments#update'
-  get '/assessment/specs/:id', to: 'assessments#specs', as: :assessment_specs, constraints: {id: /\d+/}
 
   get '/assessment/:id/specs', to: 'assessment#specs', as: :assessment_specs, constraints: { id: /\d+/ }
 
@@ -24,9 +23,9 @@ Rails.application.routes.draw do
   get '/driver/create', to: 'test_drivers#new', as: :create_test_driver
   post '/driver/create', to: 'test_drivers#create'
   
-  get '/driver/edit/:id', to: 'test_drivers#edit', as: :edit_test_driver, constraints: {id: /\d+/}
-  patch '/driver/edit/:id', to: 'test_drivers#update', constraints: {id: /\d+/}
-  delete '/driver/delete/:id', to: 'test_drivers#delete', as: :delete_test_driver, constraints: {id: /\d+/}
+  get '/driver/:id/edit', to: 'test_drivers#edit', as: :edit_test_driver, constraints: {id: /\d+/}
+  patch '/driver/:id/edit', to: 'test_drivers#update', constraints: {id: /\d+/}
+  delete '/driver/:id/delete', to: 'test_drivers#delete', as: :delete_test_driver, constraints: {id: /\d+/}
 
   get '/result-file/:id/download', to: 'test_driver_result_files#download', as: :download_result_file, constraints: { id: /\d+/ }
 
