@@ -1,0 +1,14 @@
+@mixin fancy-bg ($color) {
+	background-color: $color;
+	border-width: 0 0 3px;
+	border-style: solid;
+	border-color: darken($color, 5%);
+}
+
+@mixin fancy-bg-hover ($color) {
+	@include fancy-bg($color);
+
+	&:hover {
+		@include fancy-bg(darken($color, 2%));
+	}	
+}

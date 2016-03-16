@@ -1,0 +1,26 @@
+.dataTable {
+    margin: 0 0 $margin;
+}
+
+.dataTable--keyValue {
+    dt, dd {
+        display: inline-block;
+    }
+
+    dt {
+        font-weight: 500;
+        margin: 0 0 $margin;
+        width: 30%;
+
+        &:last-of-type {
+            margin: 0;
+        }
+    }
+
+    dd {
+        text-align: right;
+        margin: 0;
+        float: right;
+        width: 70%;
+    }
+}

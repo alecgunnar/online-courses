@@ -1,4 +1,4 @@
-@import 'bootstrap', 'variables', 'mixins', 'partials';
+@import 'variables', 'mixins', 'partials';
 
 html {
     font-size: 14px;
@@ -8,7 +8,7 @@ html {
 }
 
 body {
-    background: $background;
+    background-color: $background;
     font-family: Helvetica, 'Sans Serif';
     font-weight: 200;
     margin: 0;
@@ -17,12 +17,8 @@ body {
 // Wrapper
 
 .wrapper {
-    max-width: $wrapper-max-width;
-    min-width: $wrapper-min-width;
-    margin: $margin auto 0 !important;
-    border: 1px solid $dark-gray;
-    border-radius: $border-radius;
-    overflow: hidden;
+    width: $wrapper-width;
+    margin: 0 auto !important;
 }
 
 // Typography
@@ -38,6 +34,15 @@ h1 {
     line-height: 2.3rem;
 }
 
+h2 {
+    font-size: 1.9rem;
+    line-height: 2rem;
+}
+
+h3 {
+    font-size: 1.6rem;
+}
+
 a {
     color: $black;
 
@@ -48,18 +53,18 @@ a {
 
 p {
     margin: 0 0 $margin;
+}
 
-    &.textCenter {
-        text-align: center;
-    }
+.textCenter {
+    text-align: center;
+}
 
-    &.textRight {
-        text-align: right;
-    }
+.textRight {
+    text-align: right;
 }
 
 *:last-child {
-    margin: 0;
+    margin-bottom: 0;
 }
 
 // Global Header
@@ -68,6 +73,7 @@ p {
     background-color: $primary;
     color: $white;
     padding: 0 $padding;
+    margin: 0 0 $margin;
 }
 
 #globalHeader__flash {
@@ -100,20 +106,25 @@ p {
 .primaryContent {
     background-color: $white;
     padding: $padding;
+    border-radius: $border-radius;
+    border: 1px solid $dark-gray;
+}
+
+.pageDescription {
+    background-color: $background;
+    margin: 0 -1 * $padding $margin;
+    padding: $padding;
+    border-style: solid;
+    border-color: $dark-gray;
+    border-width: 1px 0;
 }
 
 // Global Footer
 
 .globalFooter {
-    background-color: $dark-gray;
     text-align: center;
-    height: $globalFooter-height;
     padding: $padding 0;
     box-sizing: border-box;
-}
-
-.globalFooter--guest {
-    left: 0;
 }
 
 // Bootstrap

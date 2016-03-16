@@ -1,11 +1,13 @@
 <header class="globalHeader">
-  <% if not flash[:notice].nil? %>
-  <div id="globalHeader__flash">
-    <p class="message message--notice"><%= flash[:notice] %></p>
+  <div class="wrapper">
+    <% if not flash[:notice].nil? %>
+    <div id="globalHeader__flash">
+      <p class="message message--notice"><%= flash[:notice] %></p>
+    </div>
+    <% end %>
+    <% if not @launch_params.nil? %>
+      <div class="globalHeader__welcome"><%= t 'greeting' %> <%= @launch_params.first_name %></div>
+    <% end %>
+    <div class="globalHeader__branding">Online Courses</div>
   </div>
-  <% end %>
-  <% if not @launch_params.nil? %>
-    <div class="globalHeader__welcome">Hello <%= @launch_params.first_name %></div>
-  <% end %>
-  <div class="globalHeader__branding"><%= @launch_params.nil? ? 'Online Courses' : @launch_params.context_title %></div>
 </header>

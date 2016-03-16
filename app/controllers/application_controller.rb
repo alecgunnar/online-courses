@@ -14,12 +14,8 @@ class ApplicationController < ActionController::Base
       @launch_params          = LaunchParams.new params
     end
 
-    def redirect_user
-      if @launch_params.instructor?
-        redirect_to manage_path
-      else
-        redirect_to submit_path
-      end
+    def not_found
+      raise ActionController::RoutingError.new('Not Found')
     end
 
   private

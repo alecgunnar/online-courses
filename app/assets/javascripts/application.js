@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap
 //= require_tree .
 
 $(document).on('page:load ready', function () {

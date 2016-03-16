@@ -1,18 +1,23 @@
 .left, .right {
-    width: 50%;
+    box-sizing: border-box;
 }
 
 .left {
     float: left;
-}
 
-.left--withSpace {
-    padding: 0 $margin 0 0;
-    box-sizing: border-box;
+    &.left--thirty {
+        width: 30%;
+        padding-right: $padding / 2;
+    }
 }
 
 .right {
     float: right;
+
+    &.right--seventy {
+        width: 70%;
+        padding-left: $padding / 2;
+    }
 }
 
 .clearBoth {

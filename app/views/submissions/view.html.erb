@@ -1,0 +1,25 @@
+<% title t('submission.titles.viewing_result') %>
+<% description t('submission.descriptions.viewing_result') %>
+<% back_path t('submission.buttons.go_back'), root_path %>
+
+<div class="right right--seventy">
+  <% @results.each do |r| %>
+    <div class="box">
+      <h2 class="box__title"><%= r.test_driver.name %></h2>
+      <pre><%= r.output %></pre>
+    </div>
+  <% end %>
+</div>
+<div class="left left--thirty">
+  <div class="box box--dark">
+    <h3 class="box__title"><%= t('submission.titles.submission_info') %></h3>
+    <dl class="dataTable dataTable--keyValue">
+      <dt><%= t 'submission.labels.grade' %></dt>
+      <dd><%= t 'submission.values.grade', achieved: @submission.grade || 0, maximum: 10 %><dd>
+      <dt><%= t 'submission.labels.upload_date' %></dt>
+      <dd><%= l @submission.upload_date, format: :general %><dd>
+    </dl>
+    <p><%= link_to t('submission.buttons.download'), download_submission_path(@submission), class: 'button button--block' %></p>
+  </div>
+</div>
+<div class="clearBoth"></div>

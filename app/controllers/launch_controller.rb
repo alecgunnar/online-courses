@@ -11,7 +11,7 @@ class LaunchController < ApplicationController
       update_launch_session_data params
       persist_user_data
 
-      redirect_user
+      redirect_to root_path
     else
       redirect_to launch_error_path, alert: t('errors.launch.invalid_launch')
     end
@@ -19,6 +19,8 @@ class LaunchController < ApplicationController
 
   def error
     flash.keep
+
+    render 'general/error'
   end
 
   private

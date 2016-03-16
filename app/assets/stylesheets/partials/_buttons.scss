@@ -1,43 +1,44 @@
 .button {
-    background-color: $primary;
+    @include fancy-bg-hover($primary);
+
     text-decoration: none;
     font-size: 1rem;
+    line-height: 1.2rem;
     color: $white;
     padding: $padding $padding * 2;
     box-sizing: border-box;
-    border: none;
     border-radius: $border-radius;
     display: inline-block;
     cursor: pointer;
 
     &:hover {
-        background-color: lighten($primary, 5%);
-    }
-}
-
-.dataTable {
-
-}
-
-.dataTable--keyValue {
-    margin: $margin 0 0;
-
-    dt, dd {
-        width: 50%;
+        color: $white;
     }
 
-    dt {
-        font-weight: 400;
-        margin: 0 0 $margin;
-
-        &:last-of-type {
-            margin: 0;
-        }
+    &.button--create {
+        @include fancy-bg-hover($secondary);
     }
 
-    dd {
-        text-align: right;
-        margin: 0;
-        float: right;
+    &.button--cancel {
+        @include fancy-bg-hover($tertiary);
+    }
+
+    &.button--back {
+        
+    }
+
+    &.button--disabled {
+        @include fancy-bg($gray);
+        color: #999;
+        cursor: default;
+    }
+
+    &.button--block {
+        text-align: center;
+        display: block;
+    }
+
+    &.button--small {
+        padding: $padding / 2 $padding;
     }
 }

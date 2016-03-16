@@ -1,8 +1,6 @@
 // Sizing
 
-$wrapper-max-width: 1000px;
-$wrapper-min-width: 960px;
-$wrapper-guest-width: 500px;
+$wrapper-width: 1150px;
 
 $globalHeader-height: 50px;
 $globalSidebar-width: 250px;
@@ -27,9 +25,9 @@ $gray: #EDEDED;
 $light-gray: lighten($gray, 5%);
 $dark-gray: darken($gray, 5%);
 
-$primary: #525564;
-$secondary: #74828F;
-$tertiary: #96C0CE;
+$primary: #089DE3;
+$secondary: #9C0;
+$tertiary: #A00;
 
 $background: $light-gray;
 

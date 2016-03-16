@@ -19,6 +19,8 @@ module OnlineCourses
     # Hmmmmm... This is some default config
     config.active_record.raise_in_transactional_callbacks = true
 
+    config.time_zone = 'Eastern Time (US & Canada)'
+
     # Get rid of error wrappers for fields with errors
     config.action_view.field_error_proc = Proc.new do |html_tag, instance|
       html_tag.html_safe
