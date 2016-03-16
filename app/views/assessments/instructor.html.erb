@@ -1,0 +1,30 @@
+<% title @assessment.name || 'Configure Assessment' %>
+<% description 'Rename assignment, add test drivers, view grades' %>
+
+<%= @assessment.new_record? ? link_to('create', create_assessment_path) : link_to('edit', edit_assessment_path) %> 
+
+<p>Number of submissions allowed:<%= @assessment.submit_limit %> </p>
+<p>File: <%= link_to @assessment.specs_file, @assessment.specs_file_url %></p>
+
+<hr>
+
+<h3>Test Drivers</h3>
+
+<a href="/driver/create">New Driver</a>
+
+<table>
+	<th>Name</th>
+	<th>Points</th>
+	<th>File</th>
+	<tbody>
+	   <% @test_drivers.each do |item|%>
+	   <tr>
+	      <td><%= item.name %></td>     
+	      <td><%= item.points %></td>
+	      <td><%= link_to item.file, item.file_url %></td>
+	      <td><%=link_to "Edit", edit_test_driver_path(:id => item)%></td>
+	      <td><%=link_to "Delete", delete_test_driver_path(:id => item), :method => :delete %></td>
+	   </tr>
+	   <% end %>
+	</tbody>
+</table>

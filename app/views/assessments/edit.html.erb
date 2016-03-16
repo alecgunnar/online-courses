@@ -1,0 +1,15 @@
+<%= form_for @assessment, :url => edit_assessment_path, id: 'assessment_form' do |f| %>
+	<%= f.label(:name) %>
+	<%= f.text_field(:name) %>
+	<br>
+
+	<%= f.label(:submit_limit, 'Number of submissions') %>
+	<%= f.number_field(:submit_limit) %>
+	<br>
+
+	<%= f.label(:specs_file, 'Instruction File') %>
+	<%= f.file_field(:specs_file) %>
+	<br>
+
+	<%= f.submit %>
+<% end %>
