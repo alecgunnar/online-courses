@@ -11,8 +11,8 @@ class GraderJob < ActiveJob::Base
       result.submission  = submission
       result.test_driver = t
 
-      worker.upload_files ["#{submission.file.url}", "#{Rails.root}/spikes/#{t.name}"]
-      output = worker.exec_cmd(['bash', t.name])
+      worker.upload_files [submission.file.url, t.file.url]
+      output = worker.exec_cmd ['bash', File.basename(t.file.url)]
 
       result.grade   = t.points if output[:success]
       result.output  = check_output output[:stdout]

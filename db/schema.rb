@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160314193149) do
+ActiveRecord::Schema.define(version: 20160317012032) do
 
   create_table "assessments", force: :cascade do |t|
     t.string   "name",         limit: 255
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20160314193149) do
     t.integer "test_driver_id", limit: 4
     t.string  "name",           limit: 255
     t.decimal "points",                     precision: 10
+    t.string  "file",           limit: 255
   end
 
   add_index "test_driver_files", ["test_driver_id"], name: "index_test_driver_files_on_test_driver_id", using: :btree
@@ -84,6 +85,8 @@ ActiveRecord::Schema.define(version: 20160314193149) do
     t.integer "assessment_id", limit: 4
     t.string  "name",          limit: 255
     t.decimal "points",                    precision: 10
+    t.string  "file",          limit: 255
+    t.boolean "downloadable",  limit: 1
   end
 
   add_index "test_drivers", ["assessment_id"], name: "index_test_drivers_on_assessment_id", using: :btree

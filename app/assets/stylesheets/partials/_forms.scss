@@ -1,16 +1,32 @@
-.formField {
+input[type="text"],
+input[type="number"],
+input[type="email"],
+select,
+textarea {
     font-size: 1rem;
     border: 1px solid $dark-gray;
     border-radius: $border-radius;
     padding: $padding / 3;
+    box-sizing: border-box;
     outline: none;
 
-    &.formField--grade {
-        text-align: center;
-        width: 2rem;
+    &.short {
+        width: 128px;
     }
 
-    &.formField--error {
+    &.grade {
+        text-align: center;
+        width: 32px;
+    }
+
+    &.error {
         @include standard-bg($alert)
     }
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+textarea {
+    width: 100%;
 }

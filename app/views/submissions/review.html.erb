@@ -12,9 +12,9 @@
         <h2 class="box__title">
           <div class="box__title__smallText right">
             <% if not rf.object.success %><span class="errorText">(<%= t('submission.instructor.messages.driver_failed') %>)</span> <% end %>
-            <%= t('submission.instructor.values.grade', achieved: rf.text_field(:grade, class: 'formField formField--grade' << (rf.object.errors.any? ? ' formField--error' : '')), maximum: rf.object.test_driver.points).html_safe %>
+            <%= t('submission.instructor.values.grade', achieved: rf.text_field(:grade, class: 'grade' << (rf.object.errors.any? ? ' error' : '')), maximum: rf.object.test_driver.points).html_safe %>
           </div>
-          <%= rf.object.test_driver.name %>
+          <%= File.basename rf.object.test_driver.file.url %>
         </h2>
         <div class="box__content box__content--tabs">
           <ul class="tabs__nav">
@@ -43,7 +43,7 @@
             <%= rf.fields_for :test_driver_result_files do |tdrff| %>
               <div class="box__row box__row--thirds">
                 <div class="box__row__part"><%= tdrff.object.test_driver_file.name %></div>
-                <div class="box__row__part"><%= t('submission.instructor.values.grade', achieved: tdrff.text_field(:grade, class: 'formField formField--grade' << (tdrff.object.errors.any? ? ' formField--error' : '')), maximum: tdrff.object.test_driver_file.points).html_safe %></div>
+                <div class="box__row__part"><%= t('submission.instructor.values.grade', achieved: tdrff.text_field(:grade, class: 'grade' << (tdrff.object.errors.any? ? ' error' : '')), maximum: tdrff.object.test_driver_file.points).html_safe %></div>
                 <div class="box__row__part textRight">
                   <% if not tdrff.object.nil? %>
                     <%= link_to t('submission.instructor.buttons.download_generated_file'), download_result_file_path(tdrff.object), class: 'button button--small' %>

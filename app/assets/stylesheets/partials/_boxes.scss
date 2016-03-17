@@ -6,7 +6,10 @@
     &.box--dark {
         background-color: $light-gray;
     }
+}
 
+.box,
+.form__group {
     &> .box__title:first-child {
         border-top: none;
         border-top-left-radius: $border-radius;
@@ -36,6 +39,10 @@
 .box__title__smallText {
     font-size: 1rem;
     font-weight: 100;
+
+    .button {
+        margin-top: -1 * $padding;
+    }
 }
 
 .box__content {
@@ -103,12 +110,14 @@
     }
 }
 
-.box__rows {
+.box__rows,
+.box__form {
     display: table;
     width: 100%;
 }
 
-.box__row {
+.box__row,
+.form__field {
     display: table-row;
     width: 100%;
     vertical-align: middle;
@@ -117,7 +126,9 @@
         background-color: $light-gray;
     }
 
-    &:last-of-type .box__row__part {
+    &:last-of-type .box__row__part,
+    &:last-of-type .field__label,
+    &:last-of-type .field__input {
         border: none;
     }
 
@@ -134,10 +145,31 @@
     }
 }
 
-.box__row__part {
+.form__group {
+    border: 1px solid $gray;
+    border-radius: $border-radius;
+    margin: 0 0 $margin;
+}
+
+.box__row__part,
+.field__label,
+.field__input {
     padding: $padding;
     display: table-cell;
     border-bottom: 1px solid $dark-gray;
+    vertical-align: middle;
+}
+
+.field__label {
+    width: 30%;
+}
+
+.field__input {
+    width: 70%;
+}
+
+.field__description {
+    font-size: .8rem;
 }
 
 .box__actions {
@@ -149,4 +181,10 @@
     a, button, input {
         @extend .button;
     }
+}
+
+.nested_fields {
+    border: none;
+    padding: 0;
+    margin: 0;
 }

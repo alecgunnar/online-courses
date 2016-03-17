@@ -34,30 +34,43 @@ class AssessmentsController < ApplicationController
     assessment = Assessment.find params[:id]
 
     if not assessment.nil?
-      return send_file "#{Rails.root}/spikes/#{assessment.specs_file}"
+      return send_file assessment.specs_file.url
     end
 
     not_found
   end
 
   def new
+    @assessment.test_drivers = [TestDriver.new]
 
+    render 'form'
   end
 
   def create
     @assessment.attributes = assessment_params
     @assessment.instructor = @launch_params.user
-    @assessment.save!
-    redirect_to root_path
+
+    if @assessment.valid?
+      @assessment.save!
+      return redirect_to root_path
+    end
+
+    render 'form'
   end
 
   def edit
-    
+    render 'form'
   end
 
   def update
-    @assessment.update! assessment_params
-    redirect_to root_path
+    @assessment.attributes = assessment_params
+
+    if @assessment.valid?
+      @assessment.save!
+      return redirect_to root_path
+    end
+
+    render 'form'
   end
 
   private
@@ -67,6 +80,6 @@ class AssessmentsController < ApplicationController
     end
 
     def assessment_params
-      params.require(:assessment).permit(:name, :submit_limit, :specs_file)
+      params.require(:assessment).permit(:name, :description, :submit_limit, :specs_file, :due_date, :add_test_driver, test_drivers_attributes: [:id, :_destroy, :file, :points, :downloadable, test_driver_files_attributes: [:id, :_destroy, :name, :points]])
     end
 end

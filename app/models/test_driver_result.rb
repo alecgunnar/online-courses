@@ -7,7 +7,6 @@ class TestDriverResult < ActiveRecord::Base
   accepts_nested_attributes_for :test_driver_result_files
 
   validates :grade, presence: true, numericality: { greater_than_or_equal_to: 0 }
-
   validates_associated :test_driver_result_files
 
   def get_files (tdf)

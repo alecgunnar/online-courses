@@ -5,6 +5,7 @@ a.user_id = 1
 a.specs_file = 'specs.pdf'
 a.due_date = Time.new.end_of_day
 a.context = 182971
+a.submit_limit = 0
 a.save!
 
 td = TestDriver.new

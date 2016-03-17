@@ -17,7 +17,7 @@
             <% if not r.success %><span class="errorText">(<%= t('submission.student.messages.driver_failed') %>)</span> <% end %>
             <%= t 'submission.student.values.grade', achieved: r.grade, maximum: r.test_driver.points %>
           </div>
-          <%= r.test_driver.name %>
+          <%= File.basename r.test_driver.file.url %>
         </h2>
         <div class="box__content box__content--tabs">
           <ul class="tabs__nav">
