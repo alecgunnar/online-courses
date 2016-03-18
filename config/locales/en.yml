@@ -11,8 +11,6 @@ en:
         not_configured: 'Configure Assessment'
         information: 'Assignment Information'
         submissions: 'Submissions'
-        unreviewed_submissions: 'Unreviewed Submissions'
-        reviewed_submissions: 'Reviewed Submissions'
         creating: 'Configuring new assessment'
         updating: 'Configuring new assessment'
         test_drivers: 'Test Drivers'
@@ -31,7 +29,7 @@ en:
         not_configured: 'This assignment has not been configured, it must be configured before students can submit their work!'
         no_submissions: 'No submissions to display.'
         grade_not_approved: 'Not Reviewed'
-        review_notice: 'Submissions are separated based on whether or not they have been reviewed. Rows which are yellow have not been reviewed.'
+        review_notice: 'Submissions are separated based on whether or not they have been reviewed by an instructor. You may view each set of submissions below.'
         no_test_driver_files: 'No expected output files have been added.'
       buttons:
         configure: 'Configure Assignment'
@@ -39,6 +37,8 @@ en:
         review: 'Review'
         add_test_driver: 'Add Test Driver'
         add_test_driver_file: 'Add Expected Output File'
+        unreviewed_submissions: 'Unreviewed'
+        reviewed_submissions: 'Reviewed'
       defaults:
         no_due_date: 'Not Set'
         unlimited_submits: 'Unlimited'

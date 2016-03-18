@@ -6,12 +6,15 @@
     &.box--dark {
         background-color: $light-gray;
     }
+
+    .box__title:first-of-type {
+        border-top: 0;
+    }
 }
 
 .box,
 .form__group {
     &> .box__title:first-child {
-        border-top: none;
         border-top-left-radius: $border-radius;
         border-top-right-radius: $border-radius;
     }
@@ -21,13 +24,13 @@
 .box__content,
 .box__rows {
     margin: 0;
+    border-width: 1px 0 0;
+    border-style: solid;
+    border-color: $dark-gray;
 }
 
 .box__title {
     background-color: $gray;
-    border-width: 1px 0;
-    border-style: solid;
-    border-color: $dark-gray;
     padding: $padding;
 
     .box__row__part {
@@ -61,22 +64,21 @@
 }
 
 .box__content--tabs {
-    .tabs__nav,
-    .tabs__button {
-        border-width: 0 0 1px;
-        border-style: solid;
-        border-color: $dark-gray;
-    }
-
     .tabs__nav {
         background-color: $light-gray;
         margin: 0 0 $margin;
         padding: 0;
+        border-width: 0 0 1px;
+        border-style: solid;
+        border-color: $dark-gray;
 
         .tabs__button {
             margin: 0 0 0 -5px;
             list-style: none;
             display: inline-block;
+            border-width: 0 1px 0 0;
+            border-style: solid;
+            border-color: $dark-gray;
 
             &:first-of-type {
                 margin-left: 0;
@@ -104,8 +106,20 @@
         display: none;
         padding: 0 $padding $padding;
 
+        .box__content,
+        .box__rows {
+            &:first-of-type {
+                border-top: 0;
+            }
+        }
+
         &.tabs__content--active {
             display: block;
+        }
+
+        &.tabs__content--noPad {
+            padding: 0;
+            margin-top: -1 * $margin;
         }
     }
 }
@@ -156,7 +170,9 @@
 .field__input {
     padding: $padding;
     display: table-cell;
-    border-bottom: 1px solid $dark-gray;
+    border-width: 0 0 1px;
+    border-style: solid;
+    border-color: $dark-gray;
     vertical-align: middle;
 }
 
@@ -175,7 +191,6 @@
 .box__actions {
     background-color: $light-gray;
     text-align: center;
-    border-top: 1px solid $dark-gray;
     padding: $padding;
 
     a, button, input {
