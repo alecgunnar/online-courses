@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317012032) do
+ActiveRecord::Schema.define(version: 20160318134024) do
 
   create_table "assessments", force: :cascade do |t|
     t.string   "name",         limit: 255
@@ -40,6 +40,12 @@ ActiveRecord::Schema.define(version: 20160317012032) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "final_grades", force: :cascade do |t|
+    t.integer "user_id",       limit: 4
+    t.integer "assessment_id", limit: 4
+    t.integer "submission_id", limit: 4
+  end
 
   create_table "submissions", force: :cascade do |t|
     t.integer  "user_id",        limit: 4

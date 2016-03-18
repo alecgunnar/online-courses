@@ -64,8 +64,8 @@
     <h3 class="box__title"><%= t 'assessment.student.titles.grade' %></h3>
     <div class="box__content">
       <dl class="dataTable dataTable--keyValue">
-        <dt><%= t 'assessment.student.labels.highest_grade' %></dt>
-        <dd><%= t 'assessment.student.values.grade', achieved: @grade, maximum: @assessment.points %></dd>
+        <dt><%= t 'assessment.student.labels.final_grade' %></dt>
+        <dd><%= t 'assessment.student.values.grade', achieved: (@final_grade.nil? ? 0 : @final_grade.submission.grade), maximum: @assessment.points %></dd>
         <dt><%= t 'assessment.student.labels.total_submissions' %></dt>
         <dd><%= t 'assessment.student.values.num_submissions', total: @submissions.length, maximum: (not @assessment.submit_limit.nil?) ? @assessment.submit_limit : t('assessment.student.defaults.unlimited_submits') %></dd>
       </dl>

@@ -1,6 +1,7 @@
 class Assessment < ActiveRecord::Base
   has_many :submissions
   has_many :test_drivers, dependent: :destroy
+  has_many :final_grades
 
   belongs_to :instructor, class_name: 'User', foreign_key: 'user_id'
 

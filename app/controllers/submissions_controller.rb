@@ -4,6 +4,8 @@ class SubmissionsController < ApplicationController
 
   before_action :load_submission, only: [:view, :review, :grade, :download]
 
+  before_action :force_owner_instructor, only: [:review, :grade]
+
   before_action :check_configured, except: [:view, :review]
   before_action :check_ownership, only: [:view, :download]
   before_action :check_submitability, except: [:view, :review, :grade, :download]
@@ -38,13 +40,22 @@ class SubmissionsController < ApplicationController
   end
 
   def grade
-    submission_params = review_submission_params
-
+    submission_params                  = review_submission_params
     submission_params[:grade_approved] = true if not @submission.grade_approved
 
     @submission.attributes = submission_params
 
     if @submission.valid?
+      final_grade = FinalGrade.find_by user: @submission.user, assessment: @assessment
+
+      if final_grade.nil?
+        final_grade = FinalGrade.new user: @submission.user, assessment: @assessment, submission: @submission
+      elsif final_grade.submission != @submission and @submission.grade > final_grade.submission.grade
+        final_grade.submission = @submission
+      end
+
+      final_grade.save
+
       @submission.save
       return redirect_to root_path
     end
@@ -62,6 +73,13 @@ class SubmissionsController < ApplicationController
 
       if @submission.nil?
         not_found
+      end
+    end
+
+    def force_owner_instructor
+      if @launch_params.user != @submission.assessment.instructor
+        @message = t('errors.launch.not_permitted')
+        render 'general/error'
       end
     end
 

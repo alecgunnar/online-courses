@@ -60,5 +60,12 @@
       <p><%= link_to t('assessment.instructor.buttons.edit'), edit_assessment_path(@assessment), class: 'button button--block' %></p>
     </div>
   </div>
+  <div class="box box--dark">
+    <h3 class="box__title"><%= t 'assessment.instructor.titles.grades' %></h3>
+    <div class="box__content">
+      <p><%= t 'assessment.instructor.messages.grades' %></p>
+      <p><%= link_to t('assessment.instructor.buttons.view_grades'), view_final_grades_path(@assessment), class: 'button button--block' %></p>
+    </div>
+  </div>
 </div>
 <div class="clearBoth"></div>

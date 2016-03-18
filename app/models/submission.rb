@@ -3,6 +3,7 @@ class Submission < ActiveRecord::Base
   belongs_to :assessment
 
   has_many :test_driver_results, dependent: :destroy
+  has_one :final_grade, dependent: :destroy
 
   accepts_nested_attributes_for :test_driver_results
 

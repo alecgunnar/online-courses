@@ -20,11 +20,7 @@ class AssessmentsController < ApplicationController
       end
 
       @submissions = Submission.where user: @launch_params.user, assessment: @assessment
-      @grade       = 0
-
-      @submissions.each do |s|
-        @grade = s.grade if s.grade_approved and s.grade > @grade
-      end
+      @final_grade = FinalGrade.find_by user: @launch_params.user, assessment: @assessment
 
       render 'student'
     end
