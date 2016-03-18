@@ -1,0 +1,77 @@
+<% title t('submission.instructor.titles.reviewing') %>
+<% description t('submission.instructor.descriptions.reviewing') %>
+
+<% if @submission.errors.any? %>
+  <p class="message message--alert"><%= t 'submission.instructor.errors.there_are_errors' %></p>
+<% end %>
+
+<%= form_for @submission, url: submission_review_path(@submission) do |sf| %>
+  <div class="right right--seventy">
+    <%= sf.fields_for :test_driver_results do |rf| %>
+      <div class="box">
+        <h2 class="box__title">
+          <div class="box__title__smallText right">
+            <% if not rf.object.success %><span class="errorText">(<%= t('submission.instructor.messages.driver_failed') %>)</span> <% end %>
+            <%= t('submission.instructor.values.grade', achieved: rf.text_field(:grade, class: 'grade' << (rf.object.errors.any? ? ' error' : '')), maximum: rf.object.test_driver.points).html_safe %>
+          </div>
+          <%= File.basename rf.object.test_driver.file.url %>
+        </h2>
+        <div class="box__content box__content--tabs">
+          <ul class="tabs__nav">
+            <li class="tabs__button"><%= t('submission.instructor.buttons.stdout') %></li>
+            <li class="tabs__button"><%= t('submission.instructor.buttons.stderr') %></li>
+          </ul>
+          <div class="tabs__content">
+            <% if rf.object.output != '' %>
+              <pre class="box__content__output"><%=rf.object.output %></pre>
+            <% else %>
+              <div class="message message--warning"><%= t('submission.instructor.messages.no_stdout') %></div>
+            <% end %>
+          </div>
+          <div class="tabs__content">
+            <% if rf.object.error != '' %>
+              <pre class="box__content__output"><%= rf.object.error %></pre>
+            <% else %>
+              <div class="message message--warning"><%= t('submission.instructor.messages.no_stderr') %></div>
+            <% end %>
+          </div>
+          <div class="clearBoth"></div>
+        </div>
+        <% if rf.object.test_driver_result_files.length > 0 %>
+          <h3 class="box__title">Generated Files</h3>
+          <div class="box__rows">
+            <%= rf.fields_for :test_driver_result_files do |tdrff| %>
+              <div class="box__row box__row--thirds">
+                <div class="box__row__part"><%= tdrff.object.test_driver_file.name %></div>
+                <div class="box__row__part"><%= t('submission.instructor.values.grade', achieved: tdrff.text_field(:grade, class: 'grade' << (tdrff.object.errors.any? ? ' error' : '')), maximum: tdrff.object.test_driver_file.points).html_safe %></div>
+                <div class="box__row__part textRight">
+                  <% if not tdrff.object.nil? %>
+                    <%= link_to t('submission.instructor.buttons.download_generated_file'), download_result_file_path(tdrff.object), class: 'button button--small' %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="left left--thirty">
+    <div class="box box--dark">
+      <h3 class="box__title"><%= t 'submission.instructor.titles.submission_info' %></h3>
+      <div class="box__content">
+        <dl class="dataTable dataTable--keyValue">
+          <dt><%= t('submission.instructor.labels.student') %></dt>
+          <dd><%= @submission.user.full_name %></dd>
+          <dt><%= t('submission.instructor.labels.submission_date') %></dt>
+          <dd><%= l(@submission.upload_date, format: :due_date) %></dd>
+        </dl>
+      </div>
+      <div class="box__actions">
+        <%= sf.submit @submission.grade_approved ? t('submission.instructor.buttons.save_grade') : t('submission.instructor.buttons.approve_grade') %>
+        <%= link_to t('general.buttons.cancel'), root_path, class: 'button button--cancel', confirm: t('general.messages.cancel_confirm') %>
+      </div>
+    </div>
+  </div>
+  <div class="clearBoth"></div>
+<% end %>

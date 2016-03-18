@@ -1,3 +1,9 @@
-<% if not @back_path.nil? %><div class="right"><%= link_to @back_path[:label], @back_path[:path], class: 'button button--back' %></div><% end %>
-<% if not @page_title.nil? %><h1><%= @page_title %></h1><% end %>
+<div class="pageTitle">
+  <% if not @page_title.nil? %>
+    <h1 class="pageTitle__heading"><%= @page_title %></h1>
+  <% end %>
+  <% if not @back_path.nil? %>
+    <div class="pageTitle__backButton textRight"><%= link_to @back_path[:label], @back_path[:path], class: 'button button--back button--small' %></div>
+  <% end %>
+</div>
 <% if not @page_description.nil? %><section class="pageDescription"><%= @page_description %></section><% end %>

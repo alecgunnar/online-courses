@@ -1,0 +1,113 @@
+<% title t('assessment.instructor.titles.not_configured') %>
+<% description '123' %>
+
+<% if @assessment.errors.any? %>
+  <div class="message message--alert">
+    <p><%= t('general.messages.there_were_errors') %></p>
+    <ul>
+    <% @assessment.errors.full_messages.each do |m| %>
+      <li><%= m %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="box">
+  <h2 class="box__title"><%= t 'assessment.instructor.titles.creating' %></h2>
+  <%= form_for @assessment, url: @assessment.new_record? ? create_assessment_path : edit_assessment_path(@assessment) do |af| %>
+    <div class="box__form">
+      <div class="form__field">
+        <div class="field__label"><%= af.label :name %></div>
+        <div class="field__input"><%= af.text_field :name %></div>
+      </div>
+      <div class="form__field">
+        <div class="field__label"><%= af.label :description %></div>
+        <div class="field__input"><%= af.text_area :description %></div>
+      </div>
+      <div class="form__field">
+        <div class="field__label"><%= af.label :submit_limit %></div>
+        <div class="field__input">
+          <%= af.number_field :submit_limit, value: @assessment.submit_limit || 0, class: 'short' %>
+          <div class="field__description"><%= t 'assessment.instructor.descriptions.max_submits' %></div>
+        </div>
+      </div>
+      <div class="form__field">
+        <div class="field__label"><%= af.label :specs_file %></div>
+        <div class="field__input">
+          <%= af.file_field :specs_file %>
+          <% if not af.object.specs_file.url.nil? %><div class="field__description"><%= t 'general.descriptions.leave_blank_to_not_change', value: File.basename(af.object.specs_file.url) %></div><% end %>
+        </div>
+      </div>
+      <div class="form__field">
+        <div class="field__label"><%= af.label :due_date %></div>
+        <div class="field__input"><%= af.datetime_select :due_date, default: 7.days.from_now, ampm: true, order: [:month, :day, :year] %></div>
+      </div>
+    </div>
+    <h3 class="box__title">
+      <div class="box__title__smallText right"><%= af.add_nested_fields_link :test_drivers, t('assessment.instructor.buttons.add_test_driver'), class: 'button button--create button--small' %></div>
+      <%= t('assessment.instructor.titles.test_drivers') %>
+    </h3>
+    <div class="box__content">
+      <% driver_num = -1 %>
+      <%= af.nested_fields_for :test_drivers do |tdf| %>
+        <div class="form__group">
+          <div class="box__title textRight">
+            <div class="box__title__smallText"><%= t 'assessment.instructor.labels.remove_driver' %> <%= tdf.check_box :_destroy %></div>
+          </div>
+          <div class="box__form">
+            <div class="form__field">
+              <div class="field__label"><%= tdf.label :file %></div>
+              <div class="field__input">
+                <%= tdf.file_field :file %>
+                <% if not tdf.object.file.url.nil? %><div class="field__description"><%= t 'general.descriptions.leave_blank_to_not_change', value: File.basename(tdf.object.file.url) %></div><% end %>
+              </div>
+            </div>
+            <div class="form__field">
+              <div class="field__label"><%= tdf.label :points %></div>
+              <div class="field__input"><%= tdf.number_field :points, class: 'short' %></div>
+            </div>
+            <div class="form__field">
+              <div class="field__label"><%= tdf.label :downloadable %></div>
+              <div class="field__input">
+                <%= tdf.check_box :downloadable %>
+                <div class="field__description"><%= t 'assessment.instructor.descriptions.downloadable' %></div>
+              </div>
+            </div>
+          </div>
+          <h4 class="box__title">
+            <div class="box__title__smallText right"><%= tdf.add_nested_fields_link :test_driver_files, t('assessment.instructor.buttons.add_test_driver_file'), class: 'button button--create button--small' %></div>
+            <%= t('assessment.instructor.titles.test_driver_files') %>
+          </h4>
+          <div class="box__content">
+            <%= tdf.nested_fields_for :test_driver_files do |tdff| %>
+              <div class="form__group">
+                <div class="box__title textRight">
+                  <div class="box__title__smallText"><%= t 'assessment.instructor.labels.remove_driver' %> <%= tdff.check_box :_destroy %></div>
+                </div>
+                <div class="box__form">
+                  <div class="form__field">
+                    <div class="field__label"><%= tdff.label :name %></div>
+                    <div class="field__input">
+                      <%= tdff.text_field :name %>
+                      <div class="field__description"><%= t 'assessment.instructor.descriptions.test_driver_file_name' %></div>
+                    </div>
+                  </div>
+                  <div class="form__field">
+                    <div class="field__label"><%= tdff.label :points %></div>
+                    <div class="field__input"><%= tdff.number_field :points, class: 'short' %></div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            <% if tdf.object.test_driver_files.length == 0 %>
+              <p class="message message--information"><%= t 'assessment.instructor.messages.no_test_driver_files' %></p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="box__actions">
+      <%= af.submit class: 'button' %> <%= link_to t('general.buttons.cancel'), root_path, class: 'button button--cancel' %>
+    </div>
+  <% end %>
+</div>

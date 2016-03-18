@@ -1,0 +1,1 @@
+bash cheater.sh

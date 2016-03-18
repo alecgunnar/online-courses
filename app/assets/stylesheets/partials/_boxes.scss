@@ -1,72 +1,196 @@
 .box {
     border-radius: $border-radius;
     border: 1px solid $dark-gray;
-    padding: $padding;
     margin: 0 0 $margin;
 
     &.box--dark {
         background-color: $light-gray;
     }
 
-    &.box--noPad {
-        padding: 0;
-
-        .box__title {
-            margin: 0;
-        }
-
-        .box__actions {
-            margin: 0;
-        }
+    .box__title:first-of-type {
+        border-top: 0;
     }
+}
+
+.box,
+.form__group {
+    &> .box__title:first-child {
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+    }
+}
+
+.box__title,
+.box__content,
+.box__rows {
+    margin: 0;
+    border-width: 1px 0 0;
+    border-style: solid;
+    border-color: $dark-gray;
 }
 
 .box__title {
-    border-bottom: 1px solid $dark-gray;
+    background-color: $gray;
     padding: $padding;
-    margin: -1 * $padding;
-    margin-bottom: $margin;
 
-    .right {
-        margin-top: -1 * $padding + 3px;
+    .box__row__part {
+        padding: 0;
+        border: 0;
     }
 }
 
-.box__rows {
+.box__title__smallText {
+    font-size: 1rem;
+    font-weight: 100;
+
+    .button {
+        margin-top: -1 * $padding;
+    }
+}
+
+.box__content {
+    padding: $padding;
+
+    &.box__content--tabs {
+        padding: 0;
+    }
+}
+
+.box__content__output {
+    max-height: 300px;
+    overflow: auto;
+    margin: 0;
+    word-wrap: break-word;
+}
+
+.box__content--tabs {
+    .tabs__nav {
+        background-color: $light-gray;
+        margin: 0 0 $margin;
+        padding: 0;
+        border-width: 0 0 1px;
+        border-style: solid;
+        border-color: $dark-gray;
+
+        .tabs__button {
+            margin: 0 0 0 -5px;
+            list-style: none;
+            display: inline-block;
+            border-width: 0 1px 0 0;
+            border-style: solid;
+            border-color: $dark-gray;
+
+            &:first-of-type {
+                margin-left: 0;
+            }
+        }
+    }
+
+    .tabs__button {
+        padding: $padding;
+        border-width: 0 1px 0 0;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $gray;
+        }
+
+        &.tabs__button--active {
+            background-color: $white;
+            padding-bottom: $padding + 1;
+            margin-bottom: -1px;
+        }
+    }
+
+    .tabs__content {
+        display: none;
+        padding: 0 $padding $padding;
+
+        .box__content,
+        .box__rows {
+            &:first-of-type {
+                border-top: 0;
+            }
+        }
+
+        &.tabs__content--active {
+            display: block;
+        }
+
+        &.tabs__content--noPad {
+            padding: 0;
+            margin-top: -1 * $margin;
+        }
+    }
+}
+
+.box__rows,
+.box__form {
     display: table;
     width: 100%;
 }
 
-.box__row {
+.box__row,
+.form__field {
     display: table-row;
     width: 100%;
     vertical-align: middle;
 
-
-    &:nth-of-type(odd) {
+    &:nth-of-type(even) {
         background-color: $light-gray;
     }
 
-    &:last-of-type .box__row__part {
+    &:last-of-type .box__row__part,
+    &:last-of-type .field__label,
+    &:last-of-type .field__input {
         border: none;
     }
 
     &.box__row--small .box__row__part {
         padding: $padding / 3;
     }
+
+    &.box__row--thirds .box__row__part {
+        width: 33.3%;
+    }
+
+    &.box__row--warning {
+        background-color: $warning;
+    }
 }
 
-.box__row__part {
+.form__group {
+    border: 1px solid $gray;
+    border-radius: $border-radius;
+    margin: 0 0 $margin;
+}
+
+.box__row__part,
+.field__label,
+.field__input {
     padding: $padding;
     display: table-cell;
-    border-bottom: 1px solid $dark-gray;
+    border-width: 0 0 1px;
+    border-style: solid;
+    border-color: $dark-gray;
+    vertical-align: middle;
+}
+
+.field__label {
+    width: 30%;
+}
+
+.field__input {
+    width: 70%;
+}
+
+.field__description {
+    font-size: .8rem;
 }
 
 .box__actions {
     background-color: $light-gray;
     text-align: center;
-    border-top: 1px solid $dark-gray;
-    margin: $margin -1 * $padding -1 * $padding !important;
     padding: $padding;
 
     a, button, input {
@@ -74,6 +198,8 @@
     }
 }
 
-pre {
+.nested_fields {
+    border: none;
+    padding: 0;
     margin: 0;
 }

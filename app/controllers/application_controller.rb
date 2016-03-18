@@ -18,6 +18,20 @@ class ApplicationController < ActionController::Base
       raise ActionController::RoutingError.new('Not Found')
     end
 
+    def force_student
+      if @launch_params.instructor?
+        @message = t('errors.launch.not_permitted')
+        render 'general/error'
+      end
+    end
+
+    def force_instructor
+      if not @launch_params.instructor?
+        @message = t('errors.launch.not_permitted')
+        render 'general/error'
+      end
+    end
+
   private
     def has_launched
       if session[:launch_params].nil?

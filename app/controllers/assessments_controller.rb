@@ -2,50 +2,75 @@ class AssessmentsController < ApplicationController
   before_action :load_assessment
 
   def index
+    @configured = (not @assessment.new_record?)
+
     if @launch_params.instructor?
-      @test_drivers = TestDriver.all
-      puts @test_drivers
-      render 'instructor'
+      if @configured
+        @unreviewed_submissions = Submission.where(assessment: @assessment, grade_approved: false, graded: true)
+        @reviewed_submissions = Submission.where(assessment: @assessment, grade_approved: true)
+
+        render 'instructor'
+      else
+        render 'not_configured'
+      end
     else
-      if @assessment.new_record?
+      if not @configured or @assessment.test_drivers.length == 0
         @message = t('assessment.student.errors.not_configured')
         return render 'general/error'
       end
 
       @submissions = Submission.where user: @launch_params.user, assessment: @assessment
+      @grade       = 0
+
+      @submissions.each do |s|
+        @grade = s.grade if s.grade_approved and s.grade > @grade
+      end
 
       render 'student'
     end
-  end
-
-  def new
-
-  end
-
-  def create
-    @assessment.attributes = assessment_params
-    @assessment.instructor = @launch_params.user
-    @assessment.save!
-    redirect_to root_path
-  end
-
-  def edit
-    
-  end
-
-  def update
-    @assessment.update! assessment_params
-    redirect_to root_path
   end
 
   def specs
     assessment = Assessment.find params[:id]
 
     if not assessment.nil?
-      return send_file "#{Rails.root}/spikes/#{assessment.specs_file}"
+      return send_file assessment.specs_file.url
     end
 
     not_found
+  end
+
+  def new
+    @assessment.test_drivers = [TestDriver.new]
+
+    render 'form'
+  end
+
+  def create
+    @assessment.attributes = assessment_params
+    @assessment.instructor = @launch_params.user
+
+    if @assessment.valid?
+      @assessment.save!
+      return redirect_to root_path
+    end
+
+    render 'form'
+  end
+
+  def edit
+    render 'form'
+  end
+
+  def update
+    @assessment.attributes = assessment_params
+
+    if @assessment.valid?
+      @assessment.save!
+      return redirect_to root_path
+    end
+
+    render 'form'
   end
 
   private
@@ -55,6 +80,6 @@ class AssessmentsController < ApplicationController
     end
 
     def assessment_params
-      params.require(:assessment).permit(:name, :submit_limit, :specs_file)
+      params.require(:assessment).permit(:name, :description, :submit_limit, :specs_file, :due_date, :add_test_driver, test_drivers_attributes: [:id, :_destroy, :file, :points, :downloadable, test_driver_files_attributes: [:id, :_destroy, :name, :points]])
     end
 end

@@ -23,15 +23,30 @@ body {
 
 // Typography
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     font-weight: 400;
     margin: 0 0 $margin;
     padding: 0;
 }
 
 h1 {
-    font-size: 2.2rem;
-    line-height: 2.3rem;
+    font-size: 2.3rem;
+    line-height: 2.4rem;
+}
+
+h2 {
+    font-size: 1.9rem;
+    line-height: 2rem;
+}
+
+h3 {
+    font-size: 1.6rem;
+    line-height: 1.7rem;
+}
+
+h4 {
+    font-size: 1.1rem;
+    line-height: 1.2rem;
 }
 
 h2 {
@@ -63,6 +78,10 @@ p {
     text-align: right;
 }
 
+.smallText {
+    font-size: .8rem;
+}
+
 *:last-child {
     margin-bottom: 0;
 }
@@ -72,7 +91,6 @@ p {
 .globalHeader {
     background-color: $primary;
     color: $white;
-    padding: 0 $padding;
     margin: 0 0 $margin;
 }
 
@@ -93,14 +111,6 @@ p {
     font-size: 1.5rem;
 }
 
-.userOptions {
-    float: right;
-
-    ul {
-        @extend .horizontalMenu;
-    }
-}
-
 // Primary Content
 
 .primaryContent {
@@ -108,6 +118,24 @@ p {
     padding: $padding;
     border-radius: $border-radius;
     border: 1px solid $dark-gray;
+}
+
+.pageTitle {
+    margin: -1 * $padding -1 * $padding 0;
+    padding: $padding;
+}
+
+.pageTitle__heading,
+.pageTitle__backButton {
+    display: inline;
+    width: 50%;
+    height: 50px;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.pageTitle__backButton {
+    float: right;
 }
 
 .pageDescription {
@@ -125,43 +153,10 @@ p {
     text-align: center;
     padding: $padding 0;
     box-sizing: border-box;
-}
 
-// Bootstrap
-
-.btn:focus {
-	outline:none !important;
-}
-
-.btn-file {
-    position: relative;
-    overflow: hidden;
-}
-.btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-    display: block;
-}
-
-.modal {
-	text-align: center;
-}
-
-.modal-dialog {
-	margin-top: 1%;
-	width: 80%;
-	display: inline-block;
-	vertical-align: middle;
+    .credits {
+        color: #999;
+    }
 }
 
 @import 'pages';

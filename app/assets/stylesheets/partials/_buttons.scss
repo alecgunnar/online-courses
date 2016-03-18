@@ -38,6 +38,10 @@
         display: block;
     }
 
+    &.button--medium {
+        padding: $padding / 1.5 $padding;
+    }
+
     &.button--small {
         padding: $padding / 2 $padding;
     }

@@ -57,6 +57,11 @@ GEM
     curb (0.9.1)
     daemons (1.2.3)
     debug_inspector (0.0.2)
+    delayed_job (4.1.1)
+      activesupport (>= 3.0, < 5.0)
+    delayed_job_active_record (4.1.0)
+      activerecord (>= 3.0, < 5)
+      delayed_job (>= 3.0, < 5)
     docker-api (1.26.0)
       excon (>= 0.38.0)
       json
@@ -95,6 +100,10 @@ GEM
     minitest (5.8.4)
     multi_json (1.11.2)
     mysql (2.9.1)
+    nested_form_fields (0.7.4)
+      coffee-rails (>= 3.2.1)
+      jquery-rails
+      rails (>= 3.2.0)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     oauth (0.4.7)
@@ -184,12 +193,15 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 4.1.0)
   curb
+  delayed_job
+  delayed_job_active_record
   docker-api
   ims-lti
   jbuilder (~> 2.0)
   jquery-rails
   mailcatcher
   mysql
+  nested_form_fields
   rails (= 4.2.1)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

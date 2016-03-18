@@ -58,6 +58,23 @@ lti:
 
 You will see two keys here, one public (key) and the other private (secret). For each of these fields, you will need to generate a distinct 32 character key. You can again run `rake secret`, then select 32 characters from the generated key to use.
 
+### Grader
+
+```yaml
+grader:
+  timeout: 20
+  max_bytes: 1024
+```
+
+`timeout` describes the maximum amount of time in seconds a student's code will be run for. The `max_bytes` value describes the point at which the stdout and/or stderr output from a student's program will be truncated.
+
+### Uploads
+
+```yaml
+uploads:
+  location: '/uploads'
+```
+
 ## Final Touches
 
 Now that the application is installed and configured, you are ready to run it. Start by restarting your web server, then open up a browser and navigate to the application.

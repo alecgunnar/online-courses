@@ -4,6 +4,7 @@ module Grader
   class Worker
     DOCKER_IMAGE_NAME     = 'wmucs/oc'
     CODE_FILE_PLACEHOLDER = '!code_file!'
+    STUDENT_HOME_DIR      = '/home/student'
 
     @@name
     @@container
@@ -13,7 +14,9 @@ module Grader
     def initialize
       chars  = ('a'..'z').to_a
       @@name = (0..9).map { chars[rand 26] }.join
-      
+
+      Docker.options[:read_timeout] = Rails.configuration.grader['timeout']
+
       @@container = Docker::Container.create('Cmd' => ['bash'], 'Image' => DOCKER_IMAGE_NAME, 'Tty' => true)
       @@container.start
     end
@@ -25,15 +28,42 @@ module Grader
 
     # Execute a command in the container
     def exec_cmd (cmd)
-      ret = @@container.exec(cmd)
+      begin
+        ret = @@container.exec(cmd)
 
-      ret[2] == 0 ? ret[0].join : false
+        {success: ret[2] == 0, stdout: ret[0].join, stderr: ret[1].join}
+      rescue Docker::Error::TimeoutError
+        {success: false, stdout: '', stderr: 'Execution timeout...'}
+      end
     end
 
     # Execute multiple commands
     def exec_cmds (cmds)
       cmds.each do |cmd|
         yield exec_cmd cmd
+      end
+    end
+
+    # Get a single file from the container
+    def get_file (name)
+      path = "/tmp/#{@@name}/"
+
+      Dir.mkdir path unless Dir.exists? path
+
+      offset = 0
+
+      save_name = (0..9).map { ('a'..'z').to_a[rand 26] }.join
+      save_path = "#{path}#{save_name}"
+
+      begin
+        @@container.copy name do |chunk|
+          IO.write save_path, chunk.force_encoding('UTF-8'), offset
+          offset += chunk.length
+        end
+
+        save_path
+      rescue Docker::Error::ServerError
+        false
       end
     end
 
@@ -44,19 +74,7 @@ module Grader
       Dir.mkdir path unless Dir.exists? path
 
       files.each do |id, name|
-        offset = 0
-
-        begin
-          @@container.copy name do |chunk|
-            save_name = (0..9).map { ('a'..'z').to_a[rand 26] }.join
-            save_path = "#{path}#{save_name}"
-            IO.write save_path, chunk, offset
-            offset += chunk.length
-            yield id, save_path
-          end
-        rescue Docker::Error::ServerError
-          yield id, false
-        end
+        yield id, get_file(name)
       end
     end
 
@@ -79,7 +97,7 @@ module Grader
 
     # Move files into the container
     def upload_files (files)
-      @@container.archive_in files, '/'
+      @@container.archive_in files, '.'
     end
   end
 end
