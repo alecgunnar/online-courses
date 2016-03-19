@@ -3,12 +3,14 @@ class LaunchController < ApplicationController
   skip_before_action :has_launched
 
   def verify
-    @provider = IMS::LTI::ToolProvider.new params['oauth_consumer_key'], Rails.configuration.lti['secret'], params
+    @provider = IMS::LTI::ToolProvider.new params[:oauth_consumer_key], Rails.configuration.lti['secret'], params
 
     if @provider.valid_request? request
       redirect_to launch_error_path, alert: t('errors.launch.invalid_launch_params') and return if params[:context_id].nil?
 
       update_launch_session_data params
+
+      persist_consumer_data
       persist_user_data
 
       redirect_to root_path
@@ -34,17 +36,14 @@ class LaunchController < ApplicationController
       user.save!
     end
 
-    # def send_grade
-    #   submissions = Submission.where user: @session.launch_params.user
-    #   best_grade  = 0
+    def persist_consumer_data
+      consumer = @session.consumer || Consumer.new
 
-    #   return if submissions.length == 0
+      consumer.assign_attributes({
+        key:         params[:oauth_consumer_key],
+        outcome_url: params[:lis_outcome_service_url]
+      })
 
-    #   submissions.each do |s|
-    #     grade = s.grade / s.assessment.points
-    #     best_grade = grade if grade > best_grade
-    #   end
-
-    #   @provider.post_replace_result! best_grade
-    # end
+      consumer.save!
+    end
 end

@@ -12,6 +12,7 @@ class Submission < ActiveRecord::Base
   validates :user, presence: true
   validates :assessment, presence: true
   validates :file, presence: true
+  validates :result_sourcedid, presence: true
 
   before_create :set_upload_date
 
@@ -20,8 +21,8 @@ class Submission < ActiveRecord::Base
   before_create :set_upload_date
   before_destroy :remove_files
 
-  def grade
-    TestDriverResult.select('SUM(test_driver_results.grade + IFNULL(test_driver_result_files.grade, 0)) as grade').joins('LEFT JOIN test_driver_result_files ON test_driver_result_files.test_driver_result_id = test_driver_results.id').where(submission: self)[0].grade || 0
+  def calculate_grade
+    self.update grade: TestDriverResult.select('SUM(test_driver_results.grade + IFNULL(test_driver_result_files.grade, 0)) as grade').joins('LEFT JOIN test_driver_result_files ON test_driver_result_files.test_driver_result_id = test_driver_results.id').where(submission: self)[0].grade || 0
   end
 
   private

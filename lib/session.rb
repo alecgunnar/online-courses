@@ -12,4 +12,8 @@ class Session
   def user
     User.find_by org_id: launch_params.org_def_id
   end
+
+  def consumer
+    Consumer.find_by key: launch_params.oauth_consumer_key
+  end
 end

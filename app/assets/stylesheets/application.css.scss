@@ -94,16 +94,11 @@ p {
     margin: 0 0 $margin;
 }
 
-#globalHeader__flash {
-    min-width: 500px;
-    margin: ($globalHeader-height / 2) - ($padding * 2) 0 0;
-    float: right;
-    display: none;
-}
-
 .globalHeader__welcome {
     line-height: $globalHeader-height;
+    text-align: right;
     float: right;
+    width: 50%;
 }
 
 .globalHeader__branding {

@@ -3,6 +3,7 @@ class Assessment < ActiveRecord::Base
   has_many :test_drivers, dependent: :destroy
   has_many :final_grades
 
+  belongs_to :consumer
   belongs_to :instructor, class_name: 'User', foreign_key: 'user_id'
 
   accepts_nested_attributes_for :test_drivers, allow_destroy: true
@@ -12,13 +13,10 @@ class Assessment < ActiveRecord::Base
   validates :name, presence: true
   validates :submit_limit, numericality: { greater_than_or_equal_to: 0 }
   validates :specs_file, presence: true
+  validates :consumer, presence: true
   validate :validate_due_date
 
   before_destroy :remove_files
-
-  def points
-    TestDriver.select('SUM(test_drivers.points + IFNULL(test_driver_files.points, 0)) as points').joins('LEFT JOIN test_driver_files ON test_driver_files.test_driver_id = test_drivers.id').where(assessment: self)[0].points || 0
-  end
 
   def open?
     due_date.nil? or (Time.new < due_date)
@@ -26,6 +24,10 @@ class Assessment < ActiveRecord::Base
 
   def more_submissions_allowed? (num_so_far)
     submit_limit == 0 or num_so_far < submit_limit
+  end
+
+  def calculate_points
+    self.update points: TestDriver.select('SUM(test_drivers.points + IFNULL(test_driver_files.points, 0)) as points').joins('LEFT JOIN test_driver_files ON test_driver_files.test_driver_id = test_drivers.id').where(assessment: self)[0].points || 0
   end
 
   private

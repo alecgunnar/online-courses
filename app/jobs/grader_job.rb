@@ -41,6 +41,7 @@ class GraderJob < ActiveJob::Base
       worker.close
     end
 
+    submission.calculate_grade
     submission.update graded: true
   end
 

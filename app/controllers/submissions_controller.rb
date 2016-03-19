@@ -17,8 +17,11 @@ class SubmissionsController < ApplicationController
 
   def upload
     @submission            = Submission.new upload_submission_params
-    @submission.assessment = @assessment
-    @submission.user       = @session.user
+    @submission.assign_attributes({
+      assessment:       @assessment,
+      user:             @session.user,
+      result_sourcedid: @session.launch_params.lis_result_sourcedid 
+    })
 
     if @submission.validate
       @submission.save!
@@ -46,17 +49,16 @@ class SubmissionsController < ApplicationController
     @submission.attributes = submission_params
 
     if @submission.valid?
-      final_grade = FinalGrade.find_by user: @submission.user, assessment: @assessment
+      @submission.save!
+      @submission.calculate_grade
 
-      if final_grade.nil?
-        final_grade = FinalGrade.new user: @submission.user, assessment: @assessment, submission: @submission
-      elsif final_grade.submission != @submission and @submission.grade > final_grade.submission.grade
-        final_grade.submission = @submission
-      end
+      final_grade            = FinalGrade.find_by(user: @submission.user, assessment: @assessment) || FinalGrade.new(user: @submission.user, assessment: @assessment)
+      final_grade.submission = Submission.where(user: @submission.user, assessment: @assessment).order('grade DESC').limit(1)[0]
+      
+      final_grade.save!
 
-      final_grade.save
+      post_grade
 
-      @submission.save
       return redirect_to root_path
     end
 
@@ -68,6 +70,17 @@ class SubmissionsController < ApplicationController
   end
 
   private
+    def post_grade
+      provider = IMS::LTI::ToolProvider.new(@assessment.consumer.key, Rails.configuration.lti['secret'], {
+        'lis_outcome_service_url' => @assessment.consumer.outcome_url,
+        'lis_result_sourcedid'    => @submission.result_sourcedid
+      })
+
+      puts provider.to_params
+
+      provider.post_replace_result! @submission.final_grade.decimal_result
+    end
+
     def load_submission
       @submission = Submission.find_by_id params[:id]
 

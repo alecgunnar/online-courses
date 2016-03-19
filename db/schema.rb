@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318134024) do
+ActiveRecord::Schema.define(version: 20160319015008) do
 
   create_table "assessments", force: :cascade do |t|
     t.string   "name",         limit: 255
@@ -21,10 +21,20 @@ ActiveRecord::Schema.define(version: 20160318134024) do
     t.integer  "user_id",      limit: 4
     t.text     "description",  limit: 65535
     t.datetime "due_date"
+    t.integer  "points",       limit: 4,     default: 0
+    t.integer  "consumer_id",  limit: 4
   end
 
+  add_index "assessments", ["consumer_id"], name: "index_assessments_on_consumer_id", using: :btree
   add_index "assessments", ["context"], name: "index_assessments_on_context", using: :btree
   add_index "assessments", ["user_id"], name: "index_assessments_on_user_id", using: :btree
+
+  create_table "consumers", force: :cascade do |t|
+    t.string "key",         limit: 255
+    t.string "outcome_url", limit: 255
+  end
+
+  add_index "consumers", ["key"], name: "index_consumers_on_key", unique: true, using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   limit: 4,     default: 0, null: false
@@ -53,12 +63,14 @@ ActiveRecord::Schema.define(version: 20160318134024) do
   add_index "final_grades", ["user_id"], name: "index_final_grades_on_user_id", using: :btree
 
   create_table "submissions", force: :cascade do |t|
-    t.integer  "user_id",        limit: 4
-    t.integer  "assessment_id",  limit: 4
-    t.string   "file",           limit: 255
+    t.integer  "user_id",          limit: 4
+    t.integer  "assessment_id",    limit: 4
+    t.string   "file",             limit: 255
     t.datetime "upload_date"
-    t.boolean  "grade_approved", limit: 1,   default: false
-    t.boolean  "graded",         limit: 1,   default: false
+    t.decimal  "grade",                        precision: 10, default: 0
+    t.boolean  "grade_approved",   limit: 1,                  default: false
+    t.boolean  "graded",           limit: 1,                  default: false
+    t.string   "result_sourcedid", limit: 255
   end
 
   add_index "submissions", ["assessment_id"], name: "index_submissions_on_assessment_id", using: :btree

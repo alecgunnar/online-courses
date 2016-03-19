@@ -8,9 +8,12 @@ class CreateAssessments < ActiveRecord::Migration
       t.belongs_to :user
       t.text :description
       t.datetime :due_date
+      t.integer :points, default: 0
+      t.belongs_to :consumer
     end
 
     add_index :assessments, :context
     add_index :assessments, :user_id
+    add_index :assessments, :consumer_id
   end
 end

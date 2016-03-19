@@ -44,10 +44,15 @@ class AssessmentsController < ApplicationController
 
   def create
     @assessment.attributes = assessment_params
-    @assessment.instructor = @session.user
+    @assessment.assign_attributes({
+      instructor: @session.user,
+      consumer:   @session.consumer
+    })
 
     if @assessment.valid?
       @assessment.save!
+      @assessment.calculate_points
+
       return redirect_to root_path
     end
 
@@ -63,6 +68,8 @@ class AssessmentsController < ApplicationController
 
     if @assessment.valid?
       @assessment.save!
+      @assessment.calculate_points
+
       return redirect_to root_path
     end
 
