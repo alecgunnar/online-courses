@@ -18,7 +18,7 @@ class SubmissionsController < ApplicationController
   def upload
     @submission            = Submission.new upload_submission_params
     @submission.assessment = @assessment
-    @submission.user       = @launch_params.user
+    @submission.user       = @session.user
 
     if @submission.validate
       @submission.save!
@@ -77,14 +77,14 @@ class SubmissionsController < ApplicationController
     end
 
     def force_owner_instructor
-      if @launch_params.user != @submission.assessment.instructor
+      if @session.user != @submission.assessment.instructor
         @message = t('errors.launch.not_permitted')
         render 'general/error'
       end
     end
 
     def check_configured
-      @assessment = Assessment.find_by context: @launch_params.context_id
+      @assessment = Assessment.find_by context: @session.launch_params.context_id
 
       if @assessment.nil? 
         @message = t('submission.errors.not_configured')
@@ -93,7 +93,7 @@ class SubmissionsController < ApplicationController
     end
 
     def check_ownership
-      if @launch_params.user != @submission.user and @launch_params.user != @submission.assessment.user
+      if @session.user != @submission.user and @session.user != @submission.assessment.user
         @message = t('errors.general.no_permission')
         return render 'general/error'
       end
@@ -106,7 +106,7 @@ class SubmissionsController < ApplicationController
       end
 
       if not @assessment.submit_limit.nil? and @assessment.submit_limit > 0
-        num_submissions = Submission.count assessment: @assessment, user: @launch_params.user
+        num_submissions = Submission.count assessment: @assessment, user: @session.user
 
         if num_submissions >= @assessment.submit_limit
           @message = t('submission.errors.too_many_submissions')

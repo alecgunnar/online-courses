@@ -11,8 +11,6 @@ class LaunchController < ApplicationController
       update_launch_session_data params
       persist_user_data
 
-      send_grade
-
       redirect_to root_path
     else
       redirect_to launch_error_path, alert: t('errors.launch.invalid_launch')
@@ -21,35 +19,32 @@ class LaunchController < ApplicationController
 
   def error
     flash.keep
-
     render 'general/error'
   end
 
   private
     def persist_user_data
-      return if params[:user_id].nil?
-
-      user = User.exists?(org_id: params[:user_id]) ? @launch_params.user : User.new
+      user = @session.user || User.new
 
       user.first_name = params[:lis_person_name_given]
       user.last_name  = params[:lis_person_name_family]
       user.email      = params[:lis_person_contact_email_primary]
-      user.org_id     = params[:user_id]
+      user.org_id     = @session.launch_params.org_def_id
 
       user.save!
     end
 
-    def send_grade
-      submissions = Submission.where user: @launch_params.user
-      best_grade  = 0
+    # def send_grade
+    #   submissions = Submission.where user: @session.launch_params.user
+    #   best_grade  = 0
 
-      return if submissions.length == 0
+    #   return if submissions.length == 0
 
-      submissions.each do |s|
-        grade = s.grade / s.assessment.points
-        best_grade = grade if grade > best_grade
-      end
+    #   submissions.each do |s|
+    #     grade = s.grade / s.assessment.points
+    #     best_grade = grade if grade > best_grade
+    #   end
 
-      @provider.post_replace_result! best_grade
-    end
+    #   @provider.post_replace_result! best_grade
+    # end
 end

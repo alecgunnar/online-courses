@@ -11,7 +11,9 @@ class ApplicationController < ActionController::Base
   protected
     def update_launch_session_data (params)
       session[:launch_params] = params
-      @launch_params          = LaunchParams.new params
+      launch_params           = LaunchParams.new params
+
+      @session = Session.new launch_params
     end
 
     def not_found
@@ -19,14 +21,14 @@ class ApplicationController < ActionController::Base
     end
 
     def force_student
-      if @launch_params.instructor?
+      if @session.instructor?
         @message = t('errors.launch.not_permitted')
         render 'general/error'
       end
     end
 
     def force_instructor
-      if not @launch_params.instructor?
+      if not @session.instructor?
         @message = t('errors.launch.not_permitted')
         render 'general/error'
       end

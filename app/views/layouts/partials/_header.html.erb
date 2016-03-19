@@ -5,8 +5,8 @@
       <p class="message message--notice"><%= flash[:notice] %></p>
     </div>
     <% end %>
-    <% if not @launch_params.nil? %>
-      <div class="globalHeader__welcome"><%= t 'greeting' %> <%= @launch_params.first_name %></div>
+    <% if not @session.user.nil? %>
+      <div class="globalHeader__welcome"><%= t 'greeting' %> <%= @session.user.first_name %></div>
     <% end %>
     <div class="globalHeader__branding">Online Courses</div>
   </div>

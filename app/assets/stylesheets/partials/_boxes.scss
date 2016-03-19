@@ -132,24 +132,16 @@
     width: 100%;
 }
 
-.box__form.box__form--vertical {
-    &, 
-    .form__field,
+.box__form.box__form--narrow {
     .field__label,
     .field__input {
-        display: block;
-        width: 100%;
+        width: 50%;
     }
 
-    .form__field {
-        padding: $padding;
-        box-sizing: border-box;
-    }
-
-    .field__label,
     .field__input {
-        border: none;
-        padding: 0;
+        input, select, textarea {
+            width: 100%;
+        }
     }
 }
 

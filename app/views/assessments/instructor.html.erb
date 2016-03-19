@@ -55,7 +55,7 @@
         <dt><%= t 'assessment.instructor.labels.due_date' %></dt>
         <dd><%= (not @assessment.due_date.nil?) ? l(@assessment.due_date, format: :due_date) : t('assessment.instructor.defaults.no_due_date') %></dd>
         <dt><%= t 'assessment.instructor.labels.allowed_submits' %></dt>
-        <dd><%= (not @assessment.submit_limit.nil?) ? @assessment.submit_limit : t('assessment.instructor.defaults.unlimited_submits') %></dd>
+        <dd><%= @assessment.submit_limit > 0 ? @assessment.submit_limit : t('assessment.instructor.defaults.unlimited_submits') %></dd>
       </dl>
       <p><%= link_to t('assessment.instructor.buttons.edit'), edit_assessment_path(@assessment), class: 'button button--block' %></p>
     </div>

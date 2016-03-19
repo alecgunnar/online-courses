@@ -1,0 +1,10 @@
+<pre>
+<% if @data.length > 0 %>
+  <% @data.each_with_index do |d, i| %>
+    <% if i == 0 %>
+<% d.keys.each_with_index do |k, ki| %><% if ki > 0 %>,<% end %><%= k %><% end %>
+    <% end %>
+<% d.keys.each_with_index do |k, ki| %><% if ki > 0 %>,<% end %><%= d[k] %><% end %>
+  <% end %>
+<% end %>
+</pre>

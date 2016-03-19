@@ -3,23 +3,15 @@ require 'ims/lti'
 class LaunchParams
   include IMS::LTI::LaunchParams
 
+  attr_accessor :org_def_id
+
   def initialize (params)
+    self.org_def_id = params[Rails.configuration.lti['org_defined_id']]
+
     process_params params
-  end
-
-  def instructor?
-    if not @roles.nil? and not @roles.index('instructor').nil?
-      return true
-    end
-
-    false
   end
 
   def first_name
     @lis_person_name_given
-  end
-
-  def user
-    User.find_by org_id: self.user_id
   end
 end

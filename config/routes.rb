@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/result-file/:id/download', to: 'test_driver_result_files#download', as: :download_result_file, constraints: { id: /\d+/ }
 
   get '/grades/:id', to: 'final_grades#view', as: :view_final_grades, constraints: { id: /\d+/ }
+  post '/grades/:id/export', to: 'final_grades#export', as: :export_final_grades, constraints: { id: /\d+/ }
 
   post '/launch', to: 'launch#verify'
   get '/launch/error', to: 'launch#error', as: :launch_error

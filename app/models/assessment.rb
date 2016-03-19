@@ -20,6 +20,14 @@ class Assessment < ActiveRecord::Base
     TestDriver.select('SUM(test_drivers.points + IFNULL(test_driver_files.points, 0)) as points').joins('LEFT JOIN test_driver_files ON test_driver_files.test_driver_id = test_drivers.id').where(assessment: self)[0].points || 0
   end
 
+  def open?
+    due_date.nil? or (Time.new < due_date)
+  end
+
+  def more_submissions_allowed? (num_so_far)
+    submit_limit == 0 or num_so_far < submit_limit
+  end
+
   private
     def validate_due_date
       errors.add('Due date', 'must be a future date.') unless (not due_date.nil?) and due_date > Time.current

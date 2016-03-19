@@ -23,7 +23,7 @@
 </div>
 <div class="left left--thirty">
   <p>
-    <% if @assessment.due_date.nil? or (Time.current < @assessment.due_date and (@assessment.submit_limit.nil? or (not @assessment.submit_limit.nil? and @submissions.length < @assessment.submit_limit))) %>
+    <% if @assessment.open? and @assessment.more_submissions_allowed? @submissions.length %>
       <%= link_to t('assessment.student.buttons.new_submission'), upload_submission_path, class: 'button button--block button--create' %>
     <% else %>
       <span class="button button--block button--disabled"><%= t 'assessment.student.buttons.cannot_submit' %></span>
@@ -67,7 +67,7 @@
         <dt><%= t 'assessment.student.labels.final_grade' %></dt>
         <dd><%= t 'assessment.student.values.grade', achieved: (@final_grade.nil? ? 0 : @final_grade.submission.grade), maximum: @assessment.points %></dd>
         <dt><%= t 'assessment.student.labels.total_submissions' %></dt>
-        <dd><%= t 'assessment.student.values.num_submissions', total: @submissions.length, maximum: (not @assessment.submit_limit.nil?) ? @assessment.submit_limit : t('assessment.student.defaults.unlimited_submits') %></dd>
+        <dd><%= t 'assessment.student.values.num_submissions', total: @submissions.length, maximum: @assessment.submit_limit > 0 ? @assessment.submit_limit : t('assessment.student.defaults.unlimited_submits') %></dd>
       </dl>
     </div>
   </div>
