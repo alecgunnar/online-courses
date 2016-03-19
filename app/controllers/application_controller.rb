@@ -36,7 +36,9 @@ class ApplicationController < ActionController::Base
 
   private
     def has_launched
-      if session[:launch_params].nil?
+      update_launch_session_data session[:launch_params]
+
+      if @session.user.nil?
         redirect_to launch_error_path, alert: t('errors.launch.invalid_launch')
       else
         update_launch_session_data session[:launch_params]

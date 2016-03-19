@@ -4,8 +4,10 @@ class CreateUsers < ActiveRecord::Migration
       t.string :first_name
       t.string :last_name
       t.string :email
+      t.string :org_id
     end
 
     add_index :users, :email, unique: true
+    add_index :users, :org_id, unique: true
   end
 end

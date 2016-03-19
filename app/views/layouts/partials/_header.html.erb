@@ -1,12 +1,7 @@
 <header class="globalHeader">
   <div class="wrapper">
-    <% if not flash[:notice].nil? %>
-    <div id="globalHeader__flash">
-      <p class="message message--notice"><%= flash[:notice] %></p>
-    </div>
-    <% end %>
-    <% if not @session.user.nil? %>
-      <div class="globalHeader__welcome"><%= t 'greeting' %> <%= @session.user.first_name %></div>
+    <% if @session and not @session.user.nil? %>
+      <div class="globalHeader__welcome"><%= t 'general.messages.greeting', who: @session.user.first_name %></div>
     <% end %>
     <div class="globalHeader__branding">Online Courses</div>
   </div>

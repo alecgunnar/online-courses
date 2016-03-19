@@ -1,5 +1,4 @@
 en:
-  greeting: 'Hello'
   titles:
     error: 'There was an error'
     grader: 'Grading Submission'
@@ -166,6 +165,7 @@ en:
     buttons:
       go_back: 'Get me outa here!'
     messages:
+      greeting: 'Hello, %{who}'
       there_were_errors: 'There were errors with your submission, please correct them before continuing.'
       cancel_confirm: 'Any unsaved changes will be lost.'
     buttons:

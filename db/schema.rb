@@ -17,13 +17,14 @@ ActiveRecord::Schema.define(version: 20160318134024) do
     t.string   "name",         limit: 255
     t.string   "specs_file",   limit: 255
     t.integer  "submit_limit", limit: 4
-    t.string   "context",      limit: 255, null: false
-    t.integer  "user_id",      limit: 4,   null: false
-    t.string   "description",  limit: 255
+    t.string   "context",      limit: 255
+    t.integer  "user_id",      limit: 4
+    t.text     "description",  limit: 65535
     t.datetime "due_date"
   end
 
-  add_index "assessments", ["context"], name: "index_assessments_on_context", unique: true, using: :btree
+  add_index "assessments", ["context"], name: "index_assessments_on_context", using: :btree
+  add_index "assessments", ["user_id"], name: "index_assessments_on_user_id", using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   limit: 4,     default: 0, null: false
@@ -47,11 +48,15 @@ ActiveRecord::Schema.define(version: 20160318134024) do
     t.integer "submission_id", limit: 4
   end
 
+  add_index "final_grades", ["assessment_id"], name: "index_final_grades_on_assessment_id", using: :btree
+  add_index "final_grades", ["submission_id"], name: "index_final_grades_on_submission_id", using: :btree
+  add_index "final_grades", ["user_id"], name: "index_final_grades_on_user_id", using: :btree
+
   create_table "submissions", force: :cascade do |t|
     t.integer  "user_id",        limit: 4
     t.integer  "assessment_id",  limit: 4
     t.string   "file",           limit: 255
-    t.datetime "upload_date",                                null: false
+    t.datetime "upload_date"
     t.boolean  "grade_approved", limit: 1,   default: false
     t.boolean  "graded",         limit: 1,   default: false
   end
@@ -72,7 +77,7 @@ ActiveRecord::Schema.define(version: 20160318134024) do
     t.integer "test_driver_result_id", limit: 4
     t.integer "test_driver_file_id",   limit: 4
     t.string  "path",                  limit: 255
-    t.decimal "grade",                             precision: 10, default: 0
+    t.decimal "grade",                             precision: 10
   end
 
   add_index "test_driver_result_files", ["test_driver_file_id"], name: "index_test_driver_result_files_on_test_driver_file_id", using: :btree
@@ -82,17 +87,20 @@ ActiveRecord::Schema.define(version: 20160318134024) do
     t.integer "submission_id",  limit: 4
     t.integer "test_driver_id", limit: 4
     t.text    "output",         limit: 65535
-    t.decimal "grade",                        precision: 10, default: 0
     t.text    "error",          limit: 65535
-    t.boolean "success",        limit: 1
+    t.decimal "grade",                        precision: 10
+    t.boolean "success",        limit: 1,                    default: false
   end
+
+  add_index "test_driver_results", ["submission_id"], name: "index_test_driver_results_on_submission_id", using: :btree
+  add_index "test_driver_results", ["test_driver_id"], name: "index_test_driver_results_on_test_driver_id", using: :btree
 
   create_table "test_drivers", force: :cascade do |t|
     t.integer "assessment_id", limit: 4
     t.string  "name",          limit: 255
     t.decimal "points",                    precision: 10
     t.string  "file",          limit: 255
-    t.boolean "downloadable",  limit: 1
+    t.boolean "downloadable",  limit: 1,                  default: false
   end
 
   add_index "test_drivers", ["assessment_id"], name: "index_test_drivers_on_assessment_id", using: :btree
