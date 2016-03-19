@@ -16,12 +16,7 @@ class SubmissionsController < ApplicationController
   end
 
   def upload
-    @submission            = Submission.new upload_submission_params
-    @submission.assign_attributes({
-      assessment:       @assessment,
-      user:             @session.user,
-      result_sourcedid: @session.launch_params.lis_result_sourcedid 
-    })
+    @submission = Submission.new upload_submission_params.to_h.merge!({'assessment' => @assessment, 'user' => @session.user, 'result_sourcedid' => @session.launch_params.lis_result_sourcedid})
 
     if @submission.validate
       @submission.save!

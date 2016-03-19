@@ -29,9 +29,8 @@ class AssessmentsController < ApplicationController
   def specs
     assessment = Assessment.find params[:id]
 
-    if not assessment.nil?
-      return send_file assessment.specs_file.url
-    end
+    
+    return send_file(assessment.specs_file.url) if not assessment.nil?
 
     not_found
   end
@@ -43,11 +42,7 @@ class AssessmentsController < ApplicationController
   end
 
   def create
-    @assessment.attributes = assessment_params
-    @assessment.assign_attributes({
-      instructor: @session.user,
-      consumer:   @session.consumer
-    })
+    @assessment.attributes = assessment_params.to_h.merge!({'instructor' => @session.user, 'consumer' => @session.consumer})
 
     if @assessment.valid?
       @assessment.save!
