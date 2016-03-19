@@ -28,11 +28,11 @@ class FinalGradesController < ApplicationController
       if not options[:export_data].index('grade').nil?
         case options[:grade_format]
           when 'percent'
-            data_hash[:grade] = "#{fg.decimal_value * 100}%"
+            data_hash[:grade] = "#{fg.decimal_result * 100}%"
           when 'fraction'
             data_hash[:grade] = "#{fg.submission.grade} / #{fg.assessment.points}"
           else
-            data_hash[:grade] = fg.decimal_value
+            data_hash[:grade] = fg.decimal_result
         end
       end
 
