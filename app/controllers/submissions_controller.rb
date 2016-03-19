@@ -57,7 +57,7 @@ class SubmissionsController < ApplicationController
       
       final_grade.save!
 
-      post_grade
+      PostGradeJob.perform_later @submission.id
 
       return redirect_to root_path
     end
@@ -70,17 +70,6 @@ class SubmissionsController < ApplicationController
   end
 
   private
-    def post_grade
-      provider = IMS::LTI::ToolProvider.new(@assessment.consumer.key, Rails.configuration.lti['secret'], {
-        'lis_outcome_service_url' => @assessment.consumer.outcome_url,
-        'lis_result_sourcedid'    => @submission.result_sourcedid
-      })
-
-      puts provider.to_params
-
-      provider.post_replace_result! @submission.final_grade.decimal_result
-    end
-
     def load_submission
       @submission = Submission.find_by_id params[:id]
 
