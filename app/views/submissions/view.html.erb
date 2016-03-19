@@ -1,6 +1,6 @@
 <% title t('submission.student.titles.viewing_result') %>
-<% description t('submission.descriptions.viewing_result') %>
-<% back_path t('submission.buttons.go_back'), root_path %>
+<% description t('submission.student.descriptions.viewing_result') %>
+<% back_path t('submission.student.buttons.go_back'), root_path %>
 
 <div class="right right--seventy">
   <% if not @submission.graded %>
@@ -52,6 +52,8 @@
                 <div class="box__row__part textRight">
                   <% if not tdrf.nil? %>
                     <%= link_to t('submission.student.buttons.download_generated_file'), download_result_file_path(tdrf), class: 'button button--small' %>
+                  <% else %>
+                    <span class="button button--disabled button--small"><%= t'submission.student.buttons.not_generated' %></span>
                   <% end %>
                 </div>
               </div>

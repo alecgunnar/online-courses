@@ -2,12 +2,15 @@ class CreateAssessments < ActiveRecord::Migration
   def change
     create_table :assessments do |t|
       t.string :name
-      t.string :specs_file_name
-      t.integer :submit_limit, null: true, default: nil
-      t.string :context, null: false
-      t.references :user, null: false
+      t.string :specs_file
+      t.integer :submit_limit
+      t.string :context
+      t.belongs_to :user
+      t.text :description
+      t.datetime :due_date
     end
 
-    add_index :assessments, :context, unique: true
+    add_index :assessments, :context
+    add_index :assessments, :user_id
   end
 end

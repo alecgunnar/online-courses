@@ -1,0 +1,50 @@
+<% title t('final_grades.titles.viewing_grades') %>
+<% description t('final_grades.descriptions.viewing_grades') %>
+<% back_path t('final_grades.buttons.back_to_assessment'), root_path %>
+
+<div class="right right--seventy">
+  <div class="box">
+    <h2 class="box__title"><%= t 'final_grades.titles.current_grades' %></h2>
+    <% if @final_grades.length > 0 %>
+      <div class="box__rows">
+        <% @final_grades.each do |fg| %>
+          <div class="box__row box__row--halves">
+            <div class="box__row__part"><%= fg.user.full_name %></div>
+            <div class="box__row__part textRight"><%= t 'final_grades.values.grade', achieved: fg.submission.grade, maximum: fg.assessment.points %></div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="box__content">
+        <p class="message message--information"><%= t 'final_grades.messages.no_final_grades' %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="left left--thirty">
+  <div class="box box--dark">
+    <h3 class="box__title"><%= t 'final_grades.titles.export_grades' %></h3>
+    <%= form_tag export_final_grades_path(@assessment) do |ef| %>
+      <div class="box__form box__form--narrow">
+        <div class="form__field">
+          <div class="field__label"><%= t 'final_grades.labels.include_values' %></div>
+          <div class="field__input">
+            <%= select_tag :export_data, options_for_select(@export_data, ['name', 'id', 'grade']), multiple: true %>
+          </div>
+        </div>
+        <div class="form__field">
+          <div class="field__label"><%= t 'final_grades.labels.grade_format' %></div>
+          <div class="field__input"><%= select_tag :grade_format, options_for_select(@grade_formats) %></div>
+        </div>
+        <div class="form__field">
+          <div class="field__label"><%= t 'final_grades.labels.file_format' %></div>
+          <div class="field__input"><%= select_tag :file_format, options_for_select(@file_formats) %></div>
+        </div>
+      </div>
+      <div class="box__actions">
+        <%= submit_tag t('final_grades.buttons.export') %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="clearBoth"></div>

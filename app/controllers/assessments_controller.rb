@@ -4,10 +4,10 @@ class AssessmentsController < ApplicationController
   def index
     @configured = (not @assessment.new_record?)
 
-    if @launch_params.instructor?
+    if @session.instructor?
       if @configured
         @unreviewed_submissions = Submission.where(assessment: @assessment, grade_approved: false, graded: true)
-        @reviewed_submissions = Submission.where(assessment: @assessment, grade_approved: true)
+        @reviewed_submissions   = Submission.where(assessment: @assessment, grade_approved: true)
 
         render 'instructor'
       else
@@ -19,12 +19,8 @@ class AssessmentsController < ApplicationController
         return render 'general/error'
       end
 
-      @submissions = Submission.where user: @launch_params.user, assessment: @assessment
-      @grade       = 0
-
-      @submissions.each do |s|
-        @grade = s.grade if s.grade_approved and s.grade > @grade
-      end
+      @submissions = Submission.where user: @session.user, assessment: @assessment
+      @final_grade = FinalGrade.find_by user: @session.user, assessment: @assessment
 
       render 'student'
     end
@@ -48,7 +44,7 @@ class AssessmentsController < ApplicationController
 
   def create
     @assessment.attributes = assessment_params
-    @assessment.instructor = @launch_params.user
+    @assessment.instructor = @session.user
 
     if @assessment.valid?
       @assessment.save!
@@ -75,8 +71,8 @@ class AssessmentsController < ApplicationController
 
   private
     def load_assessment
-      @assessment         = Assessment.find_by(context: @launch_params.context_id) || Assessment.new
-      @assessment.context = @launch_params.context_id if @assessment.context.nil?
+      @assessment         = Assessment.find_by(context: @session.launch_params.context_id) || Assessment.new
+      @assessment.context = @session.launch_params.context_id if @assessment.context.nil?
     end
 
     def assessment_params

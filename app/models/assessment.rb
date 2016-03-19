@@ -1,6 +1,7 @@
 class Assessment < ActiveRecord::Base
   has_many :submissions
   has_many :test_drivers, dependent: :destroy
+  has_many :final_grades
 
   belongs_to :instructor, class_name: 'User', foreign_key: 'user_id'
 
@@ -17,6 +18,14 @@ class Assessment < ActiveRecord::Base
 
   def points
     TestDriver.select('SUM(test_drivers.points + IFNULL(test_driver_files.points, 0)) as points').joins('LEFT JOIN test_driver_files ON test_driver_files.test_driver_id = test_drivers.id').where(assessment: self)[0].points || 0
+  end
+
+  def open?
+    due_date.nil? or (Time.new < due_date)
+  end
+
+  def more_submissions_allowed? (num_so_far)
+    submit_limit == 0 or num_so_far < submit_limit
   end
 
   private

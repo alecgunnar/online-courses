@@ -6,7 +6,7 @@ x <- rnorm(20)
 
 sum(x)
 
-pdf('hist_plott.pdf')
+pdf('hist_plot.pdf')
 hist(x)
 
 print("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam elementum viverra purus ac mollis. Cras sagittis iaculis augue, ac posuere arcu pretium sed. Phasellus nibh lorem, placerat nec dictum non, posuere id ipsum. Suspendisse varius rutrum nisi, finibus tristique risus cursus non. Pellentesque eu velit quis purus posuere feugiat. Integer fringilla iaculis nisi, in placerat orci dignissim vel. Etiam maximus eros nec purus laoreet, sed vehicula neque porttitor. Sed at gravida elit, vitae pretium purus. Phasellus eu blandit metus. Nunc auctor cursus lectus quis tempus. Quisque velit lectus, ultricies nec neque eget, malesuada convallis nisl.

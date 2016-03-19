@@ -22,7 +22,9 @@
 
 .box__title,
 .box__content,
-.box__rows {
+.box__rows,
+.box__form,
+.box__actions {
     margin: 0;
     border-width: 1px 0 0;
     border-style: solid;
@@ -130,6 +132,19 @@
     width: 100%;
 }
 
+.box__form.box__form--narrow {
+    .field__label,
+    .field__input {
+        width: 50%;
+    }
+
+    .field__input {
+        input, select, textarea {
+            width: 100%;
+        }
+    }
+}
+
 .box__row,
 .form__field {
     display: table-row;
@@ -148,6 +163,10 @@
 
     &.box__row--small .box__row__part {
         padding: $padding / 3;
+    }
+
+    &.box__row--halves .box__row__part {
+        width: 50%;
     }
 
     &.box__row--thirds .box__row__part {

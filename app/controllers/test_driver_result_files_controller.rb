@@ -11,7 +11,7 @@ class TestDriverResultFilesController < ApplicationController
 
       not_found if @file.nil?
 
-      if @launch_params.user != @file.test_driver_result.submission.user and @launch_params.user != @file.test_driver_result.submission.assessment.instructor
+      if @session.user != @file.test_driver_result.submission.user and @session.user != @file.test_driver_result.submission.assessment.instructor
         @message = t 'errors.general.no_permission'
         render 'general/error'
       end

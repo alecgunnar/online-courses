@@ -10,6 +10,7 @@ secure:
 lti:
   key: ca6f3774db796899f474d1f664d3d963
   secret: 03d5ec7d98abdcb03056ba143ac85b11
+  org_defined_id: 'org_id'
 
 grader:
   timeout: 20
