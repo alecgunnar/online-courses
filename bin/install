@@ -15,7 +15,7 @@ puts "Welcome to the installation script!\n\nThis script will aid you in install
 
 gets
 
-run_check("Checking for supported operating system... ", RUBY_PLATFORM.downcase =~ /darwin|ubuntu/) do
+run_check("Checking for supported operating system... ", RUBY_PLATFORM.downcase =~ /darwin|linux/) do
   exit
 end
 
