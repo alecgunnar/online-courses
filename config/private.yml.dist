@@ -17,4 +17,4 @@ grader:
   max_bytes: 524288
 
 uploads:
-	location: '/uploads'
+  location: '/uploads'
