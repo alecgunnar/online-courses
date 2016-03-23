@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'carrierwave'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 
@@ -30,12 +28,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'ims-lti'
 
-gem 'curb'
-
 # Access an IRB console on exception pages or by using <%= console %> in views
 gem 'web-console', '~> 2.0', group: :development
 
 gem 'docker-api'
+
+gem 'carrierwave'
 
 gem 'delayed_job'
 gem 'delayed_job_active_record'
