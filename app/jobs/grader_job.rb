@@ -14,7 +14,7 @@ class GraderJob < ActiveJob::Base
       worker.upload_files [submission.file.url, t.file.url]
       output = worker.exec_cmd ['bash', File.basename(t.file.url)]
 
-      result.grade   = t.points if output[:success]
+      result.grade   = (t.points if output[:success]) || 0
       result.output  = check_output output[:stdout]
       result.error   = check_output output[:stderr]
       result.success = output[:success]
