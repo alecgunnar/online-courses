@@ -2,6 +2,8 @@ class TestDriverResultFilesController < ApplicationController
   before_action :load_file
 
   def download
+    no_permission if not @file.test_driver_file.downloadable and not @session.instructor?
+
     send_file @file.path
   end
 

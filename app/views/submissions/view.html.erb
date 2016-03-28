@@ -51,7 +51,11 @@
                 <div class="box__row__part"><%= t 'submission.student.values.grade', achieved: (not tdrf.nil?) ? tdrf.grade : 0, maximum: tdf.points %></div>
                 <div class="box__row__part textRight">
                   <% if not tdrf.nil? %>
-                    <%= link_to t('submission.student.buttons.download_generated_file'), download_result_file_path(tdrf), class: 'button button--small' %>
+                    <% if tdrf.test_driver_file.downloadable %>
+                      <%= link_to t('submission.student.buttons.download_generated_file'), download_result_file_path(tdrf), class: 'button button--small' %>
+                    <% else %>
+                      <span class="button button--disabled button--small"><%= t'submission.student.buttons.cannot_download' %></span>
+                    <% end %>
                   <% else %>
                     <span class="button button--disabled button--small"><%= t'submission.student.buttons.not_generated' %></span>
                   <% end %>

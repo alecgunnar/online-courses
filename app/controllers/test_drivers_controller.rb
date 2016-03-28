@@ -23,6 +23,8 @@ class TestDriversController < ApplicationController
       @test_driver.assessment = @assessment
       @test_driver.save
 
+      @assessment.calculate_points
+
       return redirect_to root_path
     end
 
@@ -38,6 +40,7 @@ class TestDriversController < ApplicationController
 
     if @test_driver.valid?
       @test_driver.save
+      @test_driver.assessment.calculate_points
 
       return redirect_to root_path
     end
@@ -47,19 +50,19 @@ class TestDriversController < ApplicationController
 
   private
     def load_assessment
-      @assessment = Assessment.find_by id: params[:id]
+      @assessment = Assessment.find_by_id params[:id]
 
       not_found if @assessment.nil?
       no_permision if @session.user != @assessment.instructor
     end
 
     def load_test_driver
-      @test_driver = TestDriver.find_by id: params[:id]
+      @test_driver = TestDriver.find_by_id params[:id]
 
       not_found if @test_driver.nil?
     end
 
     def test_driver_params
-      params.require(:test_driver).permit(:file, :points, :downloadable, test_driver_files_attributes: [:id, :name, :points, :_destroy])
+      params.require(:test_driver).permit(:file, :points, :downloadable, test_driver_files_attributes: [:id, :name, :points, :downloadable, :_destroy])
     end
 end
