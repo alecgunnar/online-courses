@@ -6,7 +6,7 @@ class FinalGradesController < ApplicationController
   before_action :load_final_grades
 
   EXPORT_DATA   = [['Student Name', 'name'], ['Student ID', 'id'], ['Grade', 'grade']]
-  GRADE_FORMATS = [['Decimal (0.0 - 1.0)', 'decimal'], ['Percent (0% - 100%)', 'percent'], ['Fraction (Earned / Maximum)', 'fraction']]
+  GRADE_FORMATS = [['Decimal (0.0 - 1.0)', 'decimal'], ['Percent (0% - 100%)', 'percent'], ['Fraction (Earned / Maximum)', 'fraction'], ['Points Earned', 'points']]
   FILE_FORMATS  = ['csv', 'json']
 
   def view
@@ -31,6 +31,8 @@ class FinalGradesController < ApplicationController
             data_hash[:grade] = "#{fg.decimal_result * 100}%"
           when 'fraction'
             data_hash[:grade] = "#{fg.submission.grade} / #{fg.assessment.points}"
+          when 'points'
+            data_hash[:grade] = "#{fg.submission.grade}"
           else
             data_hash[:grade] = fg.decimal_result
         end
