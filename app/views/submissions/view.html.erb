@@ -23,6 +23,9 @@
           <ul class="tabs__nav">
             <li class="tabs__button"><%= t('submission.student.buttons.stdout') %></li>
             <li class="tabs__button"><%= t('submission.student.buttons.stderr') %></li>
+            <% if r.test_driver.share_feedback %>
+              <li class="tabs__button"><%= t('submission.student.buttons.feedback') %></li>
+            <% end %>
           </ul>
           <div class="tabs__content">
             <% if r.output != '' %>
@@ -38,6 +41,11 @@
               <div class="message message--warning"><%= t('submission.student.messages.no_stderr') %></div>
             <% end %>
           </div>
+          <% if r.test_driver.share_feedback %>
+            <div class="tabs__content">
+              <pre class="box__content__output"><%= r.feedback %></pre>
+            </div>
+          <% end %>
           <div class="clearBoth"></div>
         </div>
         <% files = r.test_driver.test_driver_files %>

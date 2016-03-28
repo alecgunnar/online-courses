@@ -15,10 +15,18 @@ class GraderJob < ActiveJob::Base
       @worker.upload_files [@submission.file.url, t.file.url]
       output = @worker.exec_cmd ['bash', File.basename(t.file.url), @feedback_file]
 
-      result.grade   = pull_grade(t.points) || (t.points if output[:success]) || 0
-      result.output  = check_output output[:stdout]
-      result.error   = check_output output[:stderr]
-      result.success = output[:success]
+      feedback = pull_feedback(t.points)
+
+      if feedback != false
+        result.grade = feedback['grade']
+      else
+        result.grade = (t.points if output[:success]) || 0
+      end
+
+      result.output   = check_output output[:stdout]
+      result.error    = check_output output[:stderr]
+      result.feedback = feedback != false ? feedback['comments'] : ''
+      result.success  = output[:success]
 
       result.save
 
@@ -53,7 +61,7 @@ class GraderJob < ActiveJob::Base
       "#{name}.yml"
     end
 
-    def pull_grade (pts)
+    def pull_feedback (pts)
       file = @worker.get_file @feedback_file
 
       return false if not file
@@ -62,8 +70,12 @@ class GraderJob < ActiveJob::Base
         feedback = YAML.load_file file
         
         if feedback.has_key? 'pass' and feedback.has_key? 'fail'
-          return pts * (feedback['pass'].to_d / (feedback['pass'] + feedback['fail']))
+          feedback['grade'] = pts * (feedback['pass'].to_d / (feedback['pass'] + feedback['fail']))
         end
+
+        feedback['comments'] = '' unless feedback.has_key? 'comments'
+
+        return feedback
       rescue Psych::SyntaxError
         false
       end

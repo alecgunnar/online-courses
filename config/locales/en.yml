@@ -150,6 +150,7 @@ en:
         view_generated_file: 'View'
         stdout: 'STDOUT'
         stderr: 'STDERR'
+        feedback: 'Feedback'
         cannot_download: 'Cannot Download'
       defaults:
         no_grade: 'None'
