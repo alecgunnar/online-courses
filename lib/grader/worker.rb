@@ -52,7 +52,7 @@ module Grader
 
       offset = 0
 
-      save_name = (0..9).map { ('a'..'z').to_a[rand 26] }.join
+      save_name = (0..16).map { ('a'..'z').to_a[rand 26] }.join
       save_path = "#{path}#{save_name}"
 
       begin
@@ -61,7 +61,9 @@ module Grader
           offset += chunk.length
         end
 
-        save_path
+        system "tar -xf #{save_path} -C #{path}"
+
+        "#{path}#{name}"
       rescue Docker::Error::ServerError
         false
       end
