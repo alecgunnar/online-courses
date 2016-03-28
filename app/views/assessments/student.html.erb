@@ -1,26 +1,6 @@
 <% title @assessment.name %>
 <% description @assessment.description || t('assessment.student.messages.no_description').html_safe %>
 
-<div class="right right--seventy">
-  <div class="box<% if @submissions.length > 0 %> box--noPad<% end %>">
-    <h2 class="box__title"><%= t 'assessment.student.titles.submissions' %></h2>
-    <% if @submissions.length > 0 %>
-      <div class="box__rows">
-        <% @submissions.each do |s| %>
-          <div class="box__row box__row--thirds">
-            <div class="box__row__part"><%= l s.upload_date, format: :general %></div>
-            <div class="box__row__part"><%= t 'assessment.student.values.grade', achieved: s.grade, maximum: s.assessment.points %><% if s.graded and not s.grade_approved %> <em class="smallText">(<%= t 'assessment.student.messages.waiting_for_approval' %>)</em><% elsif not s.graded %> <em class="smallText">(<%= t 'assessment.student.messages.waiting_for_grading' %>)</em><% end %></div>
-            <div class="box__row__part textRight"><%= link_to t('assessment.student.buttons.submission_more_info'), submission_results_path(s), class: 'button button--small' %></div>
-          </div>
-        <% end %>
-      </div>
-    <% else %>
-      <div class="box__content">
-        <p class="message message--warning"><%= t 'assessment.student.messages.no_submissions' %></p>
-      </div>
-    <% end %>
-  </div>
-</div>
 <div class="left left--thirty">
   <p>
     <% if @assessment.open? and @assessment.more_submissions_allowed? @submissions.length %>
@@ -70,6 +50,26 @@
         <dd><%= t 'assessment.student.values.num_submissions', total: @submissions.length, maximum: @assessment.submit_limit > 0 ? @assessment.submit_limit : t('assessment.student.defaults.unlimited_submits') %></dd>
       </dl>
     </div>
+  </div>
+</div>
+<div class="right right--seventy">
+  <div class="box<% if @submissions.length > 0 %> box--noPad<% end %>">
+    <h2 class="box__title"><%= t 'assessment.student.titles.submissions' %></h2>
+    <% if @submissions.length > 0 %>
+      <div class="box__rows">
+        <% @submissions.each do |s| %>
+          <div class="box__row box__row--thirds">
+            <div class="box__row__part"><%= l s.upload_date, format: :general %></div>
+            <div class="box__row__part"><%= t 'assessment.student.values.grade', achieved: s.grade, maximum: s.assessment.points %><% if s.graded and not s.grade_approved %> <em class="smallText">(<%= t 'assessment.student.messages.waiting_for_approval' %>)</em><% elsif not s.graded %> <em class="smallText">(<%= t 'assessment.student.messages.waiting_for_grading' %>)</em><% end %></div>
+            <div class="box__row__part textRight"><%= link_to t('assessment.student.buttons.submission_more_info'), submission_results_path(s), class: 'button button--small' %></div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="box__content">
+        <p class="message message--warning"><%= t 'assessment.student.messages.no_submissions' %></p>
+      </div>
+    <% end %>
   </div>
 </div>
 <div class="clearBoth"></div>

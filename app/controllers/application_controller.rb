@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
       raise ActionController::RoutingError.new('Not Found')
     end
 
+    def no_permission
+      raise ActionController::RoutingError.new('Unauthorized')
+    end
+
     def force_student
       if @session.instructor?
         @message = t('errors.launch.not_permitted')

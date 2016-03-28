@@ -36,6 +36,6 @@ class Assessment < ActiveRecord::Base
     end
 
     def remove_files
-      FileUtils.rmtree File.dirname(specs_file.url)
+      FileUtils.rmtree File.dirname(specs_file.url) if File.exists? specs_file.url
     end
 end

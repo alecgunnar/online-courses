@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   patch '/submission/:id/review', to: 'submissions#grade', constraints: { id: /\d+/ }
   get '/submission/:id/download', to: 'submissions#download', as: :download_submission, constraints: { id: /\d+/ }
 
+  get '/driver/:id/add', to: 'test_drivers#add', as: :add_test_driver, constraints: { id: /\d+/ }
+  post '/driver/:id/add', to: 'test_drivers#create', constraints: { id: /\d+/ }
+  get '/driver/:id/edit', to: 'test_drivers#edit', as: :edit_test_driver, constraints: { id: /\d+/ }
+  patch '/driver/:id/edit', to: 'test_drivers#update', constraints: { id: /\d+/ }
   get '/driver/:id/download', to: 'test_drivers#download', as: :download_driver, constraints: { id: /\d+/ }
 
   get '/result-file/:id/download', to: 'test_driver_result_files#download', as: :download_result_file, constraints: { id: /\d+/ }
