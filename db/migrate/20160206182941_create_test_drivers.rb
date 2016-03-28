@@ -6,6 +6,7 @@ class CreateTestDrivers < ActiveRecord::Migration
       t.decimal :points
       t.string :file
       t.boolean :downloadable, default: false
+      t.boolean :share_feedback, default: true
     end
 
     add_index :test_drivers, :assessment_id

@@ -5,6 +5,7 @@ class CreateTestDriverResults < ActiveRecord::Migration
       t.belongs_to :test_driver
       t.text :output
       t.text :error
+      t.text :feedback
       t.decimal :grade
       t.boolean :success, default: false
     end

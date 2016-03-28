@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 20160319015008) do
     t.integer "test_driver_id", limit: 4
     t.text    "output",         limit: 65535
     t.text    "error",          limit: 65535
+    t.text    "feedback",       limit: 65535
     t.decimal "grade",                        precision: 10
     t.boolean "success",        limit: 1,                    default: false
   end
@@ -109,11 +110,12 @@ ActiveRecord::Schema.define(version: 20160319015008) do
   add_index "test_driver_results", ["test_driver_id"], name: "index_test_driver_results_on_test_driver_id", using: :btree
 
   create_table "test_drivers", force: :cascade do |t|
-    t.integer "assessment_id", limit: 4
-    t.string  "name",          limit: 255
-    t.decimal "points",                    precision: 10
-    t.string  "file",          limit: 255
-    t.boolean "downloadable",  limit: 1,                  default: false
+    t.integer "assessment_id",  limit: 4
+    t.string  "name",           limit: 255
+    t.decimal "points",                     precision: 10
+    t.string  "file",           limit: 255
+    t.boolean "downloadable",   limit: 1,                  default: false
+    t.boolean "share_feedback", limit: 1,                  default: true
   end
 
   add_index "test_drivers", ["assessment_id"], name: "index_test_drivers_on_assessment_id", using: :btree
