@@ -7,21 +7,21 @@ en:
   assessment:
     instructor:
       titles:
-        not_configured: 'Configure Assessment'
+        configuring: 'Configuring Assignment'
         information: 'Assignment Information'
         submissions: 'Submissions'
-        creating: 'Configuring new assessment'
-        updating: 'Configuring new assessment'
+        creating: 'Configure'
+        updating: 'Configure'
         test_drivers: 'Test Drivers'
-        test_driver_files: 'Expected Output Files'
         grades: 'Grades'
+        general_info: 'Notice'
+        test_drivers: 'Test Drivers'
       descriptions:
         max_submits: 'Enter zero for unlimited.'
-        downloadable: 'Check the box to allow students to download this test driver.'
-        test_driver_file_name: "Enter the name of the file you expect to be created by the student's program."
       labels:
         due_date: 'Due Date'
         allowed_submits: 'Submit Limit'
+        specs_file: 'Specs File'
         remove_driver: 'Remove?'
       values:
         grade: '%{achieved} / %{maximum}'
@@ -32,15 +32,18 @@ en:
         review_notice: 'Submissions are separated based on whether or not they have been reviewed by an instructor. You may view each set of submissions below.'
         no_test_driver_files: 'No expected output files have been added.'
         grades: 'Click the button below to view all of the highest grades achieved by each student which has submitted to this assignment.'
+        general_info: 'Once you create this assignment, you must add test drivers. Without any test drivers, this assignment will not be available to the students.'
+        no_test_drivers: 'No test drivers have been added.'
       buttons:
         configure: 'Configure Assignment'
         edit: 'Edit Assignment'
         review: 'Review'
-        add_test_driver: 'Add Test Driver'
-        add_test_driver_file: 'Add Expected Output File'
         unreviewed_submissions: 'Unreviewed'
         reviewed_submissions: 'Reviewed'
         view_grades: 'View Grades'
+        download: 'Download'
+        add_test_driver: 'Add Test Driver'
+        manage_test_driver: 'Manage'
       defaults:
         no_due_date: 'Not Set'
         unlimited_submits: 'Unlimited'
@@ -50,6 +53,7 @@ en:
         submissions: 'Your Submissions'
         grade: 'Submission Information'
         drivers: 'Test Drivers'
+        information: 'Information'
       messages:
         no_description: '<em>A description has not been provided.</em>'
         no_submissions: 'You have not uploaded any submissions to this assignment.'
@@ -75,6 +79,23 @@ en:
         unlimited_submits: 'unlimited'
       errors:
         not_configured: 'This assignment has not been configured by the instructor.'
+  test_driver:
+    instructor:
+      titles:
+        managing: 'Managing Test Drivers'
+        creating: 'Adding Test Driver'
+        updating: 'Editing Test Driver'
+        test_driver_files: 'Expected Output Files'
+      descriptions:
+        downloadable: 'Check the box to allow students to download this file.'
+        test_driver_file_name: "Enter the name of the file you expect to be created by the student's program."
+      messages:
+        information: 'Double check the names of the expected output files!'
+      buttons:
+        add_test_driver_file: 'Add Expected Output File'
+        save: 'Save Test Driver'
+      labels:
+        remove_file: 'Remove?'
   submission:
     instructor:
       titles:

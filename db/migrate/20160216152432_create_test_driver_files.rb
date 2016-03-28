@@ -5,6 +5,7 @@ class CreateTestDriverFiles < ActiveRecord::Migration
       t.string :name
       t.decimal :points
       t.string :file
+      t.boolean :downloadable, default: true
     end
 
     add_index :test_driver_files, :test_driver_id

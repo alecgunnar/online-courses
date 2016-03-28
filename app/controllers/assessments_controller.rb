@@ -6,6 +6,8 @@ class AssessmentsController < ApplicationController
 
     if @session.instructor?
       if @configured
+        no_permission if @session.user != @assessment.instructor
+
         @unreviewed_submissions = Submission.where(assessment: @assessment, grade_approved: false, graded: true)
         @reviewed_submissions   = Submission.where(assessment: @assessment, grade_approved: true)
 
@@ -78,6 +80,6 @@ class AssessmentsController < ApplicationController
     end
 
     def assessment_params
-      params.require(:assessment).permit(:name, :description, :submit_limit, :specs_file, :due_date, :add_test_driver, test_drivers_attributes: [:id, :_destroy, :file, :points, :downloadable, test_driver_files_attributes: [:id, :_destroy, :name, :points]])
+      params.require(:assessment).permit(:name, :description, :submit_limit, :specs_file, :due_date)
     end
 end

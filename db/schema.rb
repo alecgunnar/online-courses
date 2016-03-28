@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20160319015008) do
     t.string  "name",           limit: 255
     t.decimal "points",                     precision: 10
     t.string  "file",           limit: 255
+    t.boolean "downloadable",   limit: 1,                  default: true
   end
 
   add_index "test_driver_files", ["test_driver_id"], name: "index_test_driver_files_on_test_driver_id", using: :btree

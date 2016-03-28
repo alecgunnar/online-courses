@@ -31,6 +31,6 @@ class Submission < ActiveRecord::Base
     end
 
     def remove_files
-      FileUtils.rmtree File.dirname(file.url)
+      FileUtils.rmtree File.dirname(file.url) if File.exists? file.url
     end
 end
