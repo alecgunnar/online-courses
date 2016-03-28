@@ -7,7 +7,7 @@
         background-color: $light-gray;
     }
 
-    .box__title:first-of-type {
+    .box__title:first-child {
         border-top: none;
     }
 }
