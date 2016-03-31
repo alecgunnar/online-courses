@@ -44,6 +44,13 @@
             <div class="field__description"><%= t 'test_driver.instructor.descriptions.downloadable' %></div>
           </div>
         </div>
+        <div class="form__field">
+          <div class="field__label"><%= tdf.label :share_feedback %></div>
+          <div class="field__input">
+            <%= tdf.check_box :share_feedback %>
+            <div class="field__description"><%= t 'test_driver.instructor.descriptions.share_feedback' %></div>
+          </div>
+        </div>
       </div>
       <h4 class="box__title"><%= t('test_driver.instructor.titles.test_driver_files') %></h4>
       <div class="box__content">

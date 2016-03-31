@@ -11,7 +11,7 @@ class TestDriversController < ApplicationController
   end
 
   def add
-    @test_driver = TestDriver.new
+    @test_driver = TestDriver.new downloadable: true, share_feedback: true
 
     render 'form'
   end
@@ -63,6 +63,6 @@ class TestDriversController < ApplicationController
     end
 
     def test_driver_params
-      params.require(:test_driver).permit(:file, :points, :downloadable, test_driver_files_attributes: [:id, :name, :points, :downloadable, :_destroy])
+      params.require(:test_driver).permit(:file, :points, :downloadable, :share_feedback, test_driver_files_attributes: [:id, :name, :points, :downloadable, :_destroy])
     end
 end

@@ -7,7 +7,7 @@ class FinalGradesController < ApplicationController
 
   EXPORT_DATA   = [['Student Name', 'name'], ['Student ID', 'id'], ['Grade', 'grade']]
   GRADE_FORMATS = [['Decimal (0.0 - 1.0)', 'decimal'], ['Percent (0% - 100%)', 'percent'], ['Fraction (Earned / Maximum)', 'fraction'], ['Points Earned', 'points']]
-  FILE_FORMATS  = ['csv', 'json']
+  FILE_FORMATS  = ['csv', 'json', 'yaml']
 
   def view
     @export_data    = EXPORT_DATA
@@ -61,6 +61,10 @@ class FinalGradesController < ApplicationController
           csv << d.values
         end
       end
+    end
+
+    def serialize_to_yaml
+      @data.to_yaml
     end
 
     def load_assessment

@@ -31,19 +31,23 @@
             <% if r.output != '' %>
               <pre class="box__content__output"><%= r.output %></pre>
             <% else %>
-              <div class="message message--warning"><%= t('submission.student.messages.no_stdout') %></div>
+              <p class="message message--warning"><%= t('submission.student.messages.no_stdout') %></p>
             <% end %>
           </div>
           <div class="tabs__content">
             <% if r.error != '' %>
               <pre class="box__content__output"><%= r.error %></pre>
             <% else %>
-              <div class="message message--warning"><%= t('submission.student.messages.no_stderr') %></div>
+              <p class="message message--warning"><%= t('submission.student.messages.no_stderr') %></p>
             <% end %>
           </div>
           <% if r.test_driver.share_feedback %>
             <div class="tabs__content">
-              <pre class="box__content__output"><%= r.feedback %></pre>
+              <% if r.feedback != '' %>
+                <pre class="box__content__output"><%= r.feedback %></pre>
+              <% else %>
+                <p class="message message--warning"><%= t('submission.student.messages.no_feedback') %></p>
+              <% end %>
             </div>
           <% end %>
           <div class="clearBoth"></div>
