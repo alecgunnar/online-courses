@@ -57,14 +57,14 @@
             <% @unreviewed_submissions.each do |s| %>
               <div class="box__row box__row--thirds">
                 <div class="box__row__part"><%= s.user.full_name %></div>
-                <div class="box__row__part"><%= t 'assessment.instructor.values.grade', achieved: s.grade, maximum: @assessment.points %><% if not s.grade_approved %> <em class="smallText">(<%= t 'assessment.instructor.messages.grade_not_approved' %>)</em><% end %></div>
+                <div class="box__row__part"><%= t 'assessment.instructor.values.grade', achieved: s.grade, maximum: @assessment.points %></div>
                 <div class="box__row__part textRight"><%= link_to t('assessment.instructor.buttons.review'), submission_review_path(s), class: 'button button--small' %></div>
               </div>
             <% end %>
           </div>
         <% else %>
           <div class="box__content">
-            <p><%= t 'assessment.instructor.messages.no_submissions' %></p>
+            <p class="message message--information"><%= t 'assessment.instructor.messages.no_submissions' %></p>
           </div>
         <% end %>
       </div>
@@ -81,7 +81,7 @@
           </div>
         <% else %>
           <div class="box__content">
-            <p><%= t 'assessment.instructor.messages.no_submissions' %></p>
+            <p class="message message--information"><%= t 'assessment.instructor.messages.no_submissions' %></p>
           </div>
         <% end %>
       </div>

@@ -12,13 +12,14 @@
   <div class="box box--dark">
     <h3 class="box__title"><%= t 'assessment.student.titles.information' %></h3>
     <div class="box__content">
-      <% if not @assessment.specs_file.nil? %>
-        <p><%= link_to t('assessment.student.buttons.view_specs'), assessment_specs_path(@assessment), class: 'button button--block' %></p>
-      <% end %>
+      
       <dl class="dataTable dataTable--keyValue">
         <dt><%= t 'assessment.student.labels.due_date' %></dt>
         <dd><%= (not @assessment.due_date.nil?) ? l(@assessment.due_date, format: :due_date) : t('assessment.student.defaults.no_due_date') %></dd>
       </dl>
+      <% if not @assessment.specs_file.nil? %>
+        <p><%= link_to t('assessment.student.buttons.view_specs'), assessment_specs_path(@assessment), class: 'button button--block' %></p>
+      <% end %>
     </div>
     <h4 class="box__title"><%= t 'assessment.student.titles.drivers' %></h4>
     <div class="box--noPad">

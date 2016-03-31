@@ -4,6 +4,6 @@ class FinalGrade < ActiveRecord::Base
   belongs_to :submission
 
   def decimal_result
-    submission.grade.to_d / assessment.points.to_d
+    submission.grade.to_f / assessment.points
   end
 end

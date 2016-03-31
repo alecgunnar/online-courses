@@ -18,7 +18,7 @@ class GraderJob < ActiveJob::Base
       feedback = pull_feedback(t.points)
 
       if feedback != false
-        result.grade = feedback['grade']
+        result.grade = feedback['grade'].ceil
       else
         result.grade = (t.points if output[:success]) || 0
       end
