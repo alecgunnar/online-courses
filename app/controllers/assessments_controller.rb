@@ -75,8 +75,8 @@ class AssessmentsController < ApplicationController
 
   private
     def load_assessment
-      @assessment         = Assessment.find_by(context: @session.launch_params.context_id) || Assessment.new
-      @assessment.context = @session.launch_params.context_id if @assessment.context.nil?
+      @assessment         = Assessment.find_by(context: @session.launch_params.resource_link_id) || Assessment.new
+      @assessment.context = @session.launch_params.resource_link_id if @assessment.context.nil?
     end
 
     def assessment_params

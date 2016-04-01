@@ -6,14 +6,14 @@ This article will guide you through the deployment process of this application, 
 
 This document is written assuming that you have experience with, and have already installed the following:
 
-- [Ubuntu Server](http://www.ubuntu.com/server) (Operating system)
-- [NGINX](http://nginx.org) (Web server)
-  - [Phusion Passenger](https://www.phusionpassenger.com) (NGINX extension)
+- [Ubuntu Server 14.04.x](http://www.ubuntu.com/server) (Operating system)
+- [NGINX 1.8.x](http://nginx.org) (Web server)
+  - [Phusion Passenger 5.0.x](https://www.phusionpassenger.com) (NGINX extension)
 - [Git](http://git-scm.org) (Source control)
-- [Ruby](http://ruby-lang.org) (Programming language)
-- [Ruby on Rails](http://rubyonrails.org) (Web framework)
-- [MySQL](https://www.mysql.com) (Database)
-- [Docker](https://www.docker.com) (Linux container manager)
+- [Ruby 2.3.x](http://ruby-lang.org) (Programming language)
+- [Ruby on Rails 4.2.x](http://rubyonrails.org) (Web framework)
+- [MySQL 14.14](https://www.mysql.com) (Database)
+- [Docker 1.10.x](https://www.docker.com) (Linux container manager)
 
 In addition to the previous assumptions, it will also be assumed that you are deploying in your production environment, and that you have `sudo` access. If you are developing, it is recommended that you do so locally, using Ruby on Rail's built in WEBrick web server.
 
