@@ -68,7 +68,7 @@ class FinalGradesController < ApplicationController
     end
 
     def load_assessment
-      @assessment = Assessment.find_by params[:id]
+      @assessment = Assessment.find_by_id params[:id]
       not_found if @assessment.nil?
     end
 
