@@ -15,17 +15,43 @@ This document is written assuming that you have experience with, and have alread
 - [MySQL](https://www.mysql.com) (Database)
 - [Docker](https://www.docker.com) (Linux container manager)
 
-In addition to the previous assumptions, it will also be assumed that you are deploying in your production environment, and that you have `sudo` access. If you are developing, it is recommended that you do so locally, using Ruby on Rail's built in webserver.
+In addition to the previous assumptions, it will also be assumed that you are deploying in your production environment, and that you have `sudo` access. If you are developing, it is recommended that you do so locally, using Ruby on Rail's built in WEBrick webserver.
 
 ## Installation
 
-Once you've cloned the application's source to your server, you are ready to install the application. To do this, a fancy script exists to do the work for you! Simply run `./bin/install` from the application's root directory. This script may take a few minutes to do all that it needs to. Once it's done, move on to the next section.
+Once you've cloned the application's source to your server, you are ready to install the application. To do this, a fancy script exists to do the work for you! Simply run `bin/install` from the application's root directory. This script may take a few minutes to do all that it needs to. Once it's done, move on to the next section.
+
+## Modify the Docker Initialization Script
+
+This application makes use of Docker's REST API. This API, however, is not started by the default init script. You must modify the init script `/etc/init/docker.conf/ to include the following:
+
+```conf
+DOCKER_OPTS='-H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock'
+```
+
+You should see a line which looks something like `DOCKER_OPTS=''`, replace that line with what's above.
 
 ## Configuration
 
-In the `config` directory, you should see a file named `private.yml`. It was created by the install script. Right now, it should contain only the generic, default configuration. You will need to update these values.
+In the `config` directory, you should see a file named `private.yml`. It was created by the install script. Right now, it should contain the default configuration. You will need to update these values, and setup the webserver.
 
 Read through the following sections to learn how to configure your application.
+
+### Web Server (NGINX)
+
+```nginx
+server {
+  listen 80;
+
+  root APP_ROOT/public;
+
+  passenger_enabled on;
+
+  rails_env production;
+}
+```
+
+You will need to change `APP_ROOT` to be the fully qualified name of the directory you cloned the application's into.
 
 ### Database
 
@@ -77,17 +103,6 @@ uploads:
 
 ## Final Touches
 
-Now that the application is installed and configured, you are ready to run it. Start by restarting your web server, then open up a browser and navigate to the application.
+Now that the application is installed and configured, you are ready to run it. Do to this, restart your web server, then open up a browser and navigate to the application.
 
-## Example NGINX Configuration
-
-Here is an example NGINX web server configuration. All you need to change, is the `<PATH TO PUBLIC>` placeholder. As the placeholder suggests, the fully qualified path to the `public` directory of the application on your server needs to go there.
-
-```nginx
-server {
-    listen 80;
-    root <PATH TO PUBLIC>;
-    passenger_enabled on;
-    rails_env production;
-}
-```
+You can now move onto [starting the application](starting-the-application.md).

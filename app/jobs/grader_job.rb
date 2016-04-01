@@ -2,31 +2,36 @@ class GraderJob < ActiveJob::Base
   def perform (id)
     @submission = Submission.find_by_id id
 
-    return if @submission.nil?
+    # Just consider this job done if the submission
+    # does not exist for whatever reason.
+    return true if @submission.nil?
 
     @submission.assessment.test_drivers.each do |t|
       @feedback_file = generate_feedback_file_name
       @worker        = Grader::Worker.new
-      result         = TestDriverResult.new
+      result         = TestDriverResult.new submission: @submission, test_driver: t
 
-      result.submission  = @submission
-      result.test_driver = t
-
+      # Put the students submission, and the instructor's
+      # driver into the container.
       @worker.upload_files [@submission.file.url, t.file.url]
+
+      # Run the driver, supplying the name of the expected
+      # feedback file to the driver.
       output = @worker.exec_cmd ['bash', File.basename(t.file.url), @feedback_file]
 
+      # Pull the feedback (if any) from the container.
       feedback = pull_feedback(t.points)
 
-      if feedback != false
-        result.grade = feedback['grade'].ceil
-      else
-        result.grade = (t.points if output[:success]) || 0
+      # We will use the grade supplied by the feedback.
+      if not feedback.nil?
+        result.grade    = feedback['grade'].ceil
+        result.feedback = feedback['comments']
       end
 
-      result.output   = check_output output[:stdout]
-      result.error    = check_output output[:stderr]
-      result.feedback = feedback != false ? feedback['comments'] : ''
-      result.success  = output[:success]
+      result.grade ||= (t.points if output[:success]) || 0
+      result.output  = check_output output[:stdout]
+      result.error   = check_output output[:stderr]
+      result.success = output[:success]
 
       result.save
 
@@ -56,36 +61,35 @@ class GraderJob < ActiveJob::Base
 
   private
     def generate_feedback_file_name
-      name = ('a'..'z').to_a.shuffle![0, 15].join
-
-      "#{name}.yml"
+      "#{('a'..'z').to_a.shuffle![0, 15].join}.yml"
     end
 
     def pull_feedback (pts)
       file = @worker.get_file @feedback_file
 
-      return false if not file
+      return nil if not file
 
       begin
-        feedback = YAML.load_file file
+        feedback = {
+          grade:    0,
+          comments: ''
+        }.merge! YAML.load_file file
         
         if feedback.has_key? 'pass' and feedback.has_key? 'fail'
           feedback['grade'] = pts * (feedback['pass'].to_d / (feedback['pass'] + feedback['fail']))
         end
 
-        feedback['comments'] = '' unless feedback.has_key? 'comments'
-
-        return feedback
+        feedback
       rescue Psych::SyntaxError
-        false
+        nil
       end
     end
 
     def check_output (value)
       if value.bytesize > Rails.configuration.grader['max_bytes']
-        value.byteslice(0, Rails.configuration.grader['max_bytes']) << " (Truncated to #{Rails.configuration.grader['max_bytes']} bytes)"
-      else
-        value
+        return value.byteslice(0, Rails.configuration.grader['max_bytes']) << " (Truncated to #{Rails.configuration.grader['max_bytes']} bytes)"
       end
+      
+      value
     end
 end
