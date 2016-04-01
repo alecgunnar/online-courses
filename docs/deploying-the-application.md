@@ -15,7 +15,7 @@ This document is written assuming that you have experience with, and have alread
 - [MySQL](https://www.mysql.com) (Database)
 - [Docker](https://www.docker.com) (Linux container manager)
 
-In addition to the previous assumptions, it will also be assumed that you are deploying in your production environment, and that you have `sudo` access. If you are developing, it is recommended that you do so locally, using Ruby on Rail's built in WEBrick webserver.
+In addition to the previous assumptions, it will also be assumed that you are deploying in your production environment, and that you have `sudo` access. If you are developing, it is recommended that you do so locally, using Ruby on Rail's built in WEBrick web server.
 
 ## Installation
 
@@ -23,7 +23,7 @@ Once you've cloned the application's source to your server, you are ready to ins
 
 ## Modify the Docker Initialization Script
 
-This application makes use of Docker's REST API. This API, however, is not started by the default init script. You must modify the init script `/etc/init/docker.conf/ to include the following:
+This application makes use of Docker's REST API. This API, however, is not started by the default init script. You must modify the init script `/etc/init/docker.conf` to include the following:
 
 ```conf
 DOCKER_OPTS='-H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock'
@@ -33,7 +33,7 @@ You should see a line which looks something like `DOCKER_OPTS=''`, replace that 
 
 ## Configuration
 
-In the `config` directory, you should see a file named `private.yml`. It was created by the install script. Right now, it should contain the default configuration. You will need to update these values, and setup the webserver.
+In the `config` directory, you should see a file named `private.yml`. It was created by the install script. Right now, it should contain the default configuration. You will need to update these values, and setup the web server.
 
 Read through the following sections to learn how to configure your application.
 
