@@ -81,7 +81,7 @@ class SubmissionsController < ApplicationController
     end
 
     def check_configured
-      @assessment = Assessment.find_by context: @session.launch_params.context_id
+      @assessment = Assessment.find_by context: @session.launch_params.resource_link_id
 
       if @assessment.nil? 
         @message = t('submission.errors.not_configured')
