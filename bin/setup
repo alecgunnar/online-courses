@@ -10,8 +10,13 @@ Dir.chdir APP_ROOT do
   system "bundle check || bundle install"
 
   puts "\n== Copying sample files =="
+
   unless File.exist?("config/private.yml")
     system "cp config/private.yml.dist config/private.yml"
+  end
+
+  unless File.exist?("Dockerfile")
+    system "cp Dockerfile.dist Dockerfile"
   end
 
   puts "\n== Preparing database =="
