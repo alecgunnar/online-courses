@@ -33,7 +33,7 @@ You should see a line which looks something like `DOCKER_OPTS=''`, replace that 
 
 ## Configuration
 
-In the `config` directory, you should see a file named `private.yml`. It was created by the install script. Right now, it should contain the default configuration. You will need to update these values, and setup the web server.
+In the `config` directory, you should see a file named `private.yml`. It was created by the install script. Right now, it should contain the default configuration. You will need to update these values, setup the web server, and setup your Docker image.
 
 Read through the following sections to learn how to configure your application.
 
@@ -52,6 +52,10 @@ server {
 ```
 
 You will need to change `APP_ROOT` to be the fully qualified name of the directory you cloned the application's into.
+
+### Docker Image
+
+Learn how to [support more languages](supporting-more-languages.md) with the Docker image.
 
 ### Database
 
