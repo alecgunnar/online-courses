@@ -1,4 +1,4 @@
-# Deploying the Application
+# Configuring and Deploying the Application
 
 This article will guide you through the deployment process of this application, it will not instruct you on how to install the needed operating system, web server, web server extensions, ect.
 

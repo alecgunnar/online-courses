@@ -14,9 +14,4 @@ The frontend is pretty typicle, it utilizes HTML, CSS3, and JavaScript. For fram
 
 # Documentation
 
-Select a topic from the list below. You may also look through the `docs` directory.
-
-- [Deploying the Application](docs/deploying-the-application.md)
-- [Starting the Application](docs/starting-the-application.md)
-- [Creating Test Drivers](docs/creating-test-drivers.md)
-- [Supporting More Languages](docs/supporting-more-languages.md)
+[Read the docs](docs/table-of-contents.md).
