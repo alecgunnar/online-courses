@@ -20,9 +20,6 @@
 /log
 
 /config/private.yml
-
-<<<<<<< dd8fd726e1bfe7528b0ff4ecce56a14ce07f200c
-=======
+Dockerfile
 /public/uploads
->>>>>>> Added grading and nicer design
 /uploads
