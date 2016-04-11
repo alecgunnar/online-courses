@@ -1,6 +1,6 @@
 # Documentation
 
-The following docs are meant to guide you throught the setup and use of the Online Courses applications.
+The following docs are meant to guide you through the setup, use, and maintenance of the Online Courses application.
 
 ## Table of Contents
 
@@ -8,3 +8,4 @@ The following docs are meant to guide you throught the setup and use of the Onli
 - [Starting the Application](starting-the-application.md)
 - [Creating Test Drivers](creating-test-drivers.md)
 - [Supporting More Languages](supporting-more-languages.md)
+- [Application Structure and Maintenance](application-structure-and-maintenance.md)
