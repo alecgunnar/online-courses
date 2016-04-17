@@ -5,7 +5,7 @@
   <p class="message message--alert"><%= t 'submission.instructor.errors.there_are_errors' %></p>
 <% end %>
 
-<%= form_for @submission, url: submission_review_path(@submission) do |sf| %>
+<%= form_for @submission, url: review_submission_path(@submission) do |sf| %>
   <div class="right right--seventy">
     <%= sf.fields_for :test_driver_results do |rf| %>
       <div class="box">

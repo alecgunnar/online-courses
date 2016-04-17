@@ -68,6 +68,7 @@
 .box__content--tabs {
     .tabs__nav {
         background-color: $light-gray;
+        font-size: 0;
         margin: 0 0 $margin;
         padding: 0;
         border-width: 0 0 1px;
@@ -75,7 +76,7 @@
         border-color: $dark-gray;
 
         .tabs__button {
-            margin: 0 0 0 -5px;
+            font-size: 1rem;
             list-style: none;
             display: inline-block;
             border-width: 0 1px 0 0;
@@ -90,7 +91,6 @@
 
     .tabs__button {
         padding: $padding;
-        border-width: 0 1px 0 0;
         cursor: pointer;
 
         &:hover {

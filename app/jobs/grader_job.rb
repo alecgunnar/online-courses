@@ -4,25 +4,40 @@ class GraderJob < ActiveJob::Base
 
     # Just consider this job done if the submission
     # does not exist for whatever reason.
-    return true if @submission.nil?
+
+    # return true if (@submission.nil? or @submission.graded)
+
+    # It is important to update this now, so that if the grader
+    # fails at somepoint, we will know since the graded value
+    # will still be false.
+
+    @submission.update graded_date: Time.now
+
+    # For each of the test drivers, run the submission
 
     @submission.assessment.test_drivers.each do |t|
       @feedback_file = generate_feedback_file_name
       @worker        = Grader::Worker.new
       result         = TestDriverResult.new submission: @submission, test_driver: t
 
-      # Put the students submission, and the instructor's
+      # Put the student's submission, and the instructor's
       # driver into the container.
-      @worker.upload_files [@submission.file.url, t.file.url]
+
+      @worker.upload_files [@submission.file.url]
+
+      upload_driver t.file.url
 
       # Run the driver, supplying the name of the expected
       # feedback file to the driver.
-      output = @worker.exec_cmd ['bash', File.basename(t.file.url), @feedback_file]
+
+      output = @worker.exec_cmd ["ls", "-l"]# ["./#{File.basename(t.file.url, '.*')}", @feedback_file]
 
       # Pull the feedback (if any) from the container.
+
       feedback = pull_feedback(t.points)
 
       # We will use the grade supplied by the feedback.
+
       if not feedback.nil?
         result.grade    = feedback['grade'].ceil
         result.feedback = feedback['comments']
@@ -62,6 +77,12 @@ class GraderJob < ActiveJob::Base
   private
     def generate_feedback_file_name
       "#{('a'..'z').to_a.shuffle![0, 15].join}.yml"
+    end
+
+    def upload_driver (f)
+      @worker.upload_files [f]
+
+      @worker.exec_cmd(['unzip', '-j', File.basename(f)]) if File.extname(f) == '.zip'
     end
 
     def pull_feedback (pts)

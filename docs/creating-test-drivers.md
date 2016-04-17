@@ -1,10 +1,14 @@
 # Creating Test Drivers
 
-For the instructors using this application, this document will describe how to create test drivers, and the capabilities of test drivers.
+For the instructors using this application, this document will describe how to create test drivers, and the capabilities of such.
 
 ## What can a test driver be?
 
-This applications expects each test driver to be a BASH script. This gives you as an instructor, the freedom to test student submissions however you'd like. You may have your test driver run any command available on an Ubuntu Trusty 14.04 install.
+A test driver must be an executable file, and a [#!](https://en.wikipedia.org/wiki/Shebang_(Unix)) should be used to specify how the driver should be interpreted. NO FILE EXTENSIONS SHOULD BE USED TO NAME THE DRIVER.
+
+### Packaing the Driver in an Archive
+
+If you need to included data files, or any files in addition to the driver itself, you may package them all within a ZIP archive. It is important to note that the driver contained within the archive, and the archive itself, must be named the exact same (disregarding the file extension). The driver must also be put in the root of the archive so that the grader can easily find it.
 
 ## How are submissions graded?
 

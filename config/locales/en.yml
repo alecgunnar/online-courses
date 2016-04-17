@@ -29,17 +29,21 @@ en:
         not_configured: 'This assignment has not been configured, it must be configured before students can submit their work!'
         no_submissions: 'No submissions to display.'
         grade_not_approved: 'Not Reviewed'
-        review_notice: 'Submissions are separated based on whether or not they have been reviewed by an instructor. You may view each set of submissions below.'
+        review_notice: 'Submissions are separated based on whether or not they have been reviewed by an instructor, also by whether or not the grader has graded them.'
         no_test_driver_files: 'No expected output files have been added.'
         grades: 'Click the button below to view all of the highest grades achieved by each student which has submitted to this assignment.'
         general_info: 'Once you create this assignment, you must add test drivers. Without any test drivers, this assignment will not be available to the students.'
         no_test_drivers: 'No test drivers have been added.'
+        grader_failed: 'GRADER FAILURE'
+        grader_failed_notice: 'The presence of a "GRADER FAILURE" message means that the grader encountered an internal error. It does not always mean the submission is invalid.'
       buttons:
         configure: 'Configure Assignment'
         edit: 'Edit Assignment'
         review: 'Review'
+        grade: 'Grade'
         unreviewed_submissions: 'Not Reviewed'
         reviewed_submissions: 'Reviewed'
+        ungraded_submissions: 'Ungraded'
         view_grades: 'View Grades'
         download: 'Download'
         add_test_driver: 'Add Test Driver'
@@ -124,6 +128,7 @@ en:
       errors:
         not_graded: 'This submission cannot be reviewed yet.'
         there_are_errors: 'One or more of the grades you entered was invalid. Grades must be numbers which are greater than or equal to zero.'
+        grader_failed: 'The grader failed to grade this assignment.'
     student:
       titles:
         upload: 'New Submission'

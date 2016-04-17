@@ -10,6 +10,7 @@ class AssessmentsController < ApplicationController
 
         @unreviewed_submissions = Submission.where(assessment: @assessment, grade_approved: false, graded: true)
         @reviewed_submissions   = Submission.where(assessment: @assessment, grade_approved: true)
+        @ungraded_submissions   = Submission.where(assessment: @assessment, graded: false)
 
         render 'instructor'
       else
@@ -30,7 +31,6 @@ class AssessmentsController < ApplicationController
 
   def specs
     assessment = Assessment.find params[:id]
-
     
     return send_file(assessment.specs_file.url) if not assessment.nil?
 

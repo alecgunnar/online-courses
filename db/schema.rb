@@ -66,11 +66,12 @@ ActiveRecord::Schema.define(version: 20160319015008) do
     t.integer  "user_id",          limit: 4
     t.integer  "assessment_id",    limit: 4
     t.string   "file",             limit: 255
-    t.datetime "upload_date"
     t.decimal  "grade",                        precision: 10, default: 0
     t.boolean  "grade_approved",   limit: 1,                  default: false
     t.boolean  "graded",           limit: 1,                  default: false
     t.string   "result_sourcedid", limit: 255
+    t.datetime "upload_date"
+    t.datetime "graded_date"
   end
 
   add_index "submissions", ["assessment_id"], name: "index_submissions_on_assessment_id", using: :btree

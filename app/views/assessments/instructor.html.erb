@@ -50,6 +50,7 @@
       <ul class="tabs__nav">
         <li class="tabs__button"><%= t('assessment.instructor.buttons.unreviewed_submissions') %></li>
         <li class="tabs__button"><%= t('assessment.instructor.buttons.reviewed_submissions') %></li>
+        <li class="tabs__button"><%= t('assessment.instructor.buttons.ungraded_submissions') %></li>
       </ul>
       <div class="tabs__content tabs__content--noPad">
         <% if @unreviewed_submissions.length > 0 %>
@@ -58,7 +59,7 @@
               <div class="box__row box__row--thirds">
                 <div class="box__row__part"><%= s.user.full_name %></div>
                 <div class="box__row__part"><%= t 'assessment.instructor.values.grade', achieved: s.grade, maximum: @assessment.points %></div>
-                <div class="box__row__part textRight"><%= link_to t('assessment.instructor.buttons.review'), submission_review_path(s), class: 'button button--small' %></div>
+                <div class="box__row__part textRight"><%= link_to t('assessment.instructor.buttons.review'), review_submission_path(s), class: 'button button--small' %></div>
               </div>
             <% end %>
           </div>
@@ -71,13 +72,33 @@
       <div class="tabs__content tabs__content--noPad">
         <% if @reviewed_submissions.length > 0 %>
           <div class="box__rows">
-            <% @reviewed_submissions.where(grade_approved: true).each do |s| %>
+            <% @reviewed_submissions.each do |s| %>
               <div class="box__row box__row--thirds">
                 <div class="box__row__part"><%= s.user.full_name %></div>
                 <div class="box__row__part"><%= t 'assessment.instructor.values.grade', achieved: s.grade, maximum: @assessment.points %><% if not s.grade_approved %> <em class="smallText">(<%= t 'assessment.instructor.messages.grade_not_approved' %>)</em><% end %></div>
-                <div class="box__row__part textRight"><%= link_to t('assessment.instructor.buttons.review'), submission_review_path(s), class: 'button button--small' %></div>
+                <div class="box__row__part textRight"><%= link_to t('assessment.instructor.buttons.review'), review_submission_path(s), class: 'button button--small' %></div>
               </div>
             <% end %>
+          </div>
+        <% else %>
+          <div class="box__content">
+            <p class="message message--information"><%= t 'assessment.instructor.messages.no_submissions' %></p>
+          </div>
+        <% end %>
+      </div>
+      <div class="tabs__content tabs__content--noPad">
+      <% if @ungraded_submissions.length > 0 %>
+          <div class="box__rows">
+            <% @ungraded_submissions.each do |s| %>
+              <div class="box__row box__row--thirds">
+                <div class="box__row__part"><%= s.user.full_name %></div>
+                <div class="box__row__part"><% if s.graded_date %><%= t 'assessment.instructor.messages.grader_failed' %><% end %></div>
+                <div class="box__row__part textRight"><%= link_to t('assessment.instructor.buttons.grade'), grade_submission_path(s), class: 'button button--small' %></div>
+              </div>
+            <% end %>
+          </div>
+          <div class="box__content">
+            <p class="message message--information"><%= t 'assessment.instructor.messages.grader_failed_notice' %></p>
           </div>
         <% else %>
           <div class="box__content">

@@ -1,15 +1,15 @@
 class SubmissionsController < ApplicationController
-  before_action :force_student, except: [:review, :grade, :download]
-  before_action :force_instructor, only: [:review, :grade]
+  before_action :force_student, except: [:review, :approve, :download, :grade]
+  before_action :force_instructor, only: [:review, :approve, :grade]
 
-  before_action :load_submission, only: [:view, :review, :grade, :download]
+  before_action :load_submission, only: [:view, :review, :approve, :grade, :download]
 
-  before_action :force_owner_instructor, only: [:review, :grade]
+  before_action :force_owner_instructor, only: [:review, :approve, :grade]
 
   before_action :check_configured, except: [:view, :review]
   before_action :check_ownership, only: [:view, :download]
-  before_action :check_submitability, except: [:view, :review, :grade, :download]
-  before_action :check_graded, only: [:review, :grade]
+  before_action :check_submitability, except: [:view, :review, :approve, :download]
+  before_action :check_graded, only: [:review, :approve]
 
   def new
     @submission = Submission.new
@@ -37,7 +37,7 @@ class SubmissionsController < ApplicationController
 
   end
 
-  def grade
+  def approve
     submission_params                  = review_submission_params
     submission_params[:grade_approved] = true if not @submission.grade_approved
 
@@ -62,6 +62,19 @@ class SubmissionsController < ApplicationController
 
   def download
     send_file @submission.file.url
+  end
+
+  def grade
+    if not @submission.graded
+      begin
+        GraderJob.perform_now @submission.id
+      rescue
+        @message = t('submission.instructor.errors.grader_failed')
+        return render 'general/error'
+      end
+    end
+
+    redirect_to review_submission_path(@submission)
   end
 
   private

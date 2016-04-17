@@ -10,9 +10,10 @@ Rails.application.routes.draw do
   get '/submission/upload', to: 'submissions#new', as: :upload_submission
   post '/submission/upload', to: 'submissions#upload'
   get '/submission/:id/result', to: 'submissions#view', as: :submission_results, constraints: { id: /\d+/ }
-  get '/submission/:id/review', to: 'submissions#review', as: :submission_review, constraints: { id: /\d+/ }
-  patch '/submission/:id/review', to: 'submissions#grade', constraints: { id: /\d+/ }
+  get '/submission/:id/review', to: 'submissions#review', as: :review_submission, constraints: { id: /\d+/ }
+  patch '/submission/:id/review', to: 'submissions#approve', constraints: { id: /\d+/ }
   get '/submission/:id/download', to: 'submissions#download', as: :download_submission, constraints: { id: /\d+/ }
+  get '/submission/:id/grade', to: 'submissions#grade', as: :grade_submission, constraints: { id: /\d+/ }
 
   get '/driver/:id/add', to: 'test_drivers#add', as: :add_test_driver, constraints: { id: /\d+/ }
   post '/driver/:id/add', to: 'test_drivers#create', constraints: { id: /\d+/ }

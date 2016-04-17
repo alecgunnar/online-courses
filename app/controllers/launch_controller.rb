@@ -11,9 +11,8 @@ class LaunchController < ApplicationController
       update_launch_session_data params
 
       persist_consumer_data
-      persist_user_data
 
-      redirect_to root_path
+      redirect_to root_path if persist_user_data
     else
       redirect_to launch_error_path, alert: t('errors.launch.invalid_launch')
     end
