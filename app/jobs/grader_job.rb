@@ -5,7 +5,7 @@ class GraderJob < ActiveJob::Base
     # Just consider this job done if the submission
     # does not exist for whatever reason.
 
-    # return true if (@submission.nil? or @submission.graded)
+    return true if (@submission.nil? or @submission.graded)
 
     # It is important to update this now, so that if the grader
     # fails at somepoint, we will know since the graded value
@@ -30,18 +30,20 @@ class GraderJob < ActiveJob::Base
       # Run the driver, supplying the name of the expected
       # feedback file to the driver.
 
-      output = @worker.exec_cmd ["ls", "-l"]# ["./#{File.basename(t.file.url, '.*')}", @feedback_file]
+      output = @worker.exec_cmd ['bash', "#{File.basename(t.file.url, '.*')}.sh", @feedback_file]
 
       # Pull the feedback (if any) from the container.
 
       feedback = pull_feedback(t.points)
 
-      # We will use the grade supplied by the feedback.
+      # We will use the grade supplied by the feedback if there is one.
 
       if not feedback.nil?
         result.grade    = feedback['grade'].ceil
         result.feedback = feedback['comments']
       end
+
+      # Store all result data into the result object for saving.
 
       result.grade ||= (t.points if output[:success]) || 0
       result.output  = check_output output[:stdout]
@@ -50,14 +52,23 @@ class GraderJob < ActiveJob::Base
 
       result.save
 
+      # Now we need to pull the expected output files from the container (assuming there are any).
+
       files = t.test_driver_files
       path  = File.dirname @submission.file.url
 
       if files.length > 0
         files.each do |f|
+
+          # Pull the file from the worker (assuming it was created)
+
           tmp_path = @worker.get_file f.name
 
+          # If the expected file was generated
+
           if tmp_path != false
+            # Move the file from the temp location to the final storage location
+
             fqn = "#{path}/#{f.name}"
             FileUtils.copy tmp_path, fqn
 
@@ -69,6 +80,8 @@ class GraderJob < ActiveJob::Base
 
       @worker.close
     end
+
+    # Calculate a grade, then set submission as graded
 
     @submission.calculate_grade
     @submission.update graded: true
@@ -107,6 +120,8 @@ class GraderJob < ActiveJob::Base
     end
 
     def check_output (value)
+      # Make sure the output from the program does not exceed the maximum allowed length
+
       if value.bytesize > Rails.configuration.grader['max_bytes']
         return value.byteslice(0, Rails.configuration.grader['max_bytes']) << " (Truncated to #{Rails.configuration.grader['max_bytes']} bytes)"
       end

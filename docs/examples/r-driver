@@ -1,0 +1,25 @@
+# This driver will expect the student to upload
+# a file called `hist_plot_generator.r`.
+#
+# This command will open an R session, and supply
+# the student's submission via an input redirection.
+
+# NOTE: if you expect the student to upload a ZIP
+# archive, you must unzip it first, like so:
+# unzip archive.zip
+
+R --no-save --no-restore < hist_plot_generator.r
+
+# At this point, you may evaluate the results from
+# the above command however you'd like.
+
+# To provide a grade as feedback, use something like
+# the following to print the necessary YAML:
+
+touch $1
+echo "---" > $1
+echo "pass: 10" >> $1
+echo "fail: 10" >> $1
+echo "comments: |" >> $1
+echo "             10 tests passed" >> $1
+echo "             10 tests failed" >> $1

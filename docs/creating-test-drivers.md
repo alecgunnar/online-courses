@@ -4,7 +4,7 @@ For the instructors using this application, this document will describe how to c
 
 ## What can a test driver be?
 
-A test driver must be an executable file, and a [#!](https://en.wikipedia.org/wiki/Shebang_(Unix)) should be used to specify how the driver should be interpreted. NO FILE EXTENSIONS SHOULD BE USED TO NAME THE DRIVER.
+A test driver must be a BASH script. NO FILE EXTENSIONS SHOULD BE USED TO NAME THE DRIVER.
 
 ### Packaing the Driver in an Archive
 
